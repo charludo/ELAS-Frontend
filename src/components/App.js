@@ -50,7 +50,7 @@ export default function App() {
               <Route exact path='/login' render={(props) => <Login {...props} classes={classes}/>}/>
               <Route exact path='/register' render={(props) => <Registration {...props} classes={classes}/>}/>
               <AuthorizedRoute isAuth={isLoggedIn} path='/courseinsights' component={CourseInsights} classes={classes}/>
-              <AuthorizedRoute isAuth={isLoggedIn} path='/e3selector' component={E3Selector} classes={classes}/>
+              <Route path='/e3selector' component={E3Selector} classes={classes}/>
               <AuthorizedRoute isAuth={isLoggedIn} path='/ineval' component={InEval} classes={classes}/>
               <AuthorizedRoute isAuth={isLoggedIn} path='/intogen' component={Intogen} classes={classes}/>
               <AuthorizedRoute isAuth={isLoggedIn} path='/spoa' component={Spoa} classes={classes}/>
