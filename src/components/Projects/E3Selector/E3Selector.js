@@ -4,40 +4,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Slider from '@material-ui/core/Slider';
 import Fab from '@material-ui/core/Fab';
 import TextField from '@material-ui/core/TextField';
-import { createMuiTheme, StylesProvider, ThemeProvider } from '@material-ui/core/styles'
+import { StylesProvider, ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from "@material-ui/core/CssBaseline"
+import { theme } from "./theme"
 import "./App.sass"
-
-const theme = createMuiTheme({
-  palette: {
-    type: 'light',
-    primary: {
-      main: '#F2994A',
-      contrastText: '#ffffff',
-    },
-    secondary: {
-      main: '#0057a7',
-    },
-    background: {
-      paper: '#FAFAFA',
-      default: '#FAFAFA',
-    },
-    text: {
-      primary: '#333333',
-      secondary: 'rgba(0,0,0,0.6)',
-    },
-    success: {
-      main: '#27a360',
-    },
-    info: {
-      main: '#0057A7',
-    },
-    warning: {
-      main: '#f2994a',
-      contrastText: '#ffffff',
-    },
-  },
-});
 
 class E3Selector extends Component {
     render() {
