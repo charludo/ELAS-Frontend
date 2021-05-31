@@ -39,11 +39,11 @@ class E3Selector extends Component {
     render() {
         return (
             <div>
-                <StylesProvider injectFirst>
+                <StylesProvider>
                     <ThemeProvider theme={theme}>
                         <CssBaseline />
                         <Button variant="contained" color="primary">Primary</Button>
-                        <Button variant="contained" color="info">Secondary</Button>
+                        <Button variant="contained" color="secondary">Secondary</Button>
                     </ThemeProvider>
                 </StylesProvider>
             </div>
