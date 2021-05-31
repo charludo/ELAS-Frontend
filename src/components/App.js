@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function App() {
   const classes = useStyles();
-  const isLoggedIn = !!sessionStorage.getItem('elas_userLoggedIn');
+  const isLoggedIn = true; //!!sessionStorage.getItem('elas_userLoggedIn');
 
   return (
     <>
@@ -43,6 +43,7 @@ export default function App() {
               <Route exact path='/' render={(props) => <Home {...props} classes={classes}/>}/>
               <Route exact path='/login' render={(props) => <Login {...props} classes={classes}/>}/>
               <Route exact path='/register' render={(props) => <Registration {...props} classes={classes}/>}/>
+              <Route path='/e3selector' component={E3Selector} classes={classes}/>
             </>
           ) : (
             <>
