@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
+import Filters from "./Filters";
 import Slider from '@material-ui/core/Slider';
 import Fab from '@material-ui/core/Fab';
 import TextField from '@material-ui/core/TextField';
@@ -20,6 +21,9 @@ class E3Selector extends Component {
                         <Button variant="contained" color="primary">Primary</Button>
                         <br/><br/><Button variant="contained" color="secondary">Secondary</Button>
                         <br/><br/><Checkbox color="primary" value="checkedA" inputProps={{ 'aria-label': 'Checkbox A' }}/>
+                        <br/><br/><Checkbox color="secondary" value="checkedB"  inputProps={{'Essen': 'Checkbox B'}}/>
+                        <br/><br/><Checkbox value="checkedA" inputProps={{ 'aria-label': 'Checkbox C' }}/>
+                        <br/><br/><Filters />
                         <br/><br/><Fab variant="extended" color="primary">Search</Fab>
                         <br/><br/><TextField
                           required
