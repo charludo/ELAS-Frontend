@@ -21,28 +21,28 @@ export default function Filters() {
 
 <br/><br/><FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="Duisburg"
           labelPlacement="end"
         />
 
 <br/><br/><FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="Bochum"
           labelPlacement="end"
           />
         
  <FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="Dortmund"
           labelPlacement="end"
         />
 
 <FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="Written"
           labelPlacement="end"
         />
