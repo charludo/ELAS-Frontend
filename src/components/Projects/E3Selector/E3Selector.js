@@ -1,40 +1,65 @@
 import React, {Component} from 'react';
-import Button from '@material-ui/core/Button';
-import Checkbox from '@material-ui/core/Checkbox';
-import Slider from '@material-ui/core/Slider';
-import Fab from '@material-ui/core/Fab';
-import TextField from '@material-ui/core/TextField';
 import { StylesProvider, ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from "@material-ui/core/CssBaseline"
 import { theme } from "./theme"
 import "./App.sass"
+import Courses from "./Courses"
 // comment in Nassim branch 
-//another on
+//another one
 class E3Selector extends Component {
+    
     render() {
+        const l=[
+            {
+            name : 'Math',
+            credits: 6,
+            category: 'Seminar',
+            time:'Tuesday 15-17',
+            language : 'English',
+            location :'Muelheim',
+            description:'Looooooooooooooooooooooooooooooooonnnnng Description, Maybe need slider to fully read it ????',
+            exam:'Essay'
+        },
+        {
+            name : 'Yoga',
+            credits: 1,
+            category: 'Seminar',
+            time:'Monday 10-12',
+            language : 'English',
+            location :'Online',
+            description:'Looooooooooooooooooooooooooooooooonnooooooooooooooooooooooooonnooooooooooooooooooooooooonnooooooooooooooooooooooooonnooooooooooooooooooooooooonnooooooooooooooooooooooooonnooooooooooooooooooooooooonnooooooooooooooooooooooooonnnnng Description, Maybe need slider to fully read it ????',
+            exam:''
+        },
+            {
+            name : 'Physik',
+            credits: 5,
+            category : 'Blockseminar',
+            language : 'German',
+            location :'Duisburg',
+            description:'Another Looooooooooooooooooooooooooooooooonnnnng Description, Maybe need slider to fully read it ????',
+            exam:'Oral'
+            },
+            {
+            name : 'Turkish language course',
+            credits: 3,
+            category : 'Blockseminar',
+            time:'Tuesday 10-12',
+            location: "Essen",
+            language : 'Turkish',
+            description:'Description, Maybe need slider to fully read it ????',
+            exam:'Written'
+            }
+
+        ];
         return (
             <div>
-                <StylesProvider>
-                    <ThemeProvider theme={theme}>
-                        <CssBaseline />
-                        <h1>E3 Selector</h1>
-                        <Button variant="contained" color="primary">Primary</Button>
-                        <br/><br/><Button variant="contained" color="secondary">Secondary</Button>
-                        <br/><br/><Checkbox color="primary" value="checkedA" inputProps={{ 'aria-label': 'Checkbox A' }}/>
-                        <br/><br/><Fab variant="extended" color="primary">Search</Fab>
-                        <br/><br/><TextField
-                          required
-                          id="outlined-required"
-                          label="Required"
-                          variant="outlined"
-                        />
-                        <Slider
-                          defaultValue={3}
-                          width="20%"
-                        />
-                    </ThemeProvider>
-                </StylesProvider>
-            </div>
+            <StylesProvider>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <Courses list={l}/>
+                </ThemeProvider>
+            </StylesProvider>
+        </div>
         )
     }
 }
