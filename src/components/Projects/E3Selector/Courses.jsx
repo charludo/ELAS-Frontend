@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Collapse, Icon, List, ListItemText, TableBody, TableContainer, TableHead, TableRow, Typography} from '@material-ui/core'
 import { TableCell, Table, Container} from '@material-ui/core';
-import {useState} from 'react'
 import Paper from '@material-ui/core/Paper'
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
@@ -11,12 +10,12 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme)=>({
-    
+
         table: {
             maxWidth: '80%',
             maxHeight: '400'
         },
-        
+
         paper : {
             padding: theme.spacing(2),
             margin: `${theme.spacing(1)}px auto`,
@@ -36,10 +35,10 @@ const langFlag = (language) =>{
             return 'EnglishFlag'
         case 'Niederländisch':
             return 'DutchFlag'
-        
+
         default:
             return 'undefined'
-            
+
     }
 }
 
@@ -52,13 +51,13 @@ const Course = (props) => {
            SWS: timeCom,
            Location,
            Type,
-           Language, 
+           Language,
            Times_manual :schedule,
            Exam
            } = props
     return (
         <React.Fragment>
-            <TableRow onClick={() => toggle(!isOpen)} component={Paper} > 
+            <TableRow onClick={() => toggle(!isOpen)} component={Paper} >
                     <TableCell align="center"> {Credits} Cr.</TableCell>
                     <TableCell align="center">{timeCom}</TableCell>
                     <TableCell align="left">{Title}</TableCell>
@@ -68,7 +67,7 @@ const Course = (props) => {
                     {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </Icon>
             </TableRow>
-            
+
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 2 }} colSpan={5}>
                     <Collapse in={isOpen} timeout="auto" unmountOnExit>
@@ -76,26 +75,26 @@ const Course = (props) => {
                                 <Grid item xs >
                                     <Paper className={classes.paper}>
                                         <Typography >
-                                        
+
                                         Rating TODO
-                                        
+
                                     </Typography></Paper>
-                                
+
                                 </Grid>
-                            
+
                                 <Grid item >
                                     <Typography className={classes.paper}>
                                         {
                                         //<Schedule day={}> TODO
                                         schedule
                                             }
-                                        
-                                        
+
+
                                     </Typography>
                                 </Grid>
                                 <Grid item xs>
                                     <Typography className={classes.paper}>
-                                        
+
                                         <List>
                                             <ListItemText>Location: {Location}</ListItemText>
                                             <ListItemText>Language: {Language}</ListItemText>
@@ -104,11 +103,11 @@ const Course = (props) => {
                                             <ListItemText>Exam type: {Exam}</ListItemText>
                                             <ListItemText></ListItemText>
                                         </List>
-                                        
+
                                     </Typography>
                                 </Grid>
                             </Grid>
-                        </Collapse> 
+                        </Collapse>
                 </TableCell>
             </TableRow>
         </React.Fragment>
@@ -117,7 +116,7 @@ const Course = (props) => {
 
 const Courses = (props) => {
     {const [open, setOpen] = useState([])}
-    const list = props.list
+    const [list, setList] = useState(props.list)
     const classes = useStyles()
     return(
         <Container>
@@ -137,15 +136,15 @@ const Courses = (props) => {
                 <TableBody>
                     {
                         props.list.map(c =>{
-                            
+
                         return(
                             <Course {...c}/>
                         )
-                        }) 
+                        })
                     }
                 </TableBody>
             </Table>
-            
+
         </TableContainer>
         </Container>
     )
