@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Collapse, Icon, TableBody, TableContainer, TableHead, TableRow, Typography} from '@material-ui/core'
+import { Collapse, Icon, List, ListItemText, TableBody, TableContainer, TableHead, TableRow, Typography} from '@material-ui/core'
 import { TableCell, Table, Container} from '@material-ui/core';
 import {useState} from 'react'
 import Paper from '@material-ui/core/Paper'
@@ -46,14 +46,22 @@ const Course = (props) => {
     //console.log(props)
     const [isOpen, toggle] = useState(false)
     const classes = useStyles()
+    const {credits,
+           title,
+           SWS: timeCom,
+           location,
+           language, 
+           times_manual :schedule,
+           Exam
+           } = props
     return (
         <React.Fragment>
             <TableRow onClick={() => toggle(!isOpen)} component={Paper} > 
-                    <TableCell align="center"> {props.credits} Cr.</TableCell>
-                    <TableCell align="center">TODO TC</TableCell>
-                    <TableCell align="left">{props.name}</TableCell>
-                    <TableCell align="center">{props.location}</TableCell>
-                    <TableCell align="center">{langFlag(props.language)} </TableCell>
+                    <TableCell align="center"> {credits} Cr.</TableCell>
+                    <TableCell align="center">{schedule}</TableCell>
+                    <TableCell align="left">{title}</TableCell>
+                    <TableCell align="center">{location}</TableCell>
+                    <TableCell align="center">{langFlag(language)} </TableCell>
                     <Icon aria-label="expand row" size='inherit' >
                     {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </Icon>
@@ -67,7 +75,7 @@ const Course = (props) => {
                                     <Paper className={classes.paper}>
                                         <Typography >
                                         
-                                        {props.description}
+                                        Rating TODO
                                         
                                     </Typography></Paper>
                                 
@@ -77,7 +85,7 @@ const Course = (props) => {
                                     <Typography className={classes.paper}>
                                         {
                                         //<Schedule day={}> TODO
-                                        props.time
+                                        times_manual
                                             }
                                         
                                         
@@ -86,7 +94,14 @@ const Course = (props) => {
                                 <Grid item xs>
                                     <Typography className={classes.paper}>
                                         
-                                        Infos
+                                        <List>
+                                            <ListItemText>Location: {location}</ListItemText>
+                                            <ListItemText>Language: {language}</ListItemText>
+                                            <ListItemText>Course Type: {type}</ListItemText>
+                                            <ListItemText>Credits: {credits}</ListItemText>
+                                            <ListItemText>Exam type: {Exam}</ListItemText>
+                                            <ListItemText></ListItemText>
+                                        </List>
                                         
                                     </Typography>
                                 </Grid>
