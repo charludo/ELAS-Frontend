@@ -49,28 +49,28 @@ export default function Filters() {
 
 <FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="Oral"
           labelPlacement="end"
         />
 
 <FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="Essay"
           labelPlacement="end"
         />
 
 <FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="Presentation"
           labelPlacement="end"
         />
 
 <FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="German"
           labelPlacement="end"
         />
@@ -78,21 +78,21 @@ export default function Filters() {
 
         <FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="English"
           labelPlacement="end"
         />
 
 <FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="Turkish"
           labelPlacement="end"
         /> 
 
 <FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="Dutch"
           labelPlacement="end"
         />
@@ -100,35 +100,35 @@ export default function Filters() {
 
 <FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="Lecture + Exercise"
           labelPlacement="end"
         />
 
 <FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="Lecture"
           labelPlacement="end"
         />
 
 <FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="Seminar"
           labelPlacement="end"
         />
 
 <FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="Blocked Seminar"
           labelPlacement="end"
         />
 
 <FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="E-Learning"
           labelPlacement="end"
         />
