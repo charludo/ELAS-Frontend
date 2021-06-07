@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import { StylesProvider, ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from "@material-ui/core/CssBaseline"
 import { theme } from "./theme"
@@ -8,21 +8,17 @@ import Courses from "./Courses"
 import getFilteredData, { updateFilters } from "./data.js"
 
 class E3Selector extends Component {
-
+    
     render() {
-      console.log(getFilteredData());
+        
+        this.list = getFilteredData()
         return (
             <div>
             <StylesProvider>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
-<<<<<<< HEAD
-                    <Filters />
-                    <Courses list={l}/>
-=======
                     <Filters action={updateFilters}/><br></br>
-                    <Courses list={getFilteredData()}/>
->>>>>>> 44f9a1c6c9d151316152feb9e38ee5441f06fa8e
+                    <Courses list={this.list}/>
                 </ThemeProvider>
             </StylesProvider>
         </div>
