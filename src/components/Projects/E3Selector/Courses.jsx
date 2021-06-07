@@ -50,6 +50,7 @@ const Course = (props) => {
            title,
            SWS: timeCom,
            location,
+           type,
            language, 
            times_manual :schedule,
            Exam
