@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
+import FormGroup from '@material-ui/core/FormGroup';
 import Filters from "./Filters";
 import Slider from '@material-ui/core/Slider';
 import Fab from '@material-ui/core/Fab';
