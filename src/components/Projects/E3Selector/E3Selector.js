@@ -10,9 +10,11 @@ import { StylesProvider, ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from "@material-ui/core/CssBaseline"
 import { theme } from "./theme"
 import "./App.sass"
+import getFilteredData from "./data.js"
 
 class E3Selector extends Component {
     render() {
+        console.log(getFilteredData());
         return (
             <div>
                 <StylesProvider>
