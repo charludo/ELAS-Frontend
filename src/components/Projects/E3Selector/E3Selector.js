@@ -5,10 +5,10 @@ import { theme } from "./theme"
 import "./App.sass"
 import Filters from "./Filters";
 import Courses from "./Courses"
-import getFilteredData from "./data.js"
+import getFilteredData, { updateFilters } from "./data.js"
 
 class E3Selector extends Component {
-    
+
     render() {
       console.log(getFilteredData());
         return (
@@ -16,7 +16,7 @@ class E3Selector extends Component {
             <StylesProvider>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
-                    <Filters /><br></br>
+                    <Filters action={updateFilters}/><br></br>
                     <Courses list={getFilteredData()}/>
                 </ThemeProvider>
             </StylesProvider>
