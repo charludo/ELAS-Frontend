@@ -16,8 +16,8 @@ class E3Selector extends Component {
             <StylesProvider>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
-                    <Filters /><br><br>
-                    <Courses list={l}/>
+                    <Filters /><br></br>
+                    <Courses list={getFilteredData()}/>
                 </ThemeProvider>
             </StylesProvider>
         </div>

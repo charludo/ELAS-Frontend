@@ -59,7 +59,7 @@ const Course = (props) => {
         <React.Fragment>
             <TableRow onClick={() => toggle(!isOpen)} component={Paper} > 
                     <TableCell align="center"> {credits} Cr.</TableCell>
-                    <TableCell align="center">{schedule}</TableCell>
+                    <TableCell align="center">{timeCom}</TableCell>
                     <TableCell align="left">{title}</TableCell>
                     <TableCell align="center">{location}</TableCell>
                     <TableCell align="center">{langFlag(language)} </TableCell>
@@ -86,7 +86,7 @@ const Course = (props) => {
                                     <Typography className={classes.paper}>
                                         {
                                         //<Schedule day={}> TODO
-                                        times_manual
+                                        schedule
                                             }
                                         
                                         
