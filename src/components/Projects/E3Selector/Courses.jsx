@@ -28,14 +28,15 @@ const useStyles = makeStyles((theme)=>({
 )
 const langFlag = (language) =>{
     switch(language){
-        case 'Turkish':
+        case 'Türkisch':
             return 'TurkeyFlag'
-        case 'German':
+        case 'Deutsch':
             return 'GermanFlag'
-        case 'English':
+        case 'Englisch':
             return 'EnglishFlag'
-        case 'Dutch':
+        case 'Niederländisch':
             return 'DutchFlag'
+        
         default:
             return 'undefined'
             
@@ -46,23 +47,23 @@ const Course = (props) => {
     //console.log(props)
     const [isOpen, toggle] = useState(false)
     const classes = useStyles()
-    const {credits,
-           title,
+    const {Credits,
+           Title,
            SWS: timeCom,
-           location,
-           type,
-           language, 
-           times_manual :schedule,
+           Location,
+           Type,
+           Language, 
+           Times_manual :schedule,
            Exam
            } = props
     return (
         <React.Fragment>
             <TableRow onClick={() => toggle(!isOpen)} component={Paper} > 
-                    <TableCell align="center"> {credits} Cr.</TableCell>
+                    <TableCell align="center"> {Credits} Cr.</TableCell>
                     <TableCell align="center">{timeCom}</TableCell>
-                    <TableCell align="left">{title}</TableCell>
-                    <TableCell align="center">{location}</TableCell>
-                    <TableCell align="center">{langFlag(language)} </TableCell>
+                    <TableCell align="left">{Title}</TableCell>
+                    <TableCell align="center">{Location}</TableCell>
+                    <TableCell align="center">{langFlag(Language)} </TableCell>
                     <Icon aria-label="expand row" size='inherit' >
                     {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </Icon>
@@ -96,10 +97,10 @@ const Course = (props) => {
                                     <Typography className={classes.paper}>
                                         
                                         <List>
-                                            <ListItemText>Location: {location}</ListItemText>
-                                            <ListItemText>Language: {language}</ListItemText>
-                                            <ListItemText>Course Type: {type}</ListItemText>
-                                            <ListItemText>Credits: {credits}</ListItemText>
+                                            <ListItemText>Location: {Location}</ListItemText>
+                                            <ListItemText>Language: {Language}</ListItemText>
+                                            <ListItemText>Course Type: {Type}</ListItemText>
+                                            <ListItemText>Credits: {Credits}</ListItemText>
                                             <ListItemText>Exam type: {Exam}</ListItemText>
                                             <ListItemText></ListItemText>
                                         </List>
