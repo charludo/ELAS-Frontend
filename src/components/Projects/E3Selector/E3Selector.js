@@ -11,44 +11,15 @@ class E3Selector extends Component {
     render() {
         const l=[
             {
-            name : 'Math',
+            title : 'Math',
             credits: 6,
             category: 'Seminar',
-            time:'Tuesday 15-17',
+            SWS: "3h",
+            times_manual:'Tuesday 15-17',
             language : 'English',
             location :'Muelheim',
-            description:'Looooooooooooooooooooooooooooooooonnnnng Description, Maybe need slider to fully read it ????',
-            exam:'Essay'
-        },
-        {
-            name : 'Yoga',
-            credits: 1,
-            category: 'Seminar',
-            time:'Monday 10-12',
-            language : 'English',
-            location :'Online',
-            description:'Looooooooooooooooooooooooooooooooonnooooooooooooooooooooooooonnooooooooooooooooooooooooonnooooooooooooooooooooooooonnooooooooooooooooooooooooonnooooooooooooooooooooooooonnooooooooooooooooooooooooonnooooooooooooooooooooooooonnnnng Description, Maybe need slider to fully read it ????',
-            exam:''
-        },
-            {
-            name : 'Physik',
-            credits: 5,
-            category : 'Blockseminar',
-            language : 'German',
-            location :'Duisburg',
-            description:'Another Looooooooooooooooooooooooooooooooonnnnng Description, Maybe need slider to fully read it ????',
-            exam:'Oral'
-            },
-            {
-            name : 'Turkish language course',
-            credits: 3,
-            category : 'Blockseminar',
-            time:'Tuesday 10-12',
-            location: "Essen",
-            language : 'Turkish',
-            description:'Description, Maybe need slider to fully read it ????',
-            exam:'Written'
-            }
+            Exam:'Essay'
+        }
 
         ];
         return (
