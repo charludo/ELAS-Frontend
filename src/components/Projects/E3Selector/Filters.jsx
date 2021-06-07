@@ -14,7 +14,7 @@ export default function Filters() {
    
       <FormControlLabel
           value="end"
-          control={<Checkbox color="primary" />}
+          control={<Checkbox checked="true" color="primary" />}
           label="Essen"
           labelPlacement="end"
         />
