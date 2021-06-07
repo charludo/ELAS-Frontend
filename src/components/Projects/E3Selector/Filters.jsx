@@ -15,7 +15,6 @@ export default function Filters(props) {
       <FormControlLabel
           value="end"
 <<<<<<< HEAD
-          control={<Checkbox checked="true" color="primary" />}
 =======
           control={<Checkbox defaultChecked={true} onClick={() => props.action("locales", "Essen")} color="primary"/>}
 >>>>>>> 44f9a1c6c9d151316152feb9e38ee5441f06fa8e
