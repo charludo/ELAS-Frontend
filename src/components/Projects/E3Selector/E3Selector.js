@@ -29,7 +29,7 @@ class E3Selector extends Component {
             <StylesProvider>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
-                    <TimeTable />
+                    <TimeTable action={this.reflectFilter}/>
                     <Filters action={this.reflectFilter}/><br></br>
                     <Courses list={this.state.courseData}/>
                 </ThemeProvider>

@@ -1,4 +1,15 @@
-button {
-  background: white; }
+.time-table th {
+  padding-right: 8px; }
+.time-table tr:first-child td {
+  text-align: center;
+  font-weight: bold; }
+.time-table .timeTableCheckbox {
+  width: 40px;
+  height: 40px;
+  margin: 2px;
+  background-color: #E0E0E0;
+  cursor: pointer; }
+  .time-table .timeTableCheckbox.checked-true {
+    background-color: #F2994A; }
 
 /*# sourceMappingURL=Components.css.map */
