@@ -6,7 +6,6 @@ import "./App.sass"
 import Filters from "./Filters";
 import Courses from "./Courses"
 import getFilteredData, { updateFilters } from "./data.js"
-import TimeTable from "./Components/Components.js"
 
 class E3Selector extends Component {
     state = {
@@ -29,7 +28,6 @@ class E3Selector extends Component {
             <StylesProvider>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
-                    <TimeTable action={this.reflectFilter}/>
                     <Filters action={this.reflectFilter}/><br></br>
                     <Courses list={this.state.courseData}/>
                 </ThemeProvider>
