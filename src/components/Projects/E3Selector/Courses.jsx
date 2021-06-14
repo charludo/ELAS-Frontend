@@ -11,6 +11,9 @@ import Divider from '@material-ui/core/Divider';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import hSelect from "./data.js"
+
+
+
 const useStyles = makeStyles((theme)=>({
 
         table: {
@@ -47,28 +50,94 @@ const langFlag = (language) =>{
     }
 }
 
+
+
+const Courses = (props) => {
+    const [open, setOpen] = useState([])
+    const [list, setList] = useState(props.list)
+    const [selectedList, setSelectedList] = useState([])
+    
+    const classes = useStyles()
+
+    const handleSel = (title) => {
+        if(list.find( (element)=>(element.Title == title)
+        )){
+            setList(list.filter( c => c.Title !== title))
+            setSelectedList(selectedList.concat(list.find( (element)=>{
+                return element.Title == title
+            })))
+            
+        }else{
+            setSelectedList(selectedList.filter( c => c.Title !== title))
+            setList(list.concat(selectedList.find( (element)=>{
+                return element.Title == title
+            })))
+            
+        }
+        
+    }       
+    
+    return( 
+            <Container>
+                <Table>
+                {
+                    
+                    selectedList.map( c => {
+                        return(<Course handleSel={handleSel} {...c} />)
+                    })
+                }
+                </Table>
+            <TableContainer>
+                <Table stickyHeader>
+                    <TableHead >
+                        <TableRow >
+                            <TableCell/>
+                            <TableCell align="center">credits</TableCell>
+                            <TableCell align="center">Time commitment</TableCell>
+                            <TableCell align="left">Title</TableCell>
+                            <TableCell align="center">Location</TableCell>
+                            <TableCell align="center">Language</TableCell>
+                            <TableCell/>
+                        </TableRow>
+                    </TableHead>
+                    <Divider/>
+                    <TableBody>
+                        {
+                            
+                            list.map( entry => {
+                                return(<Course {...entry} handleSel={handleSel}/>)
+                                
+                            })
+                        }
+                    </TableBody>
+                </Table>
+
+            </TableContainer>
+            </Container>
+            
+    )
+
+}
 const Course = (props) => {
     //console.log(props)
+    const {Credits,
+        Title,
+        SWS: timeCom,
+        Location,
+        Type,
+        Language,
+        Times_manual :schedule,
+        Exam,
+        handleSel
+        } = props
     const [isOpen, toggle] = useState(false)
-    const fc = props.handleSel
     const [isSelected, setSelect] = useState(props.selected)
     const handleSelect = () =>{
         setSelect(!isSelected)
-
-        props.passedonfc(Title)
+        props.handleSel(Title)
     }
-
     const classes = useStyles()
-    const {Credits,
-           Title,
-           SWS: timeCom,
-           Location,
-           Type,
-           Language,
-           Times_manual :schedule,
-           Exam,
-           passedonfc
-           } = props
+    
     if(isSelected){
         return(
             <TableRow className={classes.root} >
@@ -148,72 +217,4 @@ const Course = (props) => {
         </React.Fragment>
     )
 }
-
-const Courses = (props) => {
-    const [open, setOpen] = useState([])
-    const [list, setList] = useState(props.list)
-    const [selectedList, setSelectedList] = useState([])
-    
-    const classes = useStyles()
-
-    const handleSel = (title) => {
-        if(list.find( (element)=>(element.Title == title)
-        )){
-            setList(list.filter( c => c.Title !== title))
-            setSelectedList(selectedList.concat(list.find( (element)=>{
-                return element.Title == title
-            })))
-            
-        }else{
-            setSelectedList(setSelectedList.filter( c => c.Title !== title))
-            setList(list.concat(selectedList.find( (element)=>{
-                return element.Title == title
-            })))
-            
-        }
-        
-    }       
-    
-    return( 
-            <Container>
-                <Table>
-                {
-                    
-                    selectedList.map( c => {
-                        return(<Course {...c} passedonfc={handleSel}/>)
-                    })
-                }
-                </Table>
-            <TableContainer>
-                <Table stickyHeader>
-                    <TableHead >
-                        <TableRow >
-                            <TableCell/>
-                            <TableCell align="center">credits</TableCell>
-                            <TableCell align="center">Time commitment</TableCell>
-                            <TableCell align="left">Title</TableCell>
-                            <TableCell align="center">Location</TableCell>
-                            <TableCell align="center">Language</TableCell>
-                            <TableCell/>
-                        </TableRow>
-                    </TableHead>
-                    <Divider/>
-                    <TableBody>
-                        {
-                            
-                            list.map( entry => {
-                                return(<Course {...entry} handleSel/>)
-                                
-                            })
-                        }
-                    </TableBody>
-                </Table>
-
-            </TableContainer>
-            </Container>
-            
-    )
-
-}
-
 export default Courses;

@@ -90,7 +90,7 @@ let filterState = {
 
 export function updateFilters(family, item) {
 	filterState[family][item] = !filterState[family][item];
-	console.log(getFilteredData());
+	
 }
 
 function applyFilters() {
