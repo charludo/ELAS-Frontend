@@ -143,6 +143,32 @@ const FilterGroup = (props) => {
 	);
 }
 
+const VerticalFilterGroup = (props) => {
+	const applyFilter = (action, params) => {
+		params.forEach(p => {
+			action(p[0], p[1]);
+		});
+	};
+	const toggleClass = (e) => {
+		let others = document.getElementsByClassName('vertical-checked');
+		Array.from(others).forEach(elem => elem.classList.remove("vertical-checked"));
+		e.target.classList.toggle("vertical-checked");
+	}
+	const filterArray = props.filters.map(f => (
+		<Grid item>
+			<div class="vertical-filter" onClick={(e) => {toggleClass(e); applyFilter(props.action, f.arguments)}}>{f.label}</div>
+		</Grid>
+	));
+	return (
+		<Grid item>
+			<Grid container	direction="row" justify="center" alignItems="flex-end">
+				<div class="vertical-filter vertical-checked" onClick={(e) => {toggleClass(e); props.action("catalog", "all")}}>all</div>
+				{ filterArray }
+			</Grid>
+		</Grid>
+	);
+}
+
 FilterGroup.defaultProps = {
 	classes: {}
 }
@@ -150,3 +176,4 @@ FilterGroup.defaultProps = {
 export default CheckBox;
 export { TimeTable };
 export { FilterGroup };
+export { VerticalFilterGroup };

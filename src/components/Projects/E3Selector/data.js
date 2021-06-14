@@ -92,6 +92,13 @@ let filterState = {
 export function updateFilters(family, item) {
 	if (family == "credits") {
 		filterState.credits = parseInt(item);
+	} else if (family == "catalog") {
+		if (item == "all") {
+			Object.keys(filterState.catalog).forEach(k => filterState.catalog[k] = true);
+		} else {
+			Object.keys(filterState.catalog).forEach(k => filterState.catalog[k] = false);
+			filterState.catalog[item] = true;
+		}
 	} else {
 		filterState[family][item] = !filterState[family][item];
 	}

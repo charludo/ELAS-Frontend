@@ -12,4 +12,14 @@
   .time-table .timeTableCheckbox.checked-true {
     background-color: #F2994A; }
 
+.vertical-filter {
+  text-transform: uppercase;
+  color: #999;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 12px;
+  cursor: pointer; }
+  .vertical-filter.vertical-checked {
+    color: #0057A7; }
+
 /*# sourceMappingURL=Components.css.map */

@@ -4,7 +4,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import {TimeTable, FilterGroup } from "./Components/Components.js"
+import {TimeTable, FilterGroup, VerticalFilterGroup } from "./Components/Components.js"
 import {Grid} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import Credits from "./Credits.jsx";
@@ -142,4 +142,34 @@ export default function Filters(props) {
     <Credits action={props.action}/>
     </Grid>
   );
+}
+
+export function Catalog(props) {
+    return (
+        <VerticalFilterGroup
+                action={props.action}
+                filters={[
+                    {
+                        label: "BNE",
+                        arguments: [["catalog", "BNE"]],
+                    },
+                    {
+                        label: "IOS",
+                        arguments: [["catalog", "IOS"]],
+                    },
+                    {
+                        label: "Culture & Society",
+                        arguments: [["catalog", "Kultur und Gesellschaft"]],
+                    },
+                    {
+                        label: "STEM",
+                        arguments: [["catalog", "Natur und Technik"]],
+                    },
+                    {
+                        label: "Economics",
+                        arguments: [["catalog", "Wirtschaft"]],
+                    },
+                ]}
+            />
+    );
 }
