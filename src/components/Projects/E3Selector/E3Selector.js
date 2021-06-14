@@ -1,13 +1,21 @@
-import React, {Component, useState} from 'react';
-import { StylesProvider, ThemeProvider } from '@material-ui/core/styles'
-import CssBaseline from "@material-ui/core/CssBaseline"
-import { theme } from "./theme"
-import "./App.sass"
-import Filters from "./Filters";
-import Courses from "./Courses"
-import getFilteredData, { updateFilters } from "./data.js"
 
-class E3Selector extends Component {
+import React, { Component, useState } from "react";
+import Filtersnew from "./Filtersnew";
+import Credits from "./Credits";
+
+export default function E3Selector() {
+  
+  return (
+    <div>
+      <Filtersnew/>
+      <Credits/>
+         
+    </div>
+     
+  );
+}
+
+/*class E3Selector extends Component {
     state = {
         courseData: getFilteredData()
     }
@@ -21,6 +29,29 @@ class E3Selector extends Component {
         updateFilters(family, item);
         this.updateCourseData();
     }
+ handleCheckbox = (value) => {
+    switch (value) {
+        case "Essen":
+        case "Essen (UKE)":
+         reflectFilter("locales", "Essen");
+         reflectFilter("locales", "Essen (UKE)")
+  
+        case "Duisburg":
+        case "Duisburg (B)":
+        case "Duisburg (L/M)":
+         reflectFilter("locales", "Duisburg");
+         reflectFilter("locales", "Duisburg (B)");
+         reflectFilter("locales", "Duisburg (L/M)");
+
+      }
+  
+      
+ }
+
+ const options = [{value: "Essen", label: "Essen"}, {value: "Duisburg", label: "Duisburg"}];
+
+
+
 
     render() {
         return (
@@ -38,3 +69,4 @@ class E3Selector extends Component {
 }
 
 export default E3Selector;
+*/
