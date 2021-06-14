@@ -7,6 +7,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import {TimeTable, FilterGroup } from "./Components/Components.js"
 import {Grid} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
+import Credits from "./Credits.jsx";
 
 const backgroundStyles = makeStyles({
     lecEx: {
@@ -138,6 +139,7 @@ export default function Filters(props) {
                 },
             ]}
         />
+    <Credits action={props.action}/>
     </Grid>
   );
 }

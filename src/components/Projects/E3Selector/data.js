@@ -85,11 +85,16 @@ let filterState = {
 		"Kultur und Gesellschaft": true,
 		"Natur und Technik": true,
 		"Wirtschaft": true,
-	}
+	},
+	"credits": 6
 }
 
 export function updateFilters(family, item) {
-	filterState[family][item] = !filterState[family][item];
+	if (family == "credits") {
+		filterState.credits = parseInt(item);
+	} else {
+		filterState[family][item] = !filterState[family][item];
+	}
 	console.log(getFilteredData());
 }
 
@@ -139,6 +144,12 @@ function applyFilters() {
 
 		// Catalog
 		if (filterState.catalog[course.catalog] !== true) {
+			fitting = false;
+		}
+
+		// Credits
+		let credits = course.Credits.match(/\d+/g).sort();
+		if (filterState.credits <= credits[0]) {
 			fitting = false;
 		}
 

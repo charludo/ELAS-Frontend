@@ -1,72 +1,33 @@
-
 import React, { Component, useState } from "react";
+import { StylesProvider, ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { theme } from "./theme";
+import "./App.sass";
+import Filters from "./Filters";
+import Courses from "./Courses";
+import getFilteredData, { updateFilters } from "./data.js";
 import Filtersnew from "./Filtersnew";
-import Credits from "./Credits";
 
 export default function E3Selector() {
-  
-  return (
-    <div>
-      <Filtersnew/>
-      <Credits/>
-         
+    const [courseData, setCourseData] = useState(getFilteredData());
+    const updateCourseData = () => {
+      setCourseData(getFilteredData());
+    };
+
+    const reflectFilter = (family, item) => {
+      updateFilters(family, item);
+      updateCourseData();
+    };
+
+    return (
+        <div>
+        <StylesProvider>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <Filters action={reflectFilter}/><br></br>
+                <Courses list={courseData}/>
+            </ThemeProvider>
+        </StylesProvider>
     </div>
-     
-  );
+    );
 }
-
-/*class E3Selector extends Component {
-    state = {
-        courseData: getFilteredData()
-    }
-    updateCourseData = () => {
-        this.setState({
-            courseData: getFilteredData()
-        })
-    }
-
-    reflectFilter = (family, item) => {
-        updateFilters(family, item);
-        this.updateCourseData();
-    }
- handleCheckbox = (value) => {
-    switch (value) {
-        case "Essen":
-        case "Essen (UKE)":
-         reflectFilter("locales", "Essen");
-         reflectFilter("locales", "Essen (UKE)")
-  
-        case "Duisburg":
-        case "Duisburg (B)":
-        case "Duisburg (L/M)":
-         reflectFilter("locales", "Duisburg");
-         reflectFilter("locales", "Duisburg (B)");
-         reflectFilter("locales", "Duisburg (L/M)");
-
-      }
-  
-      
- }
-
- const options = [{value: "Essen", label: "Essen"}, {value: "Duisburg", label: "Duisburg"}];
-
-
-
-
-    render() {
-        return (
-            <div>
-            <StylesProvider>
-                <ThemeProvider theme={theme}>
-                    <CssBaseline />
-                    <Filters action={this.reflectFilter}/><br></br>
-                    <Courses list={this.state.courseData}/>
-                </ThemeProvider>
-            </StylesProvider>
-        </div>
-        )
-    }
-}
-
-export default E3Selector;
-*/
