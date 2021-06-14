@@ -89,14 +89,9 @@ export default function Filtersnew() {
   };
 
 
-<FormControl component="fieldset">
-<FormLabel component="legend">Location</FormLabel>
- <FormGroup aria-label="position" row></FormGroup>
- </FormControl>
-
   const options = [
-    { value: "Essen", label: "Essen" },
-    { value: "Duisburg", label: "Duisburg" },
+    { value: "Essen", label: "Essen\n" },
+    { value: "Duisburg", label: "Duisburg\n" },
     { value: "Bochum", label: "Bochum" },
     { value: "Dortmund", label: "Dortmund" },
 
