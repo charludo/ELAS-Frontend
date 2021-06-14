@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme) => ({
   
   export default function Credits() {
     const classes = useStyles();
-    const [age, setAge] = React.useState('');
+    const [Credits, setCredits] = React.useState('');
   
     const handleChange = (event) => {
-      setAge(event.target.value);
+      setCredits(event.target.value);
     };
   
     return (
@@ -35,39 +35,28 @@ const useStyles = makeStyles((theme) => ({
         <Select
           labelId="placeholder-label-label"
           id="placeholder-label"
-          value={credits}
+          value={Credits}
           onChange={handleChange}
           displayEmpty
           className={classes.selectEmpty}
         >
           <MenuItem value="">
-            <em>None</em>
+            <em>10</em>
           </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={10}>10</MenuItem>
+          <MenuItem value={9}>9</MenuItem>
+          <MenuItem value={8}>8</MenuItem>
+          <MenuItem value={7}>7</MenuItem>
+          <MenuItem value={6}>6</MenuItem>
+          <MenuItem value={5}>5</MenuItem>
+          <MenuItem value={4}>4</MenuItem>
+          <MenuItem value={3}>3</MenuItem>
+          <MenuItem value={2}>2</MenuItem>
+          <MenuItem value={1}>1</MenuItem>
         </Select>
-        <FormHelperText>Label + placeholder</FormHelperText>
+        <FormHelperText>Filter Credits:</FormHelperText>
       </FormControl>
+      </div>
 
-
-
-      <FormControl variant="filled" className={classes.formControl}>
-      <InputLabel id="demo-simple-select-filled-label">Age</InputLabel>
-      <Select
-        labelId="demo-simple-select-filled-label"
-        id="demo-simple-select-filled"
-        value={age}
-        onChange={handleChange}
-      >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
-      </Select>
-    </FormControl>
-  </div>
 );
 }
