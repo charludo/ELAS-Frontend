@@ -6,7 +6,7 @@ import "./App.sass";
 import Filters, { Catalog } from "./Filters";
 import Courses from "./Courses";
 import getFilteredData, { updateFilters } from "./data.js";
-import Filtersnew from "./Filtersnew";
+import Popup from "./Popup";
 
 export default function E3Selector() {
     const [courseData, setCourseData] = useState(getFilteredData());
@@ -27,6 +27,7 @@ export default function E3Selector() {
                 <Filters action={reflectFilter}/><br></br>
                 <Catalog action={reflectFilter}/><br></br>
                 <Courses list={courseData}/>
+                <Popup />
             </ThemeProvider>
         </StylesProvider>
     </div>
