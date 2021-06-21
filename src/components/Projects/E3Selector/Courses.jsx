@@ -84,45 +84,13 @@ const langFlag = (language) =>{
 const Courses = (props) => {
     //const [list, setList] = useState(props.list)
     const list = props.list
-    const [selectedList, setselectedList] = useState([])
+    const handleSel = props.handleSel
+    const selectedList = props.selectedList
     const classes = useStyles()
-    const handleSel = (title) => {
-        
-        let e = selectedList.find(c => c.Title === title)
-        
-        if(e !== undefined){
-            
-            setselectedList(selectedList.filter(c => c !== e))
-        }else{
-            
-            setselectedList(selectedList.concat(list.find(c => c.Title === title)))
-            
-        }
-
-    } 
+    
    
     return( 
             
-                <Container>
-                    <Grid container>
-                        <Grid item xs={6} className={classes.selected} >
-                            <Paper className={classes.paper}>
-                                <List >
-                                    {
-                                        selectedList.map( c => 
-                                            (<SelectedCourse key ={c.Link} Title={c.Title} handleSel={handleSel} classes={classes}/>)
-                                            //(<ListItem>{c.Title}</ListItem>)
-                                        )
-                                    }
-                                </List>
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Paper className={classes.paper}>
-
-                            </Paper>
-                        </Grid>
-                        <Grid item>
                         <TableContainer>
                             <Table stickyHeader className={classes.table}>
                                 <colgroup>
@@ -150,7 +118,6 @@ const Courses = (props) => {
                                 
                                 <TableBody>
                                     {
-                                        
                                         //Only display the courses that are not contained within the selectedList
                                         list.filter(c => !selectedList.includes(c)).map( entry => {
                                             
@@ -162,25 +129,29 @@ const Courses = (props) => {
                             </Table>
 
                         </TableContainer>
-                        </Grid>
-                        </Grid>
-                        </Container> 
+    
+                        
             
     )
 
+}
+const SelectedCourses = (props) => {
+    return(
+        props.selectedList.map( c =>
+            (<SelectedCourse key ={c.Link} Title={c.Title} handleSel={props.handleSel} />))
+    )
 }
 const SelectedCourse = (props) =>{
     const {
         Title,
         handleSel
     } = props
-    const classes = props.classes
 
     return (
         <>
-            <ListItem>
+            <ListItem primary={Title}>
                 <ListItemIcon color="action">                    
-                    <IconButton  onClick ={() => handleSel(Title)}><DeleteIcon /></IconButton>
+                    <IconButton   onClick ={() => handleSel(Title)}><DeleteIcon /></IconButton>
                 </ListItemIcon>
                 {Title}
             </ListItem>
@@ -212,7 +183,7 @@ const Course = (props) => {
                         <IconButton  onClick={() => handleSel(Title)}>
                             <AddIcon color="action"  />
                         </IconButton> </TableCell>
-                    <TableCell align="center" onClick={() => toggle(!isOpen)}> {Credits} Cr.</TableCell>
+                    <TableCell align="center" onClick={() => toggle(!isOpen)}> {Credits + " Cr."}</TableCell>
                     <TableCell align="center" onClick={() => toggle(!isOpen)} >{timeCom != 0? timeCom + " hr" : "-"}</TableCell>
                     <TableCell align="left"  onClick={() => toggle(!isOpen)}>{Title}</TableCell>
                     <TableCell align="center" onClick={() => toggle(!isOpen)} >{Location.split(";").join()}</TableCell>
@@ -273,3 +244,4 @@ const Course = (props) => {
         </React.Fragment>
     )}
 export default Courses;
+export {SelectedCourses};

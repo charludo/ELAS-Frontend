@@ -20,6 +20,7 @@ import {Grid} from '@material-ui/core';
 import {CButton} from "./Components/Components.js"
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { SelectedCourses } from "./Courses";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -80,7 +81,15 @@ export default function E3Selector() {
             setStudyProgramSelected(true);
         }
     }
-
+    const [selectedList, setselectedList] = useState([])
+    const handleSel = (title) => {
+        let e = selectedList.find(c => c.Title === title)
+        if(e !== undefined){
+            setselectedList(selectedList.filter(c => c !== e))
+        }else{
+            setselectedList(selectedList.concat(courseData.find(c => c.Title === title)))
+        }
+    } 
     const reflectFilter = (family, item) => {
       updateFilters(family, item);
       updateCourseData();
@@ -135,15 +144,16 @@ export default function E3Selector() {
 
                         {/*Main Grid*/}
                         <Grid container spacing={3} direction="row" alignItems="flex-start" justify="center" style={{marginTop: "40px"}}>
-                            <Grid item xs={5}><Paper className={classes.paper} elevation={2}>click + to add courses</Paper></Grid>
+                            <Grid item xs={5}><Paper className={classes.paper} elevation={2}>
+                               <SelectedCourses selectedList={selectedList} handleSel={handleSel}/> </Paper></Grid>
                             <Grid item xs={3}><Paper className={classes.paper} elevation={2}>add courses to start receiving information</Paper></Grid>
 
                             {/*Course Table*/}
                             <Grid item xs={12}>
-                                <Catalog action={reflectFilter} sort={reflectSort}/>
+                                <Catalog action={reflectFilter} />
                             </Grid>
                             <Grid item xs={8}>
-                                <Courses list={courseData}/>
+                                <Courses list={courseData} sort={reflectSort} selectedList={selectedList}handleSel={handleSel}/>
                             </Grid>
                         </Grid>
                     </div>
