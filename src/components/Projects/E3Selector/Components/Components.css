@@ -1,4 +1,25 @@
-button {
-  background: white; }
+.time-table th {
+  padding-right: 8px; }
+.time-table tr:first-child td {
+  text-align: center;
+  font-weight: bold; }
+.time-table .timeTableCheckbox {
+  width: 40px;
+  height: 40px;
+  margin: 2px;
+  background-color: #E0E0E0;
+  cursor: pointer; }
+  .time-table .timeTableCheckbox.checked-true {
+    background-color: #F2994A; }
+
+.vertical-filter {
+  text-transform: uppercase;
+  color: #999;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 12px;
+  cursor: pointer; }
+  .vertical-filter.vertical-checked {
+    color: #0057A7; }
 
 /*# sourceMappingURL=Components.css.map */

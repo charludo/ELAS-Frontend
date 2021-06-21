@@ -1,2 +1,29 @@
-button
-	background: white
+.time-table
+	th
+		padding-right: 8px
+
+	tr
+		&:first-child
+			td
+				text-align: center
+				font-weight: bold
+	.timeTableCheckbox
+		width: 40px
+		height: 40px
+		margin: 2px
+		background-color: #E0E0E0
+		cursor: pointer
+
+		&.checked-true
+			background-color: #F2994A
+
+.vertical-filter
+	text-transform: uppercase
+	color: #999
+	font-size: 18px
+	font-weight: bold
+	margin: 0 12px
+	cursor: pointer
+
+	&.vertical-checked
+		color: #0057A7
