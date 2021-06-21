@@ -136,11 +136,15 @@ const Courses = (props) => {
 
 }
 const SelectedCourses = (props) => {
+    if(!props.selectedList.length){
+        console.log("empty")
+        return("Click + to add Courses")
+    }else{
     return(
         props.selectedList.map( c =>
             (<SelectedCourse key ={c.Link} Title={c.Title} handleSel={props.handleSel} />))
     )
-}
+}}
 const SelectedCourse = (props) =>{
     const {
         Title,

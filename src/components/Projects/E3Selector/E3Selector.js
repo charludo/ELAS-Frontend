@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "flex-start",
+    alignItems: "center",
     minHeight: "240px",
     color: theme.palette.text.secondary
   },
