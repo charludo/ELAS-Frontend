@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    minHeight: "240px",
+    minHeight: "100%",
     color: theme.palette.text.secondary,
   },
   paperSelected: {
