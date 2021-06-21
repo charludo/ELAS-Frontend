@@ -39,9 +39,7 @@ export default function Popup() {
           </Grid>
         </Grid>
 
-        <Grid item xs={2}>
-          2 (weekly workload)
-        </Grid>
+        <h1>2</h1>
         <Grid item xs={4}>
           <Grid
             container
