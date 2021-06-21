@@ -1,9 +1,22 @@
 import React, {Component,  useState} from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import {Grid} from '@material-ui/core';
 import "./Components.sass";
+
+const CButton = (props) => (
+	<Button color={props.color} variant={props.variant} onClick={props.action} className={props.classes} style={{borderRadius: props.radius}}>{props.children}</Button>
+);
+
+CButton.defaultProps = {
+	action: null,
+	color: "primary",
+	variant: "contained",
+	radius: "4px",
+	classes: {},
+}
 
 const CheckBox = (props) => {
 	const actionIterator = (action, params) => {
@@ -177,3 +190,4 @@ export default CheckBox;
 export { TimeTable };
 export { FilterGroup };
 export { VerticalFilterGroup };
+export { CButton };
