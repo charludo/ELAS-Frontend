@@ -2,7 +2,27 @@ import rawData from "./e3_courses.json"
 
 let data = rawData.children.map(catalog => catalog.children).flat();
 
+let sortState = {
+	key: "",
+	direction: 1
+};
+
 let filterState = {
+	"Ausgeschlossen_Ingenieurwissenschaften_Bachelor": {
+		"Angewandte Informatik": true,
+		"Bauingenieurwesen": true,
+		"Elektrotechnik und Informationstechnik": true,
+		"ISE": true,
+		"Komedia": true,
+		"Maschinenbau": true,
+		"Medizintechnik": true,
+		"Nano Engineering": true,
+		"Wirtschaftsingenieurwesen": true,
+		"-": true,
+		"ALLE": false,
+		"ALLE (außer Bauingenieurwesen (1. FS))": false,
+		"ALLE (außer Bauingenieurwesen)": false
+	},
 	"time": {
 		"Mo8-10": true,
 		"Mo10-12": true,
@@ -89,6 +109,15 @@ let filterState = {
 	"credits": 6
 }
 
+export function setStudyProgram(program) {
+	filterState.Ausgeschlossen_Ingenieurwissenschaften_Bachelor[program] = false;
+
+	if (program === "Bauingenieurwesen") {
+		filterState.Ausgeschlossen_Ingenieurwissenschaften_Bachelor["ALLE (außer Bauingenieurwesen (1. FS))"] = true;
+		filterState.Ausgeschlossen_Ingenieurwissenschaften_Bachelor["ALLE (außer Bauingenieurwesen)"] = true;
+	}
+}
+
 export function updateFilters(family, item) {
 	if (family == "credits") {
 		filterState.credits = parseInt(item);
@@ -105,9 +134,25 @@ export function updateFilters(family, item) {
 	console.log(getFilteredData());
 }
 
+export function sortCourses(key) {
+	var direction = (key == sortState.key) ? (sortState.direction * -1) : 1;
+	sortState.direction = direction;
+	sortState.key = key;
+
+	data.sort((a, b) => a[key].localeCompare(b[key]) * direction);
+}
+
 function applyFilters() {
 	let filteredData = data.filter(course => {
 		var fitting = true;
+
+		// Study Program
+		let exempt = course.Ausgeschlossen_Ingenieurwissenschaften_Bachelor.split(/,|;/);
+		exempt.forEach(function(program) {
+			if (filterState.Ausgeschlossen_Ingenieurwissenschaften_Bachelor[program] !== true) {
+				fitting = false;
+			}
+		});
 
 		// Time
 		let times = course.Times_manual.split(";");
@@ -156,7 +201,7 @@ function applyFilters() {
 
 		// Credits
 		let credits = course.Credits.match(/\d+/g).sort();
-		if (filterState.credits <= credits[0]) {
+		if (filterState.credits < credits[0]) {
 			fitting = false;
 		}
 
@@ -167,8 +212,9 @@ function applyFilters() {
 	return filteredData;
 }
 
-// updateFilters("languages", "Deutsch");
 
 export default function getFilteredData() {
 	return applyFilters();
 }
+
+
