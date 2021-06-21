@@ -212,8 +212,9 @@ function applyFilters() {
 	return filteredData;
 }
 
-// updateFilters("languages", "Deutsch");
 
 export default function getFilteredData() {
 	return applyFilters();
 }
+
+
