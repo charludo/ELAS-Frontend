@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    height: "240px",
+    minHeight: "240px",
     color: theme.palette.text.secondary,
   },
   paperSelected: {
@@ -39,9 +39,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "flex-start",
-    height: "240px",
-    color: theme.palette.text.secondary,
-    overflowY: "scroll"
+    minHeight: "240px",
+    color: theme.palette.text.secondary
   },
   preselect: {
     display: "flex",
@@ -152,9 +151,11 @@ export default function E3Selector() {
                         </Box>
 
                         {/*Main Grid*/}
-                        <Grid container spacing={3} direction="row" alignItems="flex-start" justify="center" style={{marginTop: "40px"}}>
-                            <Grid item xs={5}><Paper className={classes.paperSelected} elevation={2}>
-                               <SelectedCourses selectedList={selectedList} handleSel={handleSel}/> </Paper></Grid>
+                        <Grid container spacing={3} direction="row" alignItems="stretch" justify="center" style={{marginTop: "40px"}}>
+                            <Grid item xs={5}>
+                                <Paper className={classes.paperSelected} elevation={2}>
+                                    <SelectedCourses selectedList={selectedList} handleSel={handleSel}/>
+                                </Paper></Grid>
                             <Grid item xs={3}><Paper className={classes.paper} elevation={2}>add courses to start receiving information</Paper></Grid>
 
                             {/*Course Table*/}
