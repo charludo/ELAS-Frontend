@@ -14,7 +14,8 @@ import Box from "@material-ui/core/Box";
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItem from '@material-ui/core/ListItem';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-
+import Schedule from './Components/Course_Schedule.jsx'
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme)=>({
         selected: {
@@ -36,7 +37,11 @@ const useStyles = makeStyles((theme)=>({
             height: 270,
             width: 500,
             },
-
+        course :{
+            margin: '1px',
+            height: '65',
+            width: '1242'
+        },
         textcell:{
             whiteSpace: 'nowarp',
             overflow: 'hidden' 
@@ -87,31 +92,40 @@ const Courses = (props) => {
     const handleSel = props.handleSel
     const selectedList = props.selectedList
     const classes = useStyles()
+    const sort = props.sort
     
-   
+    const headCells = [
+        {id:'credits', numeric: true, align: "center"},
+        {id:'Time Commitment', numeric: true, align: "center"},
+        {id:'Title', numeric: false, align: "left"},
+        {id:'Location', numeric: false, align: "center"},
+        {id:'Language', numeric: false, align: "center"},
+    ]
     return( 
             
                         <TableContainer>
                             <Table stickyHeader className={classes.table}>
-                                <colgroup>
-                                        <col style={{width:'10%'}}/>
-                                        <col style={{width:'10%'}}/>
-                                        <col style={{width:'10%'}}/>
-                                        <col style={{width:'70%'}}/>
-                                        <col style={{width:'20%'}}/>
-                                        <col style={{width:'10%'}}/>
-                                        <col style={{width:'10%'}}/>
-                                </colgroup>
-                                <TableHead >
+                               
+                                <TableHead component={Paper} >
                                     <TableRow >
                                         <TableCell/>
                                         <TableCell align="center">
-                                            <TableSortLabel >credits
-                                                </TableSortLabel></TableCell>
-                                        <TableCell align="center">Time commitment</TableCell>
-                                        <TableCell align="left">Title</TableCell>
-                                        <TableCell align="center">Location</TableCell>
-                                        <TableCell align="center">Language</TableCell>
+                                            <TableSortLabel onClick={() => sort("Credits")} hideSortIcon>credits
+                                                </TableSortLabel>
+                                                </TableCell>
+                                        <TableCell align="center">
+                                            <TableSortLabel onClick={() => sort("SWS")} hideSortIcon>Time Commitment
+                                                    </TableSortLabel>
+                                            </TableCell>
+                                        <TableCell align="left">
+                                            <TableSortLabel onClick={() => sort("Title")} hideSortIcon>Title
+                                                    </TableSortLabel></TableCell>
+                                        <TableCell align="center">
+                                            <TableSortLabel onClick={() => sort("Location")} hideSortIcon>Location
+                                                    </TableSortLabel></TableCell>
+                                        <TableCell align="center">
+                                            <TableSortLabel onClick={() => sort("Language")} hideSortIcon>Language</TableSortLabel>
+                                                    </TableCell>
                                         <TableCell/>
                                     </TableRow>
                                 </TableHead>
@@ -121,7 +135,7 @@ const Courses = (props) => {
                                         //Only display the courses that are not contained within the selectedList
                                         list.filter(c => !selectedList.includes(c)).map( entry => {
                                             
-                                            return(<Course key={entry.Link} {...entry} handleSel={handleSel} classes={classes}/>)
+                                            return(<Course component={Paper} key={entry.Link} {...entry} handleSel={handleSel} classes={classes}/>)
                                             
                                         })
                                     }
@@ -137,35 +151,17 @@ const Courses = (props) => {
 }
 const SelectedCourses = (props) => {
     if(!props.selectedList.length){
-        console.log("empty")
+        
         return("Click + to add Courses")
     }else{
     return(
         props.selectedList.map( c =>
-            (<SelectedCourse key ={c.Link} Title={c.Title} handleSel={props.handleSel} />))
+            (<SelectedCourse key ={c.Link} {...c} handleSel={props.handleSel}/>))
     )
 }}
 const SelectedCourse = (props) =>{
     const {
-        Title,
-        handleSel
-    } = props
-
-    return (
-        <>
-            <ListItem primary={Title}>
-                <ListItemIcon color="action">                    
-                    <IconButton   onClick ={() => handleSel(Title)}><DeleteIcon /></IconButton>
-                </ListItemIcon>
-                {Title}
-            </ListItem>
-        </>
-    )
-}
-const Course = (props) => {
-
-    //console.log(props)
-    const {Credits,
+        Credits,
         Title,
         SWS: timeCom,
         Location,
@@ -173,48 +169,33 @@ const Course = (props) => {
         Language,
         Times_manual :schedule,
         Exam,
-        handleSel
+        handleSel,
+        Link:link
         } = props
+
     const [isOpen, toggle] = useState(false)
-   
-    const classes = props.classes
-        
-        return (
-        <React.Fragment>
-           
-            <TableRow className={classes.row}>
-                    <TableCell>
-                        <IconButton  onClick={() => handleSel(Title)}>
-                            <AddIcon color="action"  />
-                        </IconButton> </TableCell>
-                    <TableCell align="center" onClick={() => toggle(!isOpen)}> {Credits + " Cr."}</TableCell>
-                    <TableCell align="center" onClick={() => toggle(!isOpen)} >{timeCom != 0? timeCom + " hr" : "-"}</TableCell>
-                    <TableCell align="left"  onClick={() => toggle(!isOpen)}>{Title}</TableCell>
-                    <TableCell align="center" onClick={() => toggle(!isOpen)} >{Location.split(";").join()}</TableCell>
-                    <TableCell align="center" onClick={() => toggle(!isOpen)} >{langFlag(Language)} </TableCell>
-                    <TableCell>{
-                    <Icon aria-label="expand row" size='inherit'  onClick={() => toggle(!isOpen)} >
+    return (
+        <>
+            <ListItem primary={Title}>
+                <ListItemIcon color="action">                    
+                    <IconButton   onClick ={() => handleSel(Title)}><DeleteIcon /></IconButton>
+                </ListItemIcon>
+                <div onClick={() => toggle(!isOpen)}>
+                    {Title}
+                </div>
+                <Icon aria-label="expand row" size='inherit'  onClick={() => toggle(!isOpen)} >
                     {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                    </Icon>
-                    }</TableCell>
-            </TableRow>
-           
-             
-            <TableRow >
-                <TableCell style={{ paddingBottom: 0, paddingTop: 2 }} colSpan={7} >
-                    <Collapse in={isOpen} timeout="auto" unmountOnExit>
-                        <Box margin={1}> 
+                    </Icon> 
+                    
+            </ListItem>
+            <Collapse in={isOpen} timeout="auto" unmountOnExit>
+            <Box margin={1}> 
                             <Grid container wrap='nowrap' spacing ={3}>
                             
-                                <Grid item xs >
-                                    <Paper >
-                                        <Typography >
-
-                                        Rating TODO
-
-                                    </Typography></Paper>
-
+                                <Grid item> 
+                                    <Schedule schedule={schedule}/>
                                 </Grid>
+                        
 
                                 <Grid item >
                                     
@@ -235,7 +216,96 @@ const Course = (props) => {
                                             <ListItemText align="left">Course Type: {Type.split(";").map(e => fType(e)).join()}</ListItemText>
                                             <ListItemText align="left">Credits: {Credits}</ListItemText>
                                             <ListItemText align="left">Exam type: {Exam.split(";").map(e => ExamType(e)).join()}</ListItemText>
-                                            <ListItemText></ListItemText>
+                                            <ListItem>
+                                                <Link href={link} >
+                                                    visit the course page
+                                                    </Link>
+                                            </ListItem>
+                                        </List>
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                            </Box>
+            </Collapse>
+        </>
+    )
+}
+
+const Course = (props) => {
+
+    //console.log(props)
+    const {Credits,
+        Title,
+        SWS: timeCom,
+        Location,
+        Type,
+        Language,
+        Times_manual :schedule,
+        Exam,
+        Link:link,
+        handleSel
+        } = props
+    const [isOpen, toggle] = useState(false)
+
+    const classes = props.classes
+        return (
+        <React.Fragment component={Paper} className={classes.course}>
+           
+            <TableRow >
+                    <TableCell>
+                        <IconButton  onClick={() => handleSel(Title)}>
+                            <AddIcon color="action"  />
+                        </IconButton> </TableCell>
+                    <TableCell align="center" onClick={() => toggle(!isOpen)}> {Credits + " Cr."}</TableCell>
+                    <TableCell align="center" onClick={() => toggle(!isOpen)} >{timeCom != 0? timeCom + " hrs." : "-"}</TableCell>
+                    <TableCell align="left"  onClick={() => toggle(!isOpen)}>{Title}</TableCell>
+                    <TableCell align="center" onClick={() => toggle(!isOpen)} >{Location.split(";").join()}</TableCell>
+                    <TableCell align="center" onClick={() => toggle(!isOpen)} >{langFlag(Language)} </TableCell>
+                    <TableCell>{
+                    <Icon aria-label="expand row" size='inherit'  onClick={() => toggle(!isOpen)} >
+                    {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                    </Icon>
+                    }</TableCell>
+            </TableRow>
+           
+             
+            <TableRow >
+                <TableCell style={{ paddingBottom: 0, paddingTop: 2 }} colSpan={7} >
+                    <Collapse in={isOpen} timeout="auto" unmountOnExit>
+                        <Box margin={1}> 
+                            <Grid container wrap='nowrap' spacing ={3}>
+                            
+                                <Grid item> 
+                                    <Schedule schedule={schedule}/>
+                                </Grid>
+                        
+
+                                <Grid item >
+                                    
+                                    <List>
+                                        {
+                                        //<Schedule day={}> TODO
+                                        schedule.split(";").map(e => 
+                                            (<ListItemText>{e}</ListItemText>))
+                                            }
+                                    </List>
+                                        
+                                </Grid>
+                                <Grid item xs>
+                                    <Typography >
+                                        <List>
+                                            <ListItemText align="left">Location: {Location.split(";").join("/")}</ListItemText>
+                                            <ListItemText align="left">Language: {Language}</ListItemText>
+                                            <ListItemText align="left">Course Type: {Type.split(";").map(e => fType(e)).join()}</ListItemText>
+                                            <ListItemText align="left">Credits: {Credits}</ListItemText>
+                                            <ListItemText align="left">Exam type: {Exam.split(";").map(e => ExamType(e)).join()}</ListItemText>
+
+                                            <ListItem>
+                                                <Link href={link} >
+                                                    visit the course page
+                                                    </Link>
+                                            </ListItem>
+                                            
                                         </List>
 
                                     </Typography>
@@ -247,5 +317,6 @@ const Course = (props) => {
             </TableRow> 
         </React.Fragment>
     )}
-export default Courses;
-export {SelectedCourses};
+
+    export default Courses;
+    export {SelectedCourses};

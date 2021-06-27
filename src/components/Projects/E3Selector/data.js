@@ -131,7 +131,7 @@ export function updateFilters(family, item) {
 	} else {
 		filterState[family][item] = !filterState[family][item];
 	}
-	console.log(getFilteredData());
+	
 }
 
 export function sortCourses(key) {
