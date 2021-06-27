@@ -9,7 +9,7 @@ export default function Overview(props) {
         switch(props.creditsStatus){
             case "on-ok": return(<div class="overview-notification on-ok"><CheckCircleIcon /> Credit target matched</div>)
             case "on-warn" : return(<div class="overview-notification on-warn"><ErrorIcon /> Credit target exceeded</div>)
-            default: return(<div class="overview-notification"><ErrorIcon /> Credit target not reached</div>)
+            default: return(<div class="overview-notification"><ErrorIcon /> Credit target not matched</div>)
         }
     }
 

@@ -106,7 +106,8 @@ export var filterState = {
 		"Natur und Technik": true,
 		"Wirtschaft": true,
 	},
-	"credits": 6
+	"credits": 6,
+	"search": ""
 }
 
 export function setStudyProgram(program) {
@@ -128,6 +129,8 @@ export function updateFilters(family, item) {
 			Object.keys(filterState.catalog).forEach(k => filterState.catalog[k] = false);
 			filterState.catalog[item] = true;
 		}
+	} else if (family == "search") {
+		filterState.search = item;
 	} else {
 		filterState[family][item] = !filterState[family][item];
 	}
@@ -145,6 +148,22 @@ export function sortCourses(key) {
 function applyFilters() {
 	let filteredData = data.filter(course => {
 		var fitting = true;
+
+		// Search
+		if (filterState.search.length) {
+			fitting = false;
+			var reg = new RegExp(filterState.search.toLowerCase());
+			/* VERSION THAT SEARCHES ALL FIELDS
+			Object.keys(course).forEach(function(key) {
+				if (reg.test(course[key].toString().toLowerCase())) {
+					fitting = true;
+				}
+			});*/
+
+			if (reg.test(course.Title.toString().toLowerCase())) {
+				fitting = true;
+			}
+		}
 
 		// Study Program
 		let exempt = course.Ausgeschlossen_Ingenieurwissenschaften_Bachelor.split(/,|;/);

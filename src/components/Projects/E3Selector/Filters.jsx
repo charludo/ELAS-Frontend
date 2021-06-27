@@ -8,6 +8,7 @@ import {TimeTable, FilterGroup, VerticalFilterGroup } from "./Components/Compone
 import {Grid} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 import Credits from "./Credits.jsx";
+import SearchBar from "material-ui-search-bar";
 
 const backgroundStyles = makeStyles({
     lecEx: {
@@ -163,7 +164,8 @@ export default function Filters(props) {
 
 export function Catalog(props) {
     return (
-        <VerticalFilterGroup
+        <Grid container justify="center" alignItems="center">
+            <VerticalFilterGroup
                 action={props.action}
                 filters={[
                     {
@@ -187,6 +189,12 @@ export function Catalog(props) {
                         arguments: [["catalog", "Wirtschaft"]],
                     },
                 ]}
-            />
+                />
+            <SearchBar
+                value={""}
+                onChange={(newValue) => props.action("search", newValue)}
+                onCancelSearch={() => props.action("search", "")}
+                />
+        </Grid>
     );
 }
