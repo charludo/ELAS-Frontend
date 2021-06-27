@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { makeStyles, StylesProvider, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from '@material-ui/core/Button';
@@ -116,6 +116,44 @@ export default function E3Selector() {
             setselectedList(selectedList.concat(courseData.find(c => c.Title === title)))
         }
     }
+    useEffect(() => {
+        populateOverview();
+    }, [selectedList]);
+
+    const [selectedCredits, setSelectedCredits] = useState();
+    const [workload, setWorkload] = useState();
+    const [creditsStatus, setCreditsStatus] = useState();
+    const populateOverview = () => {
+        var minCount = 0;
+        var maxCount = 0;
+        var sws = 0;
+        selectedList.forEach((course, c) => {
+            if (course.Credits.includes("-")) {
+                var credits = course.Credits.split("-");
+                minCount += parseInt(credits[0]);
+                maxCount += parseInt(credits[1]);
+            } else {
+                minCount += parseInt(course.Credits);
+                maxCount += parseInt(course.Credits);
+            }
+            sws += parseInt(course.SWS) || 0;
+        });
+
+        let wanted = filterState.credits;
+        if (minCount == wanted || maxCount == wanted) {
+            var status = "on-ok";
+        } else if (minCount > wanted && maxCount > wanted) {
+            var status = "on-warn";
+        } else {
+            var status = "on-info";
+        }
+
+        setSelectedCredits((minCount === maxCount) ? minCount : minCount + "-" + maxCount);
+        setWorkload(sws);
+        setCreditsStatus(status);
+    }
+
+
     const reflectFilter = (family, item) => {
       updateFilters(family, item);
       updateCourseData();
@@ -187,7 +225,7 @@ export default function E3Selector() {
                                 </Paper></Grid>
                             <Grid item xs={3}>
                               <Paper className={classes.paper} elevation={2}>
-                                <Overview />
+                                <Overview selectedList={selectedList} selectedCredits={selectedCredits} workload={workload} creditsStatus={creditsStatus}/>
                               </Paper>
                             </Grid>
 
@@ -196,7 +234,7 @@ export default function E3Selector() {
                                 <Catalog action={reflectFilter} />
                             </Grid>
                             <Grid item xs={8}>
-                                <Courses list={courseData} sort={reflectSort} selectedList={selectedList}handleSel={handleSel}/>
+                                <Courses list={courseData} sort={reflectSort} selectedList={selectedList} handleSel={handleSel}/>
                             </Grid>
                         </Grid>
                     </div>
