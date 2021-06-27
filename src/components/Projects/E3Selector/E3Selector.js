@@ -105,11 +105,21 @@ export default function E3Selector() {
     const shared = new URLSearchParams(window.location.search).get("shared");
     console.log(shared);
 
-    const [courseData, setCourseData] = useState(() => {
-        let selected = JSON.parse(localStorage.getItem("e3selected")).map(s => s.Title) || [];
-        console.log(getFilteredData().filter(e => selected.includes(e.Title)));
-        return getFilteredData().filter(e => !selected.includes(e.Title));
-    });
+    const [selectedList, setselectedList] = useState(JSON.parse(localStorage.getItem("e3selected")) || [])
+    const handleSel = (title) => {
+        let e = selectedList.find(c => c.Title === title)
+        if(e !== undefined){
+            setselectedList(selectedList.filter(c => c !== e))
+        }else{
+            setselectedList(selectedList.concat(courseData.find(c => c.Title === title)))
+        }
+    }
+    useEffect(() => {
+        populateOverview();
+        localStorage.setItem("e3selected", JSON.stringify(selectedList));
+    }, [selectedList]);
+
+    const [courseData, setCourseData] = useState(getFilteredData());
     const updateCourseData = () => {
       setCourseData(getFilteredData());
     };
@@ -132,19 +142,6 @@ export default function E3Selector() {
             localStorage.setItem("e3filters", JSON.stringify(filterState));
         }
     }
-    const [selectedList, setselectedList] = useState(JSON.parse(localStorage.getItem("e3selected")) || [])
-    const handleSel = (title) => {
-        let e = selectedList.find(c => c.Title === title)
-        if(e !== undefined){
-            setselectedList(selectedList.filter(c => c !== e))
-        }else{
-            setselectedList(selectedList.concat(courseData.find(c => c.Title === title)))
-        }
-    }
-    useEffect(() => {
-        populateOverview();
-        localStorage.setItem("e3selected", JSON.stringify(selectedList));
-    }, [selectedList]);
 
     const [selectedCredits, setSelectedCredits] = useState();
     const [workload, setWorkload] = useState();

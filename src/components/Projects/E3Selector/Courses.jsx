@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme)=>({
               borderBottom: 'unset',
             }},
         paper : {
-            
+
             margin: `${theme.spacing(1)}px auto`,
             textAlign: 'center',
             height: 270,
@@ -44,9 +44,9 @@ const useStyles = makeStyles((theme)=>({
         },
         textcell:{
             whiteSpace: 'nowarp',
-            overflow: 'hidden' 
+            overflow: 'hidden'
         }
-        
+
         })
 )
 const ExamType = (e) => {
@@ -93,7 +93,7 @@ const Courses = (props) => {
     const selectedList = props.selectedList
     const classes = useStyles()
     const sort = props.sort
-    
+
     const headCells = [
         {id:'credits', numeric: true, align: "center"},
         {id:'Time Commitment', numeric: true, align: "center"},
@@ -101,11 +101,11 @@ const Courses = (props) => {
         {id:'Location', numeric: false, align: "center"},
         {id:'Language', numeric: false, align: "center"},
     ]
-    return( 
-            
+    return(
+
                         <TableContainer>
                             <Table stickyHeader className={classes.table}>
-                               
+
                                 <TableHead component={Paper} >
                                     <TableRow >
                                         <TableCell/>
@@ -129,29 +129,29 @@ const Courses = (props) => {
                                         <TableCell/>
                                     </TableRow>
                                 </TableHead>
-                                
+
                                 <TableBody>
                                     {
                                         //Only display the courses that are not contained within the selectedList
-                                        list.filter(c => !selectedList.includes(c)).map( entry => {
-                                            
+                                        list.filter(c => !selectedList.map(s => s.Title).includes(c.Title)).map( entry => {
+
                                             return(<Course component={Paper} key={entry.Link} {...entry} handleSel={handleSel} classes={classes}/>)
-                                            
+
                                         })
                                     }
                                 </TableBody>
                             </Table>
 
                         </TableContainer>
-    
-                        
-            
+
+
+
     )
 
 }
 const SelectedCourses = (props) => {
     if(!props.selectedList.length){
-        
+
         return("Click + to add Courses")
     }else{
     return(
@@ -177,7 +177,7 @@ const SelectedCourse = (props) =>{
     return (
         <>
             <ListItem primary={Title}>
-                <ListItemIcon color="action">                    
+                <ListItemIcon color="action">
                     <IconButton   onClick ={() => handleSel(Title)}><DeleteIcon /></IconButton>
                 </ListItemIcon>
                 <div onClick={() => toggle(!isOpen)}>
@@ -185,28 +185,28 @@ const SelectedCourse = (props) =>{
                 </div>
                 <Icon aria-label="expand row" size='inherit'  onClick={() => toggle(!isOpen)} >
                     {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                    </Icon> 
-                    
+                    </Icon>
+
             </ListItem>
             <Collapse in={isOpen} timeout="auto" unmountOnExit>
-            <Box margin={1}> 
+            <Box margin={1}>
                             <Grid container wrap='nowrap' spacing ={3}>
-                            
-                                <Grid item> 
+
+                                <Grid item>
                                     <Schedule schedule={schedule}/>
                                 </Grid>
-                        
+
 
                                 <Grid item >
-                                    
+
                                     <List>
                                         {
                                         //<Schedule day={}> TODO
-                                        schedule.split(";").map(e => 
+                                        schedule.split(";").map(e =>
                                             (<ListItemText>{e}</ListItemText>))
                                             }
                                     </List>
-                                        
+
                                 </Grid>
                                 <Grid item xs>
                                     <Typography >
@@ -250,7 +250,7 @@ const Course = (props) => {
     const classes = props.classes
         return (
         <React.Fragment component={Paper} className={classes.course}>
-           
+
             <TableRow >
                     <TableCell>
                         <IconButton  onClick={() => handleSel(Title)}>
@@ -267,29 +267,29 @@ const Course = (props) => {
                     </Icon>
                     }</TableCell>
             </TableRow>
-           
-             
+
+
             <TableRow >
                 <TableCell style={{ paddingBottom: 0, paddingTop: 2 }} colSpan={7} >
                     <Collapse in={isOpen} timeout="auto" unmountOnExit>
-                        <Box margin={1}> 
+                        <Box margin={1}>
                             <Grid container wrap='nowrap' spacing ={3}>
-                            
-                                <Grid item> 
+
+                                <Grid item>
                                     <Schedule schedule={schedule}/>
                                 </Grid>
-                        
+
 
                                 <Grid item >
-                                    
+
                                     <List>
                                         {
                                         //<Schedule day={}> TODO
-                                        schedule.split(";").map(e => 
+                                        schedule.split(";").map(e =>
                                             (<ListItemText>{e}</ListItemText>))
                                             }
                                     </List>
-                                        
+
                                 </Grid>
                                 <Grid item xs>
                                     <Typography >
@@ -305,7 +305,7 @@ const Course = (props) => {
                                                     visit the course page
                                                     </Link>
                                             </ListItem>
-                                            
+
                                         </List>
 
                                     </Typography>
@@ -314,7 +314,7 @@ const Course = (props) => {
                             </Box>
                     </Collapse>
                 </TableCell>
-            </TableRow> 
+            </TableRow>
         </React.Fragment>
     )}
 
