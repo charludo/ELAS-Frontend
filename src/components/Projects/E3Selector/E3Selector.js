@@ -15,7 +15,7 @@ import { theme } from "./theme";
 import "./App.sass";
 import Filters, { Catalog } from "./Filters";
 import Courses from "./Courses";
-import Popup from "./Popup";
+import Overview from "./Components/Overview.jsx";
 import getFilteredData, { setStudyProgram, updateFilters, sortCourses, filterState } from "./data.js";
 import Filtersnew from "./Filtersnew";
 import {Grid} from '@material-ui/core';
@@ -187,7 +187,7 @@ export default function E3Selector() {
                                 </Paper></Grid>
                             <Grid item xs={3}>
                               <Paper className={classes.paper} elevation={2}>
-                                <Popup />
+                                <Overview />
                               </Paper>
                             </Grid>
 
