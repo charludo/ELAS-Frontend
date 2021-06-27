@@ -152,7 +152,7 @@ const Courses = (props) => {
 const SelectedCourses = (props) => {
     if(!props.selectedList.length){
 
-        return("Click + to add Courses")
+        return("click + to add courses")
     }else{
     return(
         props.selectedList.map( c =>

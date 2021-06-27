@@ -145,11 +145,15 @@ export default function E3Selector() {
 
     const [selectedCredits, setSelectedCredits] = useState();
     const [workload, setWorkload] = useState();
+    const [conflicts, setConflicts] = useState();
+    const [overlappings, setOverlappings] = useState();
     const [creditsStatus, setCreditsStatus] = useState();
     const populateOverview = () => {
         var minCount = 0;
         var maxCount = 0;
         var sws = 0;
+        var booked = {};
+
         selectedList.forEach((course, c) => {
             if (course.Credits.includes("-")) {
                 var credits = course.Credits.split("-");
@@ -160,7 +164,15 @@ export default function E3Selector() {
                 maxCount += parseInt(course.Credits);
             }
             sws += parseInt(course.SWS) || 0;
+
+            let times = course.Times_manual.split(";");
+            times.forEach((time, t) => {
+                booked[time] = booked[time]+1 || 1;
+            });
+
         });
+
+        booked = Object.keys(booked).map((k, i) => (booked[k] > 1) ? k : null).filter(b => b);
 
         let wanted = filterState.credits;
         if (minCount == wanted || maxCount == wanted) {
@@ -172,6 +184,8 @@ export default function E3Selector() {
         }
 
         setSelectedCredits((minCount === maxCount) ? minCount : minCount + "-" + maxCount);
+        setConflicts(booked.length ? true : false);
+        setOverlappings(booked);
         setWorkload(sws);
         setCreditsStatus(status);
     }
@@ -250,7 +264,7 @@ export default function E3Selector() {
                                 </Paper></Grid>
                             <Grid item xs={3}>
                               <Paper className={classes.paper} elevation={2}>
-                                <Overview selectedList={selectedList} selectedCredits={selectedCredits} workload={workload} creditsStatus={creditsStatus}/>
+                                <Overview selectedList={selectedList} selectedCredits={selectedCredits} conflicts={conflicts} workload={workload} creditsStatus={creditsStatus}/>
                               </Paper>
                             </Grid>
 

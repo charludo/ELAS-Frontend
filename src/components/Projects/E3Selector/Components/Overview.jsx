@@ -13,6 +13,13 @@ export default function Overview(props) {
         }
     }
 
+    const conflictNotification = () => {
+        switch(props.conflicts){
+            case true: return(<div class="overview-notification on-warn"><ErrorIcon /> Possible schedule overlappings</div>)
+            default: return(<div class="overview-notification on-ok"><CheckCircleIcon /> No schedule overlappings</div>)
+        }
+    }
+
     if (props.selectedList.length) {
       return (
           <Grid container spacing={1} direction="row" alignItems="stretch" justify="space-between" id="overview">
@@ -28,7 +35,7 @@ export default function Overview(props) {
               {creditNotification()}
             </Grid>
             <Grid item xs={12}>
-              <div class="overview-notification on-ok"><CheckCircleIcon /> No schedule overlappings</div>
+              {conflictNotification()}
             </Grid>
           </Grid>
       );
