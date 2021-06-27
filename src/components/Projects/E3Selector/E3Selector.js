@@ -125,7 +125,7 @@ export default function E3Selector() {
             localStorage.setItem("e3filters", JSON.stringify(filterState));
         }
     }
-    const [selectedList, setselectedList] = useState([])
+    const [selectedList, setselectedList] = useState(JSON.parse(localStorage.getItem("e3selected")) || [])
     const handleSel = (title) => {
         let e = selectedList.find(c => c.Title === title)
         if(e !== undefined){
@@ -136,6 +136,7 @@ export default function E3Selector() {
     }
     useEffect(() => {
         populateOverview();
+        localStorage.setItem("e3selected", JSON.stringify(selectedList));
     }, [selectedList]);
 
     const [selectedCredits, setSelectedCredits] = useState();
@@ -230,7 +231,7 @@ export default function E3Selector() {
                         <Collapse in={filtersDisplayed}>
                             <Paper elevation={3} style={{paddingTop: "40px"}}>
                                 <Filters action={reflectFilter} filterState={filterState}/><br></br>
-                                <p className={classes.reset} onClick={() => {localStorage.removeItem("e3filters"); window.location.reload()}}>reset all filters</p>
+                                <p className={classes.reset} onClick={() => {localStorage.removeItem("e3filters"); localStorage.removeItem("e3selected"); window.location.reload()}}>reset filters and selections</p>
                             </Paper>
                         </Collapse>
                         <Box display="flex" justifyContent="center" alignItems="center">
