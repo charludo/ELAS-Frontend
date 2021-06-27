@@ -16,6 +16,12 @@ import ListItem from '@material-ui/core/ListItem';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Schedule from './Components/Course_Schedule.jsx'
 import Link from '@material-ui/core/Link';
+import "./App.sass";
+import German from "./res/German.png";
+import English from "./res/English.png";
+import Turkish from "./res/Turkish.png";
+import Dutch from "./res/Dutch.png";
+
 
 const useStyles = makeStyles((theme)=>({
         selected: {
@@ -37,14 +43,14 @@ const useStyles = makeStyles((theme)=>({
             height: 270,
             width: 500,
             },
-        course :{
-            margin: '1px',
-            height: '65',
-            width: '1242'
-        },
         textcell:{
             whiteSpace: 'nowarp',
             overflow: 'hidden'
+        },
+        sorter: {
+            color: "#0057A7",
+            textDecoration: "underline",
+            cursor: "pointer"
         }
 
         })
@@ -71,16 +77,16 @@ const fType = (e) => {
 const langFlag = (language) =>{
     switch(language){
         case 'Türkisch':
-            return 'TurkeyFlag'
+            return Turkish
         case 'Deutsch':
-            return 'GermanFlag'
+            return German
         case 'Englisch':
-            return 'EnglishFlag'
+            return English
         case 'Niederländisch':
-            return 'DutchFlag'
+            return Dutch
 
         default:
-            return 'undefined'
+            return ''
 
     }
 }
@@ -103,50 +109,31 @@ const Courses = (props) => {
         {id:'Language', numeric: false, align: "center"},
     ]
     return(
+            <Grid container spacing={1} direction="row" alignItems="stretch" justify="center">
+                <Grid item xs={12}>
+                    <Paper elevation={6} style={{padding: 24}}>
+                        <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly">
+                            <Grid item xs={1} className={classes.sorter} onClick={() => sort("Credits")}>Credits</Grid>
+                            <Grid item xs={1} className={classes.sorter} onClick={() => sort("SWS")}>Workload</Grid>
+                            <Grid item xs={6} className={classes.sorter} onClick={() => sort("Title")}>Title</Grid>
+                            <Grid item xs={2} className={classes.sorter} onClick={() => sort("Location")}>Location</Grid>
+                            <Grid item xs={1} className={classes.sorter} onClick={() => sort("Language")}>Language</Grid>
+                            <Grid item xs={1}></Grid>
+                        </Grid>
+                    </Paper>
+                </Grid>
 
-                        <TableContainer>
-                            <Table stickyHeader className={classes.table}>
-
-                                <TableHead component={Paper} >
-                                    <TableRow >
-                                        <TableCell/>
-                                        <TableCell align="center">
-                                            <TableSortLabel onClick={() => sort("Credits")} hideSortIcon>credits
-                                                </TableSortLabel>
-                                                </TableCell>
-                                        <TableCell align="center">
-                                            <TableSortLabel onClick={() => sort("SWS")} hideSortIcon>Time Commitment
-                                                    </TableSortLabel>
-                                            </TableCell>
-                                        <TableCell align="left">
-                                            <TableSortLabel onClick={() => sort("Title")} hideSortIcon>Title
-                                                    </TableSortLabel></TableCell>
-                                        <TableCell align="center">
-                                            <TableSortLabel onClick={() => sort("Location")} hideSortIcon>Location
-                                                    </TableSortLabel></TableCell>
-                                        <TableCell align="center">
-                                            <TableSortLabel onClick={() => sort("Language")} hideSortIcon>Language</TableSortLabel>
-                                                    </TableCell>
-                                        <TableCell/>
-                                    </TableRow>
-                                </TableHead>
-
-                                <TableBody>
-                                    {
-                                        //Only display the courses that are not contained within the selectedList
-                                        list.filter(c => !selectedList.map(s => s.Title).includes(c.Title)).map( entry => {
-
-                                            return(<Course component={Paper} key={entry.Link} {...entry} handleSel={handleSel} booked={booked} classes={classes}/>)
-
-                                        })
-                                    }
-                                </TableBody>
-                            </Table>
-
-                        </TableContainer>
-
-
-
+                {
+                    //Only display the courses that are not contained within the selectedList
+                    list.filter(c => !selectedList.map(s => s.Title).includes(c.Title)).map( entry => {
+                        return(
+                            <Grid item xs={12}>
+                                <Course component={Paper} key={entry.Link} {...entry} handleSel={handleSel} booked={booked} classes={classes}/>
+                            </Grid>
+                        )
+                    })
+                }
+            </Grid>
     )
 
 }
@@ -253,73 +240,41 @@ const Course = (props) => {
 
     const classes = props.classes
         return (
-        <React.Fragment component={Paper} className={classes.course}>
 
-            <TableRow >
-                    <TableCell>
-                        <IconButton  onClick={() => handleSel(Title)}>
-                            <AddIcon color="action"  />
-                        </IconButton> </TableCell>
-                    <TableCell align="center" onClick={() => toggle(!isOpen)}> {Credits + " Cr."}</TableCell>
-                    <TableCell align="center" onClick={() => toggle(!isOpen)} >{timeCom != 0? timeCom + " hrs." : "-"}</TableCell>
-                    <TableCell align="left"  onClick={() => toggle(!isOpen)}>{Title}</TableCell>
-                    <TableCell align="center" onClick={() => toggle(!isOpen)} >{Location.split(";").join()}</TableCell>
-                    <TableCell align="center" onClick={() => toggle(!isOpen)} >{langFlag(Language)} </TableCell>
-                    <TableCell>{
-                    <Icon aria-label="expand row" size='inherit'  onClick={() => toggle(!isOpen)} >
-                    {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                    </Icon>
-                    }</TableCell>
-            </TableRow>
+            <Paper elevation={3} style={{padding: "3px 24px", position: "relative"}}>
+                <div class="select-icon"><IconButton  onClick={() => handleSel(Title)}><AddIcon color="action"/></IconButton></div>
+                <Grid item xs={12}>
+                    <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly">
+                        <Grid item xs={1} onClick={() => toggle(!isOpen)}>{Credits + " Cr."}</Grid>
+                        <Grid item xs={1} onClick={() => toggle(!isOpen)}>{timeCom != 0? timeCom + " hrs." : "-"}</Grid>
+                        <Grid item xs={6} onClick={() => toggle(!isOpen)}>{Title}</Grid>
+                        <Grid item xs={2} onClick={() => toggle(!isOpen)}>{(Location.split(";").length > 1) ? "various" : Location}</Grid>
+                        <Grid item xs={1} onClick={() => toggle(!isOpen)}><img src={langFlag(Language)}/></Grid>
+                        <Grid item xs={1}><div class="expand-icon"><Icon aria-label="expand row" onClick={() => toggle(!isOpen)}>{isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</Icon></div></Grid>
+                    </Grid>
+                </Grid>
 
-
-            <TableRow >
-                <TableCell style={{ paddingBottom: 0, paddingTop: 2 }} colSpan={7} >
-                    <Collapse in={isOpen} timeout="auto" unmountOnExit>
-                        <Box margin={1}>
-                            <Grid container wrap='nowrap' spacing ={3}>
-
-                                <Grid item>
-                                    <Schedule schedule={schedule} booked={booked}/>
-                                </Grid>
-
-
-                                <Grid item >
-
-                                    <List>
-                                        {
-                                        //<Schedule day={}> TODO
-                                        schedule.split(";").map(e =>
-                                            (<ListItemText>{e}</ListItemText>))
-                                            }
-                                    </List>
-
-                                </Grid>
-                                <Grid item xs>
-                                    <Typography >
-                                        <List>
-                                            <ListItemText align="left">Location: {Location.split(";").join("/")}</ListItemText>
-                                            <ListItemText align="left">Language: {Language}</ListItemText>
-                                            <ListItemText align="left">Course Type: {Type.split(";").map(e => fType(e)).join()}</ListItemText>
-                                            <ListItemText align="left">Credits: {Credits}</ListItemText>
-                                            <ListItemText align="left">Exam type: {Exam.split(";").map(e => ExamType(e)).join()}</ListItemText>
-
-                                            <ListItem>
-                                                <Link href={link} >
-                                                    visit the course page
-                                                    </Link>
-                                            </ListItem>
-
-                                        </List>
-
-                                    </Typography>
-                                </Grid>
+                <Collapse in={isOpen} timeout="auto" unmountOnExit>
+                    <Grid item xs={12} style={{padding: 24}}>
+                        <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly">
+                            <Grid item xs={3}>&nbsp;</Grid>
+                            <Grid item xs={3}><Schedule schedule={schedule} booked={booked}/></Grid>
+                            <Grid item xs={3}>
+                                <div class="info-table">
+                                    <table>
+                                        <tr><th>Location:</th><td>{Location.split(";").join(", ")}</td></tr>
+                                        <tr><th>Language:</th><td>{Language}</td></tr><br></br>
+                                        <tr><th>Course Type:</th><td>{Type.split(";").map(e => fType(e)).join(", ")}</td></tr><br></br>
+                                        <tr><th>Credits:</th><td>{Credits}</td></tr>
+                                        <tr><th>Exam Type:</th><td>{Exam.split(";").map(e => ExamType(e)).join(", ")}</td></tr>
+                                    </table><br></br>
+                                    <a href={link} target="_blank">visit the course page</a>
+                                </div>
                             </Grid>
-                            </Box>
-                    </Collapse>
-                </TableCell>
-            </TableRow>
-        </React.Fragment>
+                        </Grid>
+                    </Grid>
+                </Collapse>
+            </Paper>
     )}
 
     export default Courses;
