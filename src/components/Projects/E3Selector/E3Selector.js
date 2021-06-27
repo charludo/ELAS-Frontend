@@ -251,7 +251,7 @@ export default function E3Selector() {
 
                             {/*Course Table*/}
                             <Grid item xs={12}>
-                                <Catalog action={reflectFilter}/>
+                                <Catalog action={reflectFilter} initial={filterState.search}/>
                             </Grid>
                             <Grid item xs={8}>
                                 <Courses list={courseData} sort={reflectSort} selectedList={selectedList} handleSel={handleSel}/>

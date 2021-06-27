@@ -191,7 +191,7 @@ export function Catalog(props) {
                 ]}
                 />
             <SearchBar
-                value={""}
+                value={props.initial}
                 onChange={(newValue) => props.action("search", newValue)}
                 onCancelSearch={() => props.action("search", "")}
                 />
