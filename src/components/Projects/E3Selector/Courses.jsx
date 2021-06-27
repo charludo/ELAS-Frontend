@@ -93,6 +93,7 @@ const Courses = (props) => {
     const selectedList = props.selectedList
     const classes = useStyles()
     const sort = props.sort
+    const booked = props.booked
 
     const headCells = [
         {id:'credits', numeric: true, align: "center"},
@@ -135,7 +136,7 @@ const Courses = (props) => {
                                         //Only display the courses that are not contained within the selectedList
                                         list.filter(c => !selectedList.map(s => s.Title).includes(c.Title)).map( entry => {
 
-                                            return(<Course component={Paper} key={entry.Link} {...entry} handleSel={handleSel} classes={classes}/>)
+                                            return(<Course component={Paper} key={entry.Link} {...entry} handleSel={handleSel} booked={booked} classes={classes}/>)
 
                                         })
                                     }
@@ -156,7 +157,7 @@ const SelectedCourses = (props) => {
     }else{
     return(
         props.selectedList.map( c =>
-            (<SelectedCourse key ={c.Link} {...c} handleSel={props.handleSel}/>))
+            (<SelectedCourse key ={c.Link} {...c} booked={props.booked} overBooked={props.overBooked} handleSel={props.handleSel}/>))
     )
 }}
 const SelectedCourse = (props) =>{
@@ -170,7 +171,9 @@ const SelectedCourse = (props) =>{
         Times_manual :schedule,
         Exam,
         handleSel,
-        Link:link
+        Link:link,
+        booked,
+        overBooked
         } = props
 
     const [isOpen, toggle] = useState(false)
@@ -193,7 +196,7 @@ const SelectedCourse = (props) =>{
                             <Grid container wrap='nowrap' spacing ={3}>
 
                                 <Grid item>
-                                    <Schedule schedule={schedule}/>
+                                    <Schedule schedule={schedule} booked={booked} overBooked={overBooked}/>
                                 </Grid>
 
 
@@ -243,7 +246,8 @@ const Course = (props) => {
         Times_manual :schedule,
         Exam,
         Link:link,
-        handleSel
+        handleSel,
+        booked
         } = props
     const [isOpen, toggle] = useState(false)
 
@@ -276,7 +280,7 @@ const Course = (props) => {
                             <Grid container wrap='nowrap' spacing ={3}>
 
                                 <Grid item>
-                                    <Schedule schedule={schedule}/>
+                                    <Schedule schedule={schedule} booked={booked}/>
                                 </Grid>
 
 

@@ -146,7 +146,8 @@ export default function E3Selector() {
     const [selectedCredits, setSelectedCredits] = useState();
     const [workload, setWorkload] = useState();
     const [conflicts, setConflicts] = useState();
-    const [overlappings, setOverlappings] = useState();
+    const [booked, setBooked] = useState();
+    const [overBooked, setOverBooked] = useState();
     const [creditsStatus, setCreditsStatus] = useState();
     const populateOverview = () => {
         var minCount = 0;
@@ -172,7 +173,8 @@ export default function E3Selector() {
 
         });
 
-        booked = Object.keys(booked).map((k, i) => (booked[k] > 1) ? k : null).filter(b => b);
+        let booked_slot = Object.keys(booked).map((k, i) => k);
+        let overlappings = Object.keys(booked).map((k, i) => (booked[k] > 1) ? k : null).filter(b => b);
 
         let wanted = filterState.credits;
         if (minCount == wanted || maxCount == wanted) {
@@ -184,8 +186,9 @@ export default function E3Selector() {
         }
 
         setSelectedCredits((minCount === maxCount) ? minCount : minCount + "-" + maxCount);
-        setConflicts(booked.length ? true : false);
-        setOverlappings(booked);
+        setConflicts(overlappings.length ? true : false);
+        setBooked(booked_slot);
+        setOverBooked(overlappings);
         setWorkload(sws);
         setCreditsStatus(status);
     }
@@ -260,7 +263,7 @@ export default function E3Selector() {
                         <Grid container spacing={3} direction="row" alignItems="stretch" justify="center" style={{marginTop: "40px"}}>
                             <Grid item xs={5}>
                                 <Paper className={classes.paperSelected} elevation={2}>
-                                    <SelectedCourses selectedList={selectedList} handleSel={handleSel}/>
+                                    <SelectedCourses selectedList={selectedList} handleSel={handleSel} booked={booked} overBooked={overBooked}/>
                                 </Paper></Grid>
                             <Grid item xs={3}>
                               <Paper className={classes.paper} elevation={2}>
@@ -273,7 +276,7 @@ export default function E3Selector() {
                                 <Catalog action={reflectFilter} initial={filterState.search}/>
                             </Grid>
                             <Grid item xs={8}>
-                                <Courses list={courseData} sort={reflectSort} selectedList={selectedList} handleSel={handleSel}/>
+                                <Courses list={courseData} sort={reflectSort} selectedList={selectedList} booked={booked} handleSel={handleSel}/>
                             </Grid>
                         </Grid>
                     </div>
