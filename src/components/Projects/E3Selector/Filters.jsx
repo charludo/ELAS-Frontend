@@ -30,14 +30,15 @@ const backgroundStyles = makeStyles({
 export default function Filters(props) {
     const classes = backgroundStyles();
     return (
-      <Grid container direction="row" justify="space-evenly" alignItems="flex-start">
-        <TimeTable action={props.action} />
+      <Grid container direction="row" justify="space-evenly" alignItems="flex-start" spacing="6">
+        <TimeTable action={props.action} filterState={props.filterState}/>
         <FilterGroup
             action={props.action}
             groupLabel={"Location"}
             filters={[
                 {
                     label: "Essen",
+                    checked: props.filterState.locales.Essen,
                     arguments: [
                         ["locales", "Essen"],
                         ["locales", "Essen (UKE)"]
@@ -45,6 +46,7 @@ export default function Filters(props) {
                 },
                 {
                     label: "Duisburg",
+                    checked: props.filterState.locales.Duisburg,
                     arguments: [
                         ["locales", "Duisburg"],
                         ["locales", "Duisburg (B)"],
@@ -53,10 +55,12 @@ export default function Filters(props) {
                 },
                 {
                     label: "Bochum",
+                    checked: props.filterState.locales.Bochum,
                     arguments: [["locales", "Bochum"]]
                 },
                 {
                     label: "Dortmund",
+                    checked: props.filterState.locales.Dortmund,
                     arguments: [["locales", "Dortmund"]]
                 },
             ]}
@@ -67,14 +71,17 @@ export default function Filters(props) {
             filters={[
                 {
                     label: "Written",
+                    checked: props.filterState.exam["Klausur"],
                     arguments: [["exam", "Klausur"]]
                 },
                 {
                     label: "Oral",
+                    checked: props.filterState.exam["Mündliche Prüfung"],
                     arguments: [["exam", "Mündliche Prüfung"]]
                 },
                 {
                     label: "Essay",
+                    checked: props.filterState.exam["Essay"],
                     arguments: [
                         ["exam", "Essay"],
                         ["exam", "Schriftliche Ausarbeitung"]
@@ -82,6 +89,7 @@ export default function Filters(props) {
                 },
                 {
                     label: "Presentation",
+                    checked: props.filterState.exam["Präsentation"],
                     arguments: [["exam", "Präsentation"]]
                 },
             ]}
@@ -92,18 +100,22 @@ export default function Filters(props) {
             filters={[
                 {
                     label: "German",
+                    checked: props.filterState.languages["Deutsch"],
                     arguments: [["languages", "Deutsch"]]
                 },
                 {
                     label: "English",
+                    checked: props.filterState.languages["Englisch"],
                     arguments: [["languages", "Englisch"]]
                 },
                 {
                     label: "Turkish",
+                    checked: props.filterState.languages["Türkisch"],
                     arguments: [["languages", "Türkisch"]]
                 },
                 {
                     label: "Dutch",
+                    checked: props.filterState.languages["Niederländisch"],
                     arguments: [["languages", "Niederländisch"]]
                 },
             ]}
@@ -114,32 +126,37 @@ export default function Filters(props) {
             filters={[
                 {
                     label: "Lecture + Exercise",
+                    checked: props.filterState.courseType["VL/Übung"],
                     arguments: [["courseType", "VL/Übung"]],
                     classes: classes.lecEx
                 },
                 {
                     label: "Lecture",
+                    checked: props.filterState.courseType["Vorlesung"],
                     arguments: [["courseType", "Vorlesung"]],
                     classes: classes.lecture
                 },
                 {
                     label: "Seminar",
+                    checked: props.filterState.courseType["Seminar"],
                     arguments: [["courseType", "Seminar"]],
                     classes: classes.seminar
                 },
                 {
                     label: "Blocked Seminar",
+                    checked: props.filterState.courseType["Blockseminar"],
                     arguments: [["courseType", "Blockseminar"]],
                     classes: classes.block
                 },
                 {
                     label: "E-Learning",
+                    checked: props.filterState.courseType["E-Learning"],
                     arguments: [["courseType", "E-Learning"]],
                     classes: classes.elearn
                 },
             ]}
         />
-    <Credits action={props.action}/>
+    <Credits action={props.action} filterState={props.filterState}/>
     </Grid>
   );
 }

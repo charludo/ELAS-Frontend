@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
 import Slide from '@material-ui/core/Slide';
+import Zoom from '@material-ui/core/Zoom';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
@@ -15,7 +16,7 @@ import "./App.sass";
 import Filters, { Catalog } from "./Filters";
 import Courses from "./Courses";
 import Popup from "./Popup";
-import getFilteredData, { setStudyProgram, updateFilters, sortCourses } from "./data.js";
+import getFilteredData, { setStudyProgram, updateFilters, sortCourses, filterState } from "./data.js";
 import Filtersnew from "./Filtersnew";
 import {Grid} from '@material-ui/core';
 import {CButton} from "./Components/Components.js"
@@ -52,16 +53,32 @@ const useStyles = makeStyles((theme) => ({
   },
   prePaper: {
     padding: "40px",
-    borderRadius: "24px"
+    borderRadius: "24px",
+    position: "relative"
   },
   searchButton: {
     transform: "translateY(-50%)",
     padding: "12px 16px"
   },
+  moreFiltersButton: {
+    textDecoration: "underline",
+    cursor: "pointer",
+    position: "absolute",
+    right: 0,
+    bottom: -40
+  },
+  initialFilters: {
+      marginTop: "24px",
+  },
+  initialFiltersHidden: {
+      height: "0",
+      width: "0",
+      overflow: "hidden",
+  },
   h1: {
     fontSize: "3rem",
     marginBottom: 0
-  }
+  },
 }));
 
 const studyPrograms = [
@@ -109,6 +126,11 @@ export default function E3Selector() {
       updateCourseData();
     }
 
+    const [moreInitialFilters, openInitialFilters] = React.useState(false);
+    const changeInitialFiltersDisplayed = () => {
+      openInitialFilters((prev) => !prev);
+    };
+
     const [filtersDisplayed, setFiltersDisplayed] = React.useState(false);
     const changeFiltersDisplayed = () => {
       setFiltersDisplayed((prev) => !prev);
@@ -126,12 +148,18 @@ export default function E3Selector() {
                     <div className={classes.preselect}>
                         <h1 className={classes.h1}>E3 Selector</h1>
                         <Paper className={classes.prePaper} elevation={6}>
-                            <Autocomplete
-                              id="studyprogram"
-                              options={studyPrograms}
-                              style={{ width: 350 }}
-                              renderInput={(params) => <TextField {...params} label="Study Program" variant="outlined" />}
-                            />
+                            <Grid container direction="column" justify="flex-start" alignItems="center">
+                                <Autocomplete
+                                    id="studyprogram"
+                                    options={studyPrograms}
+                                    style={{ width: 350 }}
+                                    renderInput={(params) => <TextField {...params} label="Study Program" variant="outlined" />}
+                                    />
+                                <div className={moreInitialFilters ? classes.initialFilters : classes.initialFiltersHidden}>
+                                    <Filters action={reflectFilter} filterState={filterState}/>
+                                </div>
+                            </Grid>
+                            <p className={classes.moreFiltersButton} moreInitialFilters={moreInitialFilters} onClick={changeInitialFiltersDisplayed}>{moreInitialFilters ? "- show less" : "+ more options"}</p>
                         </Paper>
                         <CButton classes={classes.searchButton} radius={24} action={selectStudyProgram}><SearchIcon/> Search</CButton>
                     </div>
@@ -143,7 +171,7 @@ export default function E3Selector() {
                         {/*Filters*/}
                         <Collapse in={filtersDisplayed}>
                             <Paper elevation={3} style={{paddingTop: "40px"}}>
-                                <Filters action={reflectFilter}/><br></br>
+                                <Filters action={reflectFilter} filterState={filterState}/><br></br>
                             </Paper>
                         </Collapse>
                         <Box display="flex" justifyContent="center" alignItems="center">

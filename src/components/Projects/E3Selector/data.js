@@ -7,7 +7,7 @@ let sortState = {
 	direction: 1
 };
 
-let filterState = {
+export var filterState = {
 	"Ausgeschlossen_Ingenieurwissenschaften_Bachelor": {
 		"Angewandte Informatik": true,
 		"Bauingenieurwesen": true,
@@ -216,5 +216,3 @@ function applyFilters() {
 export default function getFilteredData() {
 	return applyFilters();
 }
-
-
