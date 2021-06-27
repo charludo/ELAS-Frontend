@@ -23,6 +23,7 @@ import {CButton} from "./Components/Components.js"
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { SelectedCourses } from "./Courses";
+import { useParams } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -101,7 +102,14 @@ const studyPrograms = [
 ];
 
 export default function E3Selector() {
-    const [courseData, setCourseData] = useState(getFilteredData());
+    const shared = new URLSearchParams(window.location.search).get("shared");
+    console.log(shared);
+
+    const [courseData, setCourseData] = useState(() => {
+        let selected = JSON.parse(localStorage.getItem("e3selected")).map(s => s.Title) || [];
+        console.log(getFilteredData().filter(e => selected.includes(e.Title)));
+        return getFilteredData().filter(e => !selected.includes(e.Title));
+    });
     const updateCourseData = () => {
       setCourseData(getFilteredData());
     };
@@ -109,7 +117,6 @@ export default function E3Selector() {
     const [studyProgramSelected, setStudyProgramSelected] = useState(() => {
         let selected = false;
         Object.keys(filterState.Ausgeschlossen_Ingenieurwissenschaften_Bachelor).forEach((excluded, e) => {
-            console.log(excluded, filterState.Ausgeschlossen_Ingenieurwissenschaften_Bachelor[excluded]);
             if (!excluded.includes("ALLE") && filterState.Ausgeschlossen_Ingenieurwissenschaften_Bachelor[excluded] === false) {
                 selected = true;
             }
