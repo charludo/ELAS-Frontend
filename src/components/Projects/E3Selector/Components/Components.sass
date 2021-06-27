@@ -27,3 +27,61 @@
 
 	&.vertical-checked
 		color: #0057A7
+
+#overview
+	padding: 0 40px
+	h1
+		font-size: 96px
+		font-weight: 500
+		color: #333
+		display: inline-block
+		position: relative
+		margin: 0
+
+		&:before, &:after
+			position: absolute
+			left: calc(100% + 4px)
+			line-height: 16px
+			letter-spacing: 1.25px
+
+		&:before
+			top: 28px
+			color: #00000060
+			font-size: 18px
+
+		&:after
+			bottom: 41px
+			font-size: 36px
+
+	h1.on-ok
+			color: #27AE60
+
+	h1.on-warn
+			color: #F2994A
+
+	#overview-credit-count:before
+		content: "credits\Aselected"
+
+	#overview-workload-count
+		&:before
+			content: "weekly\Aworkload"
+
+		&:after
+			content: "hrs"
+
+	.overview-notification
+		display: flex
+		align-items: center
+
+		font-weight: 500
+		font-size: 18px
+		color: #00000060
+
+		svg
+			margin: -2px 4px 0 0
+
+	.on-ok svg
+		color: #27AE60
+
+	.on-warn svg
+		color: #F2994A

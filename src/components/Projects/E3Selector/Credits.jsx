@@ -23,7 +23,7 @@ const Credits = (props) => {
         <Grid item>
             <TextField
                 label="E3 Credits needed:"
-                defaultValue="6"
+                defaultValue={props.filterState.credits}
                 type="number"
                 InputProps={{
                     shrink: true,
