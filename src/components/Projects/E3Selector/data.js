@@ -7,7 +7,7 @@ let sortState = {
 	direction: 1
 };
 
-export var filterState = {
+export var filterState = JSON.parse(localStorage.getItem("e3filters")) || {
 	"Ausgeschlossen_Ingenieurwissenschaften_Bachelor": {
 		"Angewandte Informatik": true,
 		"Bauingenieurwesen": true,

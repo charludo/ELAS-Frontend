@@ -79,6 +79,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "3rem",
     marginBottom: 0
   },
+  reset: {
+      textDecoration: "underline",
+      cursor: "pointer",
+      float: "right",
+      marginTop: -36,
+      marginRight: 18
+  }
 }));
 
 const studyPrograms = [
@@ -99,12 +106,23 @@ export default function E3Selector() {
       setCourseData(getFilteredData());
     };
 
-    const [studyProgramSelected, setStudyProgramSelected] = useState(false);
+    const [studyProgramSelected, setStudyProgramSelected] = useState(() => {
+        let selected = false;
+        Object.keys(filterState.Ausgeschlossen_Ingenieurwissenschaften_Bachelor).forEach((excluded, e) => {
+            console.log(excluded, filterState.Ausgeschlossen_Ingenieurwissenschaften_Bachelor[excluded]);
+            if (!excluded.includes("ALLE") && filterState.Ausgeschlossen_Ingenieurwissenschaften_Bachelor[excluded] === false) {
+                selected = true;
+            }
+        });
+        return selected;
+
+    });
     const selectStudyProgram = () => {
         let selected = document.getElementById('studyprogram').value;
         if (studyPrograms.includes(selected)) {
             setStudyProgram(selected);
             setStudyProgramSelected(true);
+            localStorage.setItem("e3filters", JSON.stringify(filterState));
         }
     }
     const [selectedList, setselectedList] = useState([])
@@ -157,11 +175,13 @@ export default function E3Selector() {
     const reflectFilter = (family, item) => {
       updateFilters(family, item);
       updateCourseData();
+      localStorage.setItem("e3filters", JSON.stringify(filterState));
     };
 
     const reflectSort = (key) => {
       sortCourses(key);
       updateCourseData();
+      localStorage.setItem("e3filters", JSON.stringify(filterState));
     }
 
     const [moreInitialFilters, openInitialFilters] = React.useState(false);
@@ -210,11 +230,11 @@ export default function E3Selector() {
                         <Collapse in={filtersDisplayed}>
                             <Paper elevation={3} style={{paddingTop: "40px"}}>
                                 <Filters action={reflectFilter} filterState={filterState}/><br></br>
+                                <p className={classes.reset} onClick={() => {localStorage.removeItem("e3filters"); window.location.reload()}}>reset all filters</p>
                             </Paper>
                         </Collapse>
                         <Box display="flex" justifyContent="center" alignItems="center">
                             <CButton filtersDisplayed={filtersDisplayed} action={changeFiltersDisplayed}>{filtersDisplayed ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />} Filters</CButton>
-                            <CButton action={() => reflectSort("Title")}>Sort</CButton>
                         </Box>
 
                         {/*Main Grid*/}
