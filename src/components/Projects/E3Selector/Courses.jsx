@@ -23,6 +23,7 @@ import Turkish from "./res/Turkish.png";
 import Dutch from "./res/Dutch.png";
 import RemoveIcon from '@material-ui/icons/Remove';
 import { theme } from "./theme";
+import RChart from "./Chart.jsx";
 
 
 const useStyles = makeStyles((theme)=>({
@@ -211,7 +212,14 @@ const Course = (props) => {
         handleSel,
         booked,
         overBooked,
-        selected
+        selected,
+        fairness,
+        support,
+        material,
+        comprehensibility,
+        fun,
+        interesting,
+        grade_effort: gradefort
         } = props
     const [isOpen, toggle] = useState(false)
 
@@ -235,7 +243,7 @@ const Course = (props) => {
                     <hr class="hr-lighter"></hr>
                     <Grid item xs={12} style={{padding: 24}}>
                         <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly">
-                            <Grid item xs={selected ? 4 : 3}>&nbsp;</Grid>
+                            <Grid item xs={selected ? 4 : 3}><RChart fairness={fairness} support={support} material={material} comprehensibility={comprehensibility} fun={fun} interesting={interesting} gradefort={gradefort}/></Grid>
                             <Grid item xs={selected ? 4 : 3}><Schedule schedule={schedule} booked={booked} overBooked={overBooked}/></Grid>
                             <Grid item xs={selected ? 4 : 3}>
                                 <div class="info-table">

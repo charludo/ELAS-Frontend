@@ -14,7 +14,6 @@ import Box from "@material-ui/core/Box";
 import { theme } from "./theme";
 import "./App.sass";
 import Filters, { Catalog } from "./Filters";
-import Chart from "./Chart";
 import Courses from "./Courses";
 import Overview from "./Components/Overview.jsx";
 import getFilteredData, { setStudyProgram, updateFilters, sortCourses, filterState } from "./data.js";
@@ -28,7 +27,6 @@ import { useParams } from 'react-router-dom'
 import ShareIcon from '@material-ui/icons/Share';
 import Fab from '@material-ui/core/Fab';
 import Modal from '@material-ui/core/Modal';
-import "./App.sass";
 import { EmailShareButton, EmailIcon, TelegramShareButton, TelegramIcon, WhatsappShareButton, WhatsappIcon} from "react-share";
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 
@@ -332,8 +330,6 @@ export default function E3Selector() {
                                 <Overview selectedList={selectedList} selectedCredits={selectedCredits} conflicts={conflicts} workload={workload} creditsStatus={creditsStatus}/>
                               </Paper>
                             </Grid>
-
-                            <Chart/>
 
                             {/*Course Table*/}
                             <Grid item xs={12}>

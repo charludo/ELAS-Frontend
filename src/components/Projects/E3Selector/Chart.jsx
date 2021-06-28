@@ -3,71 +3,53 @@ import React from "react";
 import RadarChart from "react-svg-radar-chart";
 import "react-svg-radar-chart/build/css/index.css";
 
-class App extends React.Component {
-  render() {
+export default function RChart(props) {
+    const courseData = {
+        fairness: parseInt(props.fairness)/5 || 0,
+        support: parseInt(props.support)/5 || 0,
+        material: parseInt(props.material)/5 || 0,
+        comprehensibility: parseInt(props.comprehensibility)/5 || 0,
+        fun: parseInt(props.fun)/5 || 0,
+        interesting: parseInt(props.interesting)/5 || 0,
+        gradefort: parseInt(props.gradefort)/5 || 0
+    }
     const data = [
       {
         data: {
-            Fun: 0.7,
-            Difficulty: 0.8,
-            Help: 0.9,
-            interest: 0.67,
-            Gradings: 0.8,
+            fairness: 4.05/5,
+            support: 3.91/5,
+            material: 3.77/5,
+            comprehensibility: 4.02/5,
+            fun: 3.67/5,
+            interesting: 3.83/5,
+            gradefort: 4.07/5
         },
-        meta: { color: "blue" },
+        meta: { color: "#C0C0C0" },
       },
       {
-        data: {
-          Fun: 0.6,
-          Difficulty: 0.85,
-          Help: 0.5,
-          interest: 0.6,
-          Gradings: 0.7,
-        },
-        meta: { color: "red" },
+        data: courseData,
+        meta: { color: "#F2994A" },
       },
     ];
 
     const captions = {
       // columns
-      Fun: "Fun",
-      Difficulty: "comprehension",
-      Help: "Support",
-      interest: "Interesting",
-      Gradings: "Grade/Effort",
+      fairness: "Fairness",
+      support: "Support",
+      material: "Material",
+      comprehensibility: "Conprehensibility",
+      fun: "Fun",
+      interesting: "Interesting",
+      gradefort: "Grade/Effort",
     };
 
     return (
       <div>
         <RadarChart
-          captions={{
-            // columns
-            Fun: "Fun",
-            Difficulty: "comprehension",
-            Help: "Support",
-            interest: "Interesting",
-            Gradings: "Grade/Effort",
-          }}
-          data={[
-            // data
-            {
-              data: {
-                Fun: 0.7,
-                Difficulty: 0.8,
-                Help: 0.9,
-                interest: 0.67,
-                Gradings: 0.8,
-              },
-              meta: { color: "#58FCEC" },
-
-            
-            },
-          ]}
-          size={400}
+          captions={captions}
+          data={data}
+          size={300}
         />
       </div>
     );
-  }
 }
-
-export default App;
