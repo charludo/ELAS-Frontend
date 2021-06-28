@@ -37,14 +37,6 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "240px",
     color: theme.palette.text.secondary,
   },
-  paperSelected: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: "240px",
-    color: theme.palette.text.secondary
-  },
   preselect: {
     display: "flex",
     flexDirection: "column",
@@ -262,9 +254,8 @@ export default function E3Selector() {
                         {/*Main Grid*/}
                         <Grid container spacing={3} direction="row" alignItems="stretch" justify="center" style={{marginTop: "40px"}}>
                             <Grid item xs={5}>
-                                <Paper className={classes.paperSelected} elevation={2}>
-                                    <SelectedCourses selectedList={selectedList} handleSel={handleSel} booked={booked} overBooked={overBooked}/>
-                                </Paper></Grid>
+                                <SelectedCourses selectedList={selectedList} handleSel={handleSel} booked={booked} overBooked={overBooked}/>
+                            </Grid>
                             <Grid item xs={3}>
                               <Paper className={classes.paper} elevation={2}>
                                 <Overview selectedList={selectedList} selectedCredits={selectedCredits} conflicts={conflicts} workload={workload} creditsStatus={creditsStatus}/>

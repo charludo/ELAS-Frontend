@@ -21,12 +21,22 @@ import German from "./res/German.png";
 import English from "./res/English.png";
 import Turkish from "./res/Turkish.png";
 import Dutch from "./res/Dutch.png";
+import RemoveIcon from '@material-ui/icons/Remove';
+import { theme } from "./theme";
 
 
 const useStyles = makeStyles((theme)=>({
         selected: {
             maxWidth: '50%',
             maxHeight: '30%'
+        },
+        paperSelected: {
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "240px",
+          color: theme.palette.text.secondary
         },
         table: {
             maxWidth: '95%',
@@ -51,6 +61,27 @@ const useStyles = makeStyles((theme)=>({
             color: "#0057A7",
             textDecoration: "underline",
             cursor: "pointer"
+        },
+        emphasis: {
+            fontWeight: 500,
+            fontSize: 16,
+            letterSpacing: "1.25px",
+            color: "#000000"
+        },
+        lecEx: {
+            borderLeft: "13px solid #90EE90"
+        },
+        lecture: {
+            borderLeft: "13px solid #B0E0E6"
+        },
+        seminar: {
+            borderLeft: "13px solid  #FFDAB9"
+        },
+        block: {
+            borderLeft: "13px solid  #FA8072"
+        },
+        elearn: {
+            borderLeft: "13px solid #D8BFD8"
         }
 
         })
@@ -91,6 +122,16 @@ const langFlag = (language) =>{
     }
 }
 
+const borderSelect = (type) => {
+    switch(type) {
+        case "VL/Übung": return "lecEx";
+        case "Vorlesung": return "lecture";
+        case "Blockseminar": return "block";
+        case "Seminar": return "seminar";
+        case "E-Learning": return "elearn";
+    }
+}
+
 
 const Courses = (props) => {
     //const [list, setList] = useState(props.list)
@@ -101,13 +142,6 @@ const Courses = (props) => {
     const sort = props.sort
     const booked = props.booked
 
-    const headCells = [
-        {id:'credits', numeric: true, align: "center"},
-        {id:'Time Commitment', numeric: true, align: "center"},
-        {id:'Title', numeric: false, align: "left"},
-        {id:'Location', numeric: false, align: "center"},
-        {id:'Language', numeric: false, align: "center"},
-    ]
     return(
             <Grid container spacing={1} direction="row" alignItems="stretch" justify="center">
                 <Grid item xs={12}>
@@ -138,88 +172,29 @@ const Courses = (props) => {
 
 }
 const SelectedCourses = (props) => {
+    const classes = useStyles()
     if(!props.selectedList.length){
-
-        return("click + to add courses")
+        return(
+            <Paper className={classes.paperSelected} elevation={2}>
+                click + to add courses
+            </Paper>
+        );
     }else{
     return(
-        props.selectedList.map( c =>
-            (<SelectedCourse key ={c.Link} {...c} booked={props.booked} overBooked={props.overBooked} handleSel={props.handleSel}/>))
+        <Grid container spacing={1} direction="row" alignItems="stretch" justify="center">
+        {
+        props.selectedList.map( c => {
+            return (
+            <Grid item xs={12}>
+                <Course key ={c.Link} {...c} selected={true} booked={props.booked} overBooked={props.overBooked} handleSel={props.handleSel} classes={classes}/>
+            </Grid>
+            )
+        })
+        }
+        </Grid>
     )
 }}
-const SelectedCourse = (props) =>{
-    const {
-        Credits,
-        Title,
-        SWS: timeCom,
-        Location,
-        Type,
-        Language,
-        Times_manual :schedule,
-        Exam,
-        handleSel,
-        Link:link,
-        booked,
-        overBooked
-        } = props
 
-    const [isOpen, toggle] = useState(false)
-    return (
-        <>
-            <ListItem primary={Title}>
-                <ListItemIcon color="action">
-                    <IconButton   onClick ={() => handleSel(Title)}><DeleteIcon /></IconButton>
-                </ListItemIcon>
-                <div onClick={() => toggle(!isOpen)}>
-                    {Title}
-                </div>
-                <Icon aria-label="expand row" size='inherit'  onClick={() => toggle(!isOpen)} >
-                    {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-                    </Icon>
-
-            </ListItem>
-            <Collapse in={isOpen} timeout="auto" unmountOnExit>
-            <Box margin={1}>
-                            <Grid container wrap='nowrap' spacing ={3}>
-
-                                <Grid item>
-                                    <Schedule schedule={schedule} booked={booked} overBooked={overBooked}/>
-                                </Grid>
-
-
-                                <Grid item >
-
-                                    <List>
-                                        {
-                                        //<Schedule day={}> TODO
-                                        schedule.split(";").map(e =>
-                                            (<ListItemText>{e}</ListItemText>))
-                                            }
-                                    </List>
-
-                                </Grid>
-                                <Grid item xs>
-                                    <Typography >
-                                        <List>
-                                            <ListItemText align="left">Location: {Location.split(";").join("/")}</ListItemText>
-                                            <ListItemText align="left">Language: {Language}</ListItemText>
-                                            <ListItemText align="left">Course Type: {Type.split(";").map(e => fType(e)).join()}</ListItemText>
-                                            <ListItemText align="left">Credits: {Credits}</ListItemText>
-                                            <ListItemText align="left">Exam type: {Exam.split(";").map(e => ExamType(e)).join()}</ListItemText>
-                                            <ListItem>
-                                                <Link href={link} >
-                                                    visit the course page
-                                                    </Link>
-                                            </ListItem>
-                                        </List>
-                                    </Typography>
-                                </Grid>
-                            </Grid>
-                            </Box>
-            </Collapse>
-        </>
-    )
-}
 
 const Course = (props) => {
 
@@ -234,37 +209,40 @@ const Course = (props) => {
         Exam,
         Link:link,
         handleSel,
-        booked
+        booked,
+        overBooked,
+        selected
         } = props
     const [isOpen, toggle] = useState(false)
 
     const classes = props.classes
         return (
 
-            <Paper elevation={3} style={{padding: "3px 24px", position: "relative"}}>
-                <div class="select-icon"><IconButton  onClick={() => handleSel(Title)}><AddIcon color="action"/></IconButton></div>
+            <Paper elevation={3} style={{padding: "3px 24px", position: "relative"}} className={classes[borderSelect(Type.split(";")[0])]}>
+                <div class="select-icon"><IconButton  onClick={() => handleSel(Title)}>{selected ? <RemoveIcon/> : <AddIcon/>}</IconButton></div>
                 <Grid item xs={12}>
                     <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly">
-                        <Grid item xs={1} onClick={() => toggle(!isOpen)}>{Credits + " Cr."}</Grid>
-                        <Grid item xs={1} onClick={() => toggle(!isOpen)}>{timeCom != 0? timeCom + " hrs." : "-"}</Grid>
-                        <Grid item xs={6} onClick={() => toggle(!isOpen)}>{Title}</Grid>
-                        <Grid item xs={2} onClick={() => toggle(!isOpen)}>{(Location.split(";").length > 1) ? "various" : Location}</Grid>
-                        <Grid item xs={1} onClick={() => toggle(!isOpen)}><img src={langFlag(Language)}/></Grid>
-                        <Grid item xs={1}><div class="expand-icon"><Icon aria-label="expand row" onClick={() => toggle(!isOpen)}>{isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</Icon></div></Grid>
+                        <Grid item xs={1} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{Credits + " Cr."}</Grid>
+                        <Grid item xs={1} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{timeCom != 0? timeCom + " hrs." : "-"}</Grid>
+                        <Grid item xs={selected ? 7: 6} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{Title}</Grid>
+                        <Grid item xs={selected ? 1: 2} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{(Location.split(";").length > 1) ? selected ? "va" : "various" : selected ? Location.slice(0, 2) : Location}</Grid>
+                        <Grid item xs={1} className={classes.emphasis} onClick={() => toggle(!isOpen)}><img class="lang-flag" src={langFlag(Language)}/></Grid>
+                        <Grid item xs={1} className={classes.emphasis}><div class="expand-icon"><Icon aria-label="expand row" onClick={() => toggle(!isOpen)}>{isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</Icon></div></Grid>
                     </Grid>
                 </Grid>
 
                 <Collapse in={isOpen} timeout="auto" unmountOnExit>
+                    <hr class="hr-lighter"></hr>
                     <Grid item xs={12} style={{padding: 24}}>
                         <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly">
-                            <Grid item xs={3}>&nbsp;</Grid>
-                            <Grid item xs={3}><Schedule schedule={schedule} booked={booked}/></Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={selected ? 4 : 3}>&nbsp;</Grid>
+                            <Grid item xs={selected ? 4 : 3}><Schedule schedule={schedule} booked={booked} overBooked={overBooked}/></Grid>
+                            <Grid item xs={selected ? 4 : 3}>
                                 <div class="info-table">
                                     <table>
                                         <tr><th>Location:</th><td>{Location.split(";").join(", ")}</td></tr>
                                         <tr><th>Language:</th><td>{Language}</td></tr><br></br>
-                                        <tr><th>Course Type:</th><td>{Type.split(";").map(e => fType(e)).join(", ")}</td></tr><br></br>
+                                        <tr><th>Course Type:</th><td class={borderSelect(Type.split(";")[0])}>{Type.split(";").map(e => fType(e)).join(", ")}</td></tr><br></br>
                                         <tr><th>Credits:</th><td>{Credits}</td></tr>
                                         <tr><th>Exam Type:</th><td>{Exam.split(";").map(e => ExamType(e)).join(", ")}</td></tr>
                                     </table><br></br>
@@ -277,5 +255,5 @@ const Course = (props) => {
             </Paper>
     )}
 
-    export default Courses;
-    export {SelectedCourses};
+export default Courses;
+export {SelectedCourses};
