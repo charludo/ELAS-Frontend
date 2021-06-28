@@ -13,6 +13,7 @@ import Box from "@material-ui/core/Box";
 import { theme } from "./theme";
 import "./App.sass";
 import Filters, { Catalog } from "./Filters";
+import Chart from "./Chart";
 import Courses from "./Courses";
 import Popup from "./Popup";
 import getFilteredData, { setStudyProgram, updateFilters, sortCourses } from "./data.js";
@@ -162,6 +163,8 @@ export default function E3Selector() {
                                 <Popup />
                               </Paper>
                             </Grid>
+
+                            <Chart/>
 
                             {/*Course Table*/}
                             <Grid item xs={12}>
