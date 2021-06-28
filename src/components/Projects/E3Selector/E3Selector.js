@@ -14,6 +14,7 @@ import Box from "@material-ui/core/Box";
 import { theme } from "./theme";
 import "./App.sass";
 import Filters, { Catalog } from "./Filters";
+import Chart from "./Chart";
 import Courses from "./Courses";
 import Overview from "./Components/Overview.jsx";
 import getFilteredData, { setStudyProgram, updateFilters, sortCourses, filterState } from "./data.js";
@@ -331,6 +332,8 @@ export default function E3Selector() {
                                 <Overview selectedList={selectedList} selectedCredits={selectedCredits} conflicts={conflicts} workload={workload} creditsStatus={creditsStatus}/>
                               </Paper>
                             </Grid>
+
+                            <Chart/>
 
                             {/*Course Table*/}
                             <Grid item xs={12}>
