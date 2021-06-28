@@ -113,7 +113,18 @@ const studyPrograms = [
 
 export default function E3Selector() {
     const shared = new URLSearchParams(window.location.search).get("shared");
-    console.log(shared);
+    if (shared) {
+        fetch("http://localhost:5000/e3selector/shared/" + shared)
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem("e3filters", data.e3filters);
+            localStorage.setItem("e3selected", data.e3selected);
+            window.location = "http://localhost:3000/e3selector"
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    }
 
     const [selectedList, setselectedList] = useState(JSON.parse(localStorage.getItem("e3selected")) || [])
     const handleSel = (title) => {
@@ -226,8 +237,21 @@ export default function E3Selector() {
       setFiltersDisplayed((prev) => !prev);
     };
 
+    const [newSharedLink, setSharedLink] = useState("");
     const [modalOpen, setModal] = useState(false);
     const switchModal = () => {
+        if (!modalOpen) {
+            let shared = Math.random().toString(36).substring(7);
+            fetch("http://localhost:5000/e3selector/shared/" + shared, {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    e3selected: JSON.stringify(selectedList),
+                    e3filters: JSON.stringify(filterState)
+                })
+            });
+            setSharedLink(shared);
+        }
         setModal(!modalOpen);
     }
 
@@ -279,10 +303,10 @@ export default function E3Selector() {
                             <div class="share-modal">
                               <Paper elevation={3} style={{padding: 40, borderRadius: 16}}>
                                   <h1>Share or Save your course selections!</h1>
-                                  <WhatsappShareButton url="abc"><WhatsappIcon size={64} round={true}/></WhatsappShareButton>&nbsp;
-                                  <TelegramShareButton url="abc"><TelegramIcon size={64} round={true}/></TelegramShareButton>&nbsp;
-                                  <EmailShareButton url="abc"><EmailIcon size={64} round={true}/></EmailShareButton>
-                                  <CButton action={null} radius={24} classes={classes.copyButton}><FileCopyOutlinedIcon/>&nbsp;&nbsp;Copy Link</CButton>
+                                  <WhatsappShareButton url={"http://localhost:3000/e3selector?shared=" + newSharedLink}><WhatsappIcon size={64} round={true}/></WhatsappShareButton>&nbsp;
+                                  <TelegramShareButton url={"http://localhost:3000/e3selector?shared=" + newSharedLink}><TelegramIcon size={64} round={true}/></TelegramShareButton>&nbsp;
+                                  <EmailShareButton url={"http://localhost:3000/e3selector?shared=" + newSharedLink}><EmailIcon size={64} round={true}/></EmailShareButton>
+                                  <CButton action={() => {navigator.clipboard.writeText("http://localhost:3000/e3selector?shared=" + newSharedLink)}} radius={24} classes={classes.copyButton}><FileCopyOutlinedIcon/>&nbsp;&nbsp;Copy Link</CButton>
                               </Paper>
                             </div>
                         </Modal>
