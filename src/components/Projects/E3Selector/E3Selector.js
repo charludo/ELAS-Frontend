@@ -96,6 +96,14 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "1.3em",
       float: "right",
       marginTop: 8
+  },
+  copiedButton: {
+      padding: "8px 16px",
+      verticalAlign: "top",
+      fontSize: "1.3em",
+      float: "right",
+      marginTop: 8,
+      backgroundColor: "#27AE60"
   }
 }));
 
@@ -237,6 +245,7 @@ export default function E3Selector() {
       setFiltersDisplayed((prev) => !prev);
     };
 
+    const [linkCopied, setLinkCopied] = useState(false);
     const [newSharedLink, setSharedLink] = useState("");
     const [modalOpen, setModal] = useState(false);
     const switchModal = () => {
@@ -253,6 +262,7 @@ export default function E3Selector() {
             setSharedLink(shared);
         }
         setModal(!modalOpen);
+        setLinkCopied(false);
     }
 
     const classes = useStyles();
@@ -306,7 +316,7 @@ export default function E3Selector() {
                                   <WhatsappShareButton url={"http://localhost:3000/e3selector?shared=" + newSharedLink}><WhatsappIcon size={64} round={true}/></WhatsappShareButton>&nbsp;
                                   <TelegramShareButton url={"http://localhost:3000/e3selector?shared=" + newSharedLink}><TelegramIcon size={64} round={true}/></TelegramShareButton>&nbsp;
                                   <EmailShareButton url={"http://localhost:3000/e3selector?shared=" + newSharedLink}><EmailIcon size={64} round={true}/></EmailShareButton>
-                                  <CButton action={() => {navigator.clipboard.writeText("http://localhost:3000/e3selector?shared=" + newSharedLink)}} radius={24} classes={classes.copyButton}><FileCopyOutlinedIcon/>&nbsp;&nbsp;Copy Link</CButton>
+                                  <CButton action={() => {navigator.clipboard.writeText("http://localhost:3000/e3selector?shared=" + newSharedLink); setLinkCopied(true)}} radius={24} classes={linkCopied ? classes.copiedButton : classes.copyButton}><FileCopyOutlinedIcon/>&nbsp;&nbsp;Copy Link</CButton>
                               </Paper>
                             </div>
                         </Modal>
