@@ -55,16 +55,16 @@ class DataHandler {
 	}
 
 	setFilter(family, item) {
-		if (family == "credits") {
+		if (family === "credits") {
 			this.filterState.credits = parseInt(item);
-		} else if (family == "catalog") {
-			if (item == "all") {
+		} else if (family === "catalog") {
+			if (item === "all") {
 				Object.keys(this.filterState.catalog).forEach(k => this.filterState.catalog[k] = true);
 			} else {
 				Object.keys(this.filterState.catalog).forEach(k => this.filterState.catalog[k] = false);
 				this.filterState.catalog[item] = true;
 			}
-		} else if (family == "search") {
+		} else if (family === "search") {
 			this.filterState.search = item;
 		} else {
 			this.filterState[family][item] = !this.filterState[family][item];
@@ -78,7 +78,7 @@ class DataHandler {
 	}
 
 	setSorting(key) {
-		var direction = (key == this.sortState.key) ? (this.sortState.direction * -1) : 1;
+		var direction = (key === this.sortState.key) ? (this.sortState.direction * -1) : 1;
 		this.sortState.direction = direction;
 		this.sortState.key = key;
 
@@ -138,7 +138,7 @@ class DataHandler {
 	}
 
 	getCreditsStatus() {
-		if (this.selectedCredits[0] == this.filterState.credits || this.selectedCredits[1] == this.filterState.credits) {
+		if (this.selectedCredits[0] === this.filterState.credits || this.selectedCredits[1] === this.filterState.credits) {
             return "on-ok";
         } else if (this.selectedCredits[0] > this.filterState.credits && this.selectedCredits[1] > this.filterState.credits) {
             return "on-warn";
@@ -232,6 +232,8 @@ class DataHandler {
 
 			if (fitting === true) {
 				return course;
+			} else {
+				return null;
 			}
 		});
 	}

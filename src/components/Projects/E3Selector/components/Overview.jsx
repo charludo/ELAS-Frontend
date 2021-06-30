@@ -22,7 +22,7 @@ export default function Overview(props) {
         }
     }
 
-    if (props.selectedList.length) {
+    if (props.selectedCredits > 0) {
       return (
           <Grid container spacing={1} direction="row" alignItems="stretch" justify="space-between" id="overview">
             <Grid item xs={8}>

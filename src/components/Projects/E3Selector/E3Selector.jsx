@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Grid, Paper, Box, Slide, Collapse } from '@material-ui/core';
 import CButton from "./components/partials/CButton"
 
@@ -56,7 +56,7 @@ export default function E3Selector() {
 
     const [filtersDisplayed, setFiltersDisplayed] = useState(false);
 
-    if (DataHandler.isStudyProgramSet()) {
+    if (!DataHandler.isStudyProgramSet()) {
         return (
             <div style={{marginTop: "-40px"}}>
                 <StylesProvider>
@@ -83,7 +83,7 @@ export default function E3Selector() {
                                     </Paper>
                                 </Collapse>
                                 <Box display="flex" justifyContent="center" alignItems="center">
-                                    <CButton filtersDisplayed={filtersDisplayed} action={setFiltersDisplayed(!filtersDisplayed)}>{filtersDisplayed ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />} Filters</CButton>
+                                    <CButton filtersDisplayed={filtersDisplayed} action={() => setFiltersDisplayed(!filtersDisplayed)}>{filtersDisplayed ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />} Filters</CButton>
                                 </Box>
 
                                 {/*Main Grid*/}

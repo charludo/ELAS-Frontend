@@ -156,7 +156,7 @@ export const classes = makeStyles((theme) => ({
       '& > *': {
         borderBottom: 'unset',
       }},
-  paper : {
+  paperA : {
 
       margin: `${theme.spacing(1)}px auto`,
       textAlign: 'center',

@@ -3,8 +3,6 @@ import { Grid } from '@material-ui/core';
 
 import TextField from '@material-ui/core/TextField';
 
-import classes from "../../res/muiStyles";
-
 export default function Credits(props) {
     return (
         <Grid item>

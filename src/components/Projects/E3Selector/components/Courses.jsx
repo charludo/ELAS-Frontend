@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Collapse, Icon } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper'
@@ -55,6 +55,7 @@ const borderSelect = (type) => {
         case "Blockseminar": return "block";
         case "Seminar": return "seminar";
         case "E-Learning": return "elearn";
+        default: return "";
     }
 }
 
@@ -149,10 +150,10 @@ const Course = (props) => {
                 <Grid item xs={12}>
                     <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly">
                         <Grid item xs={1} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{Credits + " Cr."}</Grid>
-                        <Grid item xs={1} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{timeCom != 0? timeCom + " hrs." : "-"}</Grid>
+                        <Grid item xs={1} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{timeCom !== 0 ? timeCom + " hrs." : "-"}</Grid>
                         <Grid item xs={selected ? 7: 6} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{Title}</Grid>
                         <Grid item xs={selected ? 1: 2} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{(Location.split(";").length > 1) ? selected ? "va" : "various" : selected ? Location.slice(0, 2) : Location}</Grid>
-                        <Grid item xs={1} className={classes.emphasis} onClick={() => toggle(!isOpen)}><img class="lang-flag" src={langFlag(Language)}/></Grid>
+                        <Grid item xs={1} className={classes.emphasis} onClick={() => toggle(!isOpen)}><img class="lang-flag" alt={Language} src={langFlag(Language)}/></Grid>
                         <Grid item xs={1} className={classes.emphasis}><div class="expand-icon"><Icon aria-label="expand row" onClick={() => toggle(!isOpen)}>{isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</Icon></div></Grid>
                     </Grid>
                 </Grid>
@@ -172,7 +173,7 @@ const Course = (props) => {
                                         <tr><th>Credits:</th><td>{Credits}</td></tr>
                                         <tr><th>Exam Type:</th><td>{Exam.split(";").map(e => ExamType(e)).join(", ")}</td></tr>
                                     </table><br></br>
-                                    <a href={link} target="_blank">visit the course page</a>
+                                    <a href={link} target="_blank" rel="noreferrer">visit the course page</a>
                                 </div>
                             </Grid>
                         </Grid>
