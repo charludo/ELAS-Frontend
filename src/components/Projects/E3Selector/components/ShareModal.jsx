@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 
-import Fab from '@material-ui/core/Fab';
-import Modal from '@material-ui/core/Modal';
+import { Paper, Fab, Modal } from '@material-ui/core';
 
 import ShareIcon from '@material-ui/icons/Share';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import { EmailShareButton, EmailIcon, TelegramShareButton, TelegramIcon, WhatsappShareButton, WhatsappIcon} from "react-share";
 
 import CButton from "./partials/CButton";
-import classes from "../res/muiStyles";
+import { muiStyles } from "../res/muiStyles";
 
-export default const ShareModal (props) => {
+import DataHandler from "../DataHandler";
+
+export default function ShareModal(props) {
 	const [linkCopied, setLinkCopied] = useState(false);
 	const [newSharedLink, setSharedLink] = useState("");
 	const [modalOpen, setModal] = useState(false);
@@ -21,8 +22,8 @@ export default const ShareModal (props) => {
 				method: "POST",
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
-					e3selected: JSON.stringify(selectedList),
-					e3filters: JSON.stringify(filterState)
+					e3selected: JSON.stringify(DataHandler.getSelectedCourses()),
+					e3filters: JSON.stringify(DataHandler.getFilterState())
 				})
 			});
 			setSharedLink("http://localhost:3000/e3selector?shared=" + shared);
@@ -30,6 +31,8 @@ export default const ShareModal (props) => {
 		setModal(!modalOpen);
 		setLinkCopied(false);
 	}
+
+	const classes = muiStyles();
 
 	if (modalOpen) {
 		return (

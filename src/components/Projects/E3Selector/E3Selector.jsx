@@ -16,6 +16,7 @@ import ProgramSelection from './components/ProgramSelection';
 import Filters, { Catalog } from "./components/Filters";
 import Courses, { SelectedCourses } from "./components/Courses";
 import Overview from "./components/Overview";
+import ShareModal from "./components/ShareModal";
 
 
 export default function E3Selector() {
@@ -87,6 +88,9 @@ export default function E3Selector() {
                                 <Box display="flex" justifyContent="center" alignItems="center">
                                     <CButton filtersDisplayed={filtersDisplayed} action={() => setFiltersDisplayed(!filtersDisplayed)}>{filtersDisplayed ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />} Filters</CButton>
                                 </Box>
+
+                                {/* Share Button */}
+                                <ShareModal/>
 
                                 {/*Main Grid*/}
                                 <Grid container spacing={3} direction="row" alignItems="stretch" justify="center" style={{marginTop: "40px"}}>
