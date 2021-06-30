@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-const CheckBox = (props) => {
+export default function CheckBox(props) {
 	const actionIterator = (action, params) => {
 		params.forEach(p => {
 			action(p[0], p[1]);

@@ -1,10 +1,10 @@
 import React from "react";
 import { Paper } from "@material-ui/core";
 
-import classes from "../../res/muiStyles";
+import { classes } from "../../res/muiStyles";
 import "../../res/extraStyles.sass";
 
-export default const Schedule = (props) => {
+export default function Schedule(props) {
     const booked = props.booked
     const overBooked = props.overBooked
     const list = props.schedule.split(";")

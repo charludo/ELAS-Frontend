@@ -13,7 +13,7 @@ import Schedule from './partials/Schedule'
 import RChart from "./partials/Chart";
 
 import "../res/extraStyles.sass";
-import classes from "../res/muiStyles";
+import { classes } from "../res/muiStyles";
 
 import German from "../res/German.png";
 import English from "../res/English.png";
@@ -145,7 +145,7 @@ const Course = (props) => {
         return (
 
             <Paper elevation={3} style={{padding: "3px 24px", position: "relative"}} className={classes[borderSelect(Type.split(";")[0])]}>
-                <div class="select-icon"><IconButton  onClick={() => handleSel(Title)}>{selected ? <RemoveIcon/> : <AddIcon/>}</IconButton></div>
+                <div class="select-icon"><IconButton  onClick={() => handleSel(props)}>{selected ? <RemoveIcon/> : <AddIcon/>}</IconButton></div>
                 <Grid item xs={12}>
                     <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly">
                         <Grid item xs={1} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{Credits + " Cr."}</Grid>

@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Grid} from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
+
+import SearchIcon from '@material-ui/icons/Search';
 
 import Collapse from '@material-ui/core/Collapse';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
-import CButton from "./components/partials/CButton";
+import CButton from "./partials/CButton";
 
-import Filters from "./components/Filters";
+import Filters from "./Filters";
 
-import classes from "./res/muiStyles";
+import { classes } from "../res/muiStyles";
+import DataHandler from "../DataHandler";
 
 
 export default function ProgramSelection(props) {
@@ -25,27 +28,22 @@ export default function ProgramSelection(props) {
 	    "Wirtschaftsingenieurwesen"
 	];
 
-	const [studyProgramSelected, setStudyProgramSelected] = useState(() => {
-		let selected = false;
-		Object.keys(filterState.Ausgeschlossen_Ingenieurwissenschaften_Bachelor).forEach((excluded, e) => {
-			if (!excluded.includes("ALLE") && filterState.Ausgeschlossen_Ingenieurwissenschaften_Bachelor[excluded] === false) {
-				selected = true;
-			}
-		});
-		return selected;
-
-	});
 	const selectStudyProgram = () => {
 		let selected = document.getElementById('studyprogram').value;
 		if (studyPrograms.includes(selected)) {
-			setStudyProgram(selected);
-			setStudyProgramSelected(true);
-			localStorage.setItem("e3filters", JSON.stringify(filterState));
+			DataHandler.setStudyProgram(selected);
+			DataHandler.saveFilterState();
+			window.location.reload()
 		}
 	}
 
+	const [moreInitialFilters, openInitialFilters] = React.useState(false);
+    const changeInitialFiltersDisplayed = () => {
+      openInitialFilters((prev) => !prev);
+    };
+
 	return (
-		<Collapse in={!studyProgramSelected}>
+		<Collapse in={true}>
 			<div className={classes.preselect}>
 				<h1 className={classes.h1}>E3 Selector</h1>
 				<Paper className={classes.prePaper} elevation={6}>
@@ -57,7 +55,7 @@ export default function ProgramSelection(props) {
 							renderInput={(params) => <TextField {...params} label="Study Program" variant="outlined" />}
 							/>
 						<div className={moreInitialFilters ? classes.initialFilters : classes.initialFiltersHidden}>
-							<Filters action={reflectFilter} filterState={filterState}/>
+							<Filters action={DataHandler.setFilter} filterState={DataHandler.getFilterState()}/>
 						</div>
 					</Grid>
 					<p className={classes.moreFiltersButton} moreInitialFilters={moreInitialFilters} onClick={changeInitialFiltersDisplayed}>{moreInitialFilters ? "- show less" : "+ more options"}</p>

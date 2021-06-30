@@ -1,9 +1,10 @@
 import React from 'react';
+import { Grid } from '@material-ui/core';
 
 import CheckBox from "./CheckBox";
 import "../../res/extraStyles.sass";
 
-export default const TimeTable = (props) => {
+export default function TimeTable(props) {
 	return (
 		<Grid item>
 			<table class="time-table">

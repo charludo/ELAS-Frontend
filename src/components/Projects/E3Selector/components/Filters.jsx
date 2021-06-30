@@ -6,7 +6,7 @@ import Credits from "./partials/Credits.jsx";
 import TimeTable from "./partials/TimeTable";
 import { FilterGroup, VerticalFilterGroup } from "./partials/FilterGroups";
 
-import classes from "../res/muiStyles";
+import { classes } from "../res/muiStyles";
 
 export default function Filters(props) {
     return (

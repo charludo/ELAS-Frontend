@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 
 import classes from "../../res/muiStyles";
 
-export default const Credits = (props) => {
+export default function Credits(props) {
     return (
         <Grid item>
             <TextField
