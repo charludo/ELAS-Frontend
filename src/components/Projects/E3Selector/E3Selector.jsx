@@ -163,26 +163,6 @@ export default function E3Selector() {
       setFiltersDisplayed((prev) => !prev);
     };
 
-    const [linkCopied, setLinkCopied] = useState(false);
-    const [newSharedLink, setSharedLink] = useState("");
-    const [modalOpen, setModal] = useState(false);
-    const switchModal = () => {
-        if (!modalOpen) {
-            let shared = Math.random().toString(36).substring(7);
-            fetch("http://localhost:5000/e3selector/shared/" + shared, {
-                method: "POST",
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    e3selected: JSON.stringify(selectedList),
-                    e3filters: JSON.stringify(filterState)
-                })
-            });
-            setSharedLink(shared);
-        }
-        setModal(!modalOpen);
-        setLinkCopied(false);
-    }
-
     const classes = useStyles();
 
     return (

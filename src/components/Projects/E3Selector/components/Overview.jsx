@@ -1,8 +1,10 @@
 import React from "react";
+import { Grid } from "@material-ui/core";
+
 import ErrorIcon from "@material-ui/icons/Error";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import { Grid } from "@material-ui/core";
-import "./Components.sass";
+
+import "../res/extraStyles.sass";
 
 export default function Overview(props) {
     const creditNotification = () => {

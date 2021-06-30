@@ -1,3 +1,7 @@
+import React from 'react';
+import { Grid, FormLabel } from '@material-ui/core';
+
+import CheckBox from "./CheckBox";
 
 const FilterGroup = (props) => {
 	const filterArray = props.filters.map(f => (
@@ -45,8 +49,5 @@ FilterGroup.defaultProps = {
 	classes: {}
 }
 
-export default CheckBox;
-export { TimeTable };
 export { FilterGroup };
 export { VerticalFilterGroup };
-export { CButton };

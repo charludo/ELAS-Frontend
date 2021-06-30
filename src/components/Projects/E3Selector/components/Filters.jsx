@@ -1,17 +1,14 @@
 import React from 'react';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import {TimeTable, FilterGroup, VerticalFilterGroup } from "./Components/Components.js"
-import {Grid} from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
-import Credits from "./Credits.jsx";
+import { Grid } from '@material-ui/core';
 import SearchBar from "material-ui-search-bar";
 
+import Credits from "./partials/Credits.jsx";
+import TimeTable from "./partials/TimeTable";
+import { FilterGroup, VerticalFilterGroup } from "./partials/FilterGroups";
+
+import classes from "../res/muiStyles";
+
 export default function Filters(props) {
-    const classes = backgroundStyles();
     return (
       <Grid container direction="row" justify="space-evenly" alignItems="flex-start" spacing="6">
         <TimeTable action={props.action} filterState={props.filterState}/>

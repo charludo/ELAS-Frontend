@@ -1,4 +1,9 @@
-const TimeTable = (props) => {
+import React from 'react';
+
+import CheckBox from "./CheckBox";
+import "../../res/extraStyles.sass";
+
+export default const TimeTable = (props) => {
 	return (
 		<Grid item>
 			<table class="time-table">

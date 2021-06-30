@@ -1,20 +1,18 @@
-import { Paper } from "@material-ui/core"
-import React, { useEffect } from "react";
+import React from "react";
+import { Paper } from "@material-ui/core";
 
-const Schedule = (props) => {
-    const classes = useStyles()
+import classes from "../../res/muiStyles";
+import "../../res/extraStyles.sass";
+
+export default const Schedule = (props) => {
     const booked = props.booked
     const overBooked = props.overBooked
     const list = props.schedule.split(";")
 
-
-
     const times = ['8-10','10-12','12-14','14-16','16-18','18-20']
     const days = ['Mo','Di','Mi', 'Do', 'Fr', 'Sa', 'So']
 
-    console.log(props.booked);
 	return (
-
 			<table class="time-table">
 				<tr>
 					<th></th>
@@ -51,9 +49,6 @@ const Schedule = (props) => {
                         }
                     </tr>)
                 })}
-
 			</table>
-
 	);
 }
-export default Schedule;

@@ -1,29 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Collapse, Icon, List, ListItemText, TableBody, TableContainer, TableHead, TableRow, Typography} from '@material-ui/core'
-import { TableCell, Table, Container} from '@material-ui/core';
-import Paper from '@material-ui/core/Paper'
-import IconButton from '@material-ui/core/IconButton';
+import { Collapse, Icon } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import Divider from '@material-ui/core/Divider';
+import Paper from '@material-ui/core/Paper'
+
+import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Box from "@material-ui/core/Box";
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItem from '@material-ui/core/ListItem';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Schedule from './Components/Course_Schedule.jsx'
-import Link from '@material-ui/core/Link';
-import "./App.sass";
-import German from "./res/German.png";
-import English from "./res/English.png";
-import Turkish from "./res/Turkish.png";
-import Dutch from "./res/Dutch.png";
 import RemoveIcon from '@material-ui/icons/Remove';
-import { theme } from "./theme";
-import RChart from "./Chart.jsx";
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+
+import Schedule from './partials/Schedule'
+import RChart from "./partials/Chart";
+
+import "../res/extraStyles.sass";
+import classes from "../res/muiStyles";
+
+import German from "../res/German.png";
+import English from "../res/English.png";
+import Turkish from "../res/Turkish.png";
+import Dutch from "../res/Dutch.png";
 
 const ExamType = (e) => {
     switch(e){
@@ -33,7 +28,6 @@ const ExamType = (e) => {
         case "Klausur": return "Exam"
         default: return e
     }
-
 }
 const fType = (e) => {
     switch(e){
@@ -46,18 +40,11 @@ const fType = (e) => {
 
 const langFlag = (language) =>{
     switch(language){
-        case 'Türkisch':
-            return Turkish
-        case 'Deutsch':
-            return German
-        case 'Englisch':
-            return English
-        case 'Niederländisch':
-            return Dutch
-
-        default:
-            return ''
-
+        case 'Türkisch': return Turkish
+        case 'Deutsch': return German
+        case 'Englisch': return English
+        case 'Niederländisch': return Dutch
+        default: return ''
     }
 }
 
@@ -73,71 +60,66 @@ const borderSelect = (type) => {
 
 
 const Courses = (props) => {
-    //const [list, setList] = useState(props.list)
     const list = props.list
     const handleSel = props.handleSel
     const selectedList = props.selectedList
-    const classes = useStyles()
     const sort = props.sort
     const booked = props.booked
 
     return(
-            <Grid container spacing={1} direction="row" alignItems="stretch" justify="center">
-                <Grid item xs={12}>
-                    <Paper elevation={6} style={{padding: 24}}>
-                        <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly">
-                            <Grid item xs={1} className={classes.sorter} onClick={() => sort("Credits")}>Credits</Grid>
-                            <Grid item xs={1} className={classes.sorter} onClick={() => sort("SWS")}>Workload</Grid>
-                            <Grid item xs={6} className={classes.sorter} onClick={() => sort("Title")}>Title</Grid>
-                            <Grid item xs={2} className={classes.sorter} onClick={() => sort("Location")}>Location</Grid>
-                            <Grid item xs={1} className={classes.sorter} onClick={() => sort("Language")}>Language</Grid>
-                            <Grid item xs={1}></Grid>
-                        </Grid>
-                    </Paper>
-                </Grid>
-
-                {
-                    //Only display the courses that are not contained within the selectedList
-                    list.filter(c => !selectedList.map(s => s.Title).includes(c.Title)).map( entry => {
-                        return(
-                            <Grid item xs={12}>
-                                <Course component={Paper} key={entry.Link} {...entry} handleSel={handleSel} booked={booked} classes={classes}/>
-                            </Grid>
-                        )
-                    })
-                }
+        <Grid container spacing={1} direction="row" alignItems="stretch" justify="center">
+            <Grid item xs={12}>
+                <Paper elevation={6} style={{padding: 24}}>
+                    <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly">
+                        <Grid item xs={1} className={classes.sorter} onClick={() => sort("Credits")}>Credits</Grid>
+                        <Grid item xs={1} className={classes.sorter} onClick={() => sort("SWS")}>Workload</Grid>
+                        <Grid item xs={6} className={classes.sorter} onClick={() => sort("Title")}>Title</Grid>
+                        <Grid item xs={2} className={classes.sorter} onClick={() => sort("Location")}>Location</Grid>
+                        <Grid item xs={1} className={classes.sorter} onClick={() => sort("Language")}>Language</Grid>
+                        <Grid item xs={1}></Grid>
+                    </Grid>
+                </Paper>
             </Grid>
+            {
+                //Only display the courses that are not contained within the selectedList
+                list.filter(c => !selectedList.map(s => s.Title).includes(c.Title)).map( entry => {
+                    return(
+                        <Grid item xs={12}>
+                            <Course component={Paper} key={entry.Link} {...entry} handleSel={handleSel} booked={booked}/>
+                        </Grid>
+                    )
+                })
+            }
+        </Grid>
     )
-
 }
+
 const SelectedCourses = (props) => {
-    const classes = useStyles()
-    if(!props.selectedList.length){
+    if (!props.selectedList.length) {
         return(
             <Paper className={classes.paperSelected} elevation={2}>
                 click + to add courses
             </Paper>
         );
-    }else{
-    return(
-        <Grid container spacing={1} direction="row" alignItems="stretch" justify="center">
-        {
-        props.selectedList.map( c => {
-            return (
-            <Grid item xs={12}>
-                <Course key ={c.Link} {...c} selected={true} booked={props.booked} overBooked={props.overBooked} handleSel={props.handleSel} classes={classes}/>
+    } else {
+        return(
+            <Grid container spacing={1} direction="row" alignItems="stretch" justify="center">
+            {
+            props.selectedList.map( c => {
+                return (
+                <Grid item xs={12}>
+                    <Course key ={c.Link} {...c} selected={true} booked={props.booked} overBooked={props.overBooked} handleSel={props.handleSel}/>
+                </Grid>
+                )
+            })
+            }
             </Grid>
-            )
-        })
-        }
-        </Grid>
-    )
-}}
+        )
+    }
+}
 
 
 const Course = (props) => {
-
-    //console.log(props)
     const {Credits,
         Title,
         SWS: timeCom,
@@ -160,8 +142,6 @@ const Course = (props) => {
         grade_effort: gradefort
         } = props
     const [isOpen, toggle] = useState(false)
-
-    const classes = props.classes
         return (
 
             <Paper elevation={3} style={{padding: "3px 24px", position: "relative"}} className={classes[borderSelect(Type.split(";")[0])]}>

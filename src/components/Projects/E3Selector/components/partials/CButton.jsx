@@ -1,6 +1,7 @@
+import React from 'react';
 import Button from '@material-ui/core/Button';
 
-const CButton = (props) => (
+export default const CButton = (props) => (
 	<Button color={props.color} variant={props.variant} onClick={props.action} className={props.classes} style={{borderRadius: props.radius}}>{props.children}</Button>
 );
 

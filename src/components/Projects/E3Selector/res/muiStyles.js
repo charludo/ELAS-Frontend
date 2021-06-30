@@ -207,5 +207,12 @@ export default const classes = makeStyles((theme) => ({
   },
   elearn: {
       backgroundColor: c_elearn
-  }
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 215,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(5),
+  },
 }));

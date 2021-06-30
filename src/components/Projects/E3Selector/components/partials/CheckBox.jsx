@@ -1,6 +1,7 @@
+import React from 'react';
+
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormLabel from '@material-ui/core/FormLabel';
 
 const CheckBox = (props) => {
 	const actionIterator = (action, params) => {
