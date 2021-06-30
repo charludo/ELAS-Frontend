@@ -41,7 +41,7 @@ export const theme = createMuiTheme({
   },
 });
 
-export const classes = makeStyles((theme) => ({
+export const muiStyles = makeStyles((theme) => ({
   paper: {
     display: "flex",
     flexDirection: "column",

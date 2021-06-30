@@ -11,7 +11,7 @@ import CButton from "./partials/CButton";
 
 import Filters from "./Filters";
 
-import { classes } from "../res/muiStyles";
+import { muiStyles } from "../res/muiStyles";
 import DataHandler from "../DataHandler";
 
 
@@ -41,6 +41,8 @@ export default function ProgramSelection(props) {
     const changeInitialFiltersDisplayed = () => {
       openInitialFilters((prev) => !prev);
     };
+
+	const classes = muiStyles();
 
 	return (
 		<Collapse in={true}>

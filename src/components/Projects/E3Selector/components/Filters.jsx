@@ -6,9 +6,11 @@ import Credits from "./partials/Credits.jsx";
 import TimeTable from "./partials/TimeTable";
 import { FilterGroup, VerticalFilterGroup } from "./partials/FilterGroups";
 
-import { classes } from "../res/muiStyles";
+import { muiStyles } from "../res/muiStyles";
 
 export default function Filters(props) {
+    const classes = muiStyles();
+    
     return (
       <Grid container direction="row" justify="space-evenly" alignItems="flex-start" spacing="6">
         <TimeTable action={props.action} filterState={props.filterState}/>

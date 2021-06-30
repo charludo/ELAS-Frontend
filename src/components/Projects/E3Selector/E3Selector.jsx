@@ -7,7 +7,7 @@ import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 import { StylesProvider, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { classes, theme } from "./res/muiStyles";
+import { muiStyles, theme } from "./res/muiStyles";
 import "./res/extraStyles.sass";
 
 import DataHandler from "./DataHandler";
@@ -55,6 +55,8 @@ export default function E3Selector() {
     }
 
     const [filtersDisplayed, setFiltersDisplayed] = useState(false);
+
+    const classes = muiStyles();
 
     if (!DataHandler.isStudyProgramSet()) {
         return (

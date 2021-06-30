@@ -13,7 +13,7 @@ import Schedule from './partials/Schedule'
 import RChart from "./partials/Chart";
 
 import "../res/extraStyles.sass";
-import { classes } from "../res/muiStyles";
+import { muiStyles } from "../res/muiStyles";
 
 import German from "../res/German.png";
 import English from "../res/English.png";
@@ -39,7 +39,7 @@ const fType = (e) => {
 }
 
 const langFlag = (language) =>{
-    switch(language){
+    switch(language.split(";")[0]){
         case 'Türkisch': return Turkish
         case 'Deutsch': return German
         case 'Englisch': return English
@@ -50,11 +50,11 @@ const langFlag = (language) =>{
 
 const borderSelect = (type) => {
     switch(type) {
-        case "VL/Übung": return "lecEx";
-        case "Vorlesung": return "lecture";
-        case "Blockseminar": return "block";
-        case "Seminar": return "seminar";
-        case "E-Learning": return "elearn";
+        case "VL/Übung": return "lecExBorder";
+        case "Vorlesung": return "lectureBorder";
+        case "Blockseminar": return "blockBorder";
+        case "Seminar": return "seminarBorder";
+        case "E-Learning": return "elearnBorder";
         default: return "";
     }
 }
@@ -67,11 +67,13 @@ const Courses = (props) => {
     const sort = props.sort
     const booked = props.booked
 
+    const classes = muiStyles();
+
     return(
         <Grid container spacing={1} direction="row" alignItems="stretch" justify="center">
             <Grid item xs={12}>
                 <Paper elevation={6} style={{padding: 24}}>
-                    <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly">
+                    <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly" style={{ paddingLeft: 60 }}>
                         <Grid item xs={1} className={classes.sorter} onClick={() => sort("Credits")}>Credits</Grid>
                         <Grid item xs={1} className={classes.sorter} onClick={() => sort("SWS")}>Workload</Grid>
                         <Grid item xs={6} className={classes.sorter} onClick={() => sort("Title")}>Title</Grid>
@@ -96,6 +98,8 @@ const Courses = (props) => {
 }
 
 const SelectedCourses = (props) => {
+    const classes = muiStyles();
+
     if (!props.selectedList.length) {
         return(
             <Paper className={classes.paperSelected} elevation={2}>
@@ -142,7 +146,9 @@ const Course = (props) => {
         interesting,
         grade_effort: gradefort
         } = props
-    const [isOpen, toggle] = useState(false)
+    const [isOpen, toggle] = useState(false);
+    const classes = muiStyles();
+
         return (
 
             <Paper elevation={3} style={{padding: "3px 24px", position: "relative"}} className={classes[borderSelect(Type.split(";")[0])]}>

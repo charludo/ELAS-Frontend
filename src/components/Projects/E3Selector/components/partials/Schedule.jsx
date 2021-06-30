@@ -1,13 +1,15 @@
 import React from "react";
 import { Paper } from "@material-ui/core";
 
-import { classes } from "../../res/muiStyles";
+import { muiStyles } from "../../res/muiStyles";
 import "../../res/extraStyles.sass";
 
 export default function Schedule(props) {
     const booked = props.booked
     const overBooked = props.overBooked
     const list = props.schedule.split(";")
+
+    const classes = muiStyles();
 
     const times = ['8-10','10-12','12-14','14-16','16-18','18-20']
     const days = ['Mo','Di','Mi', 'Do', 'Fr', 'Sa', 'So']
