@@ -96,7 +96,7 @@ export default function E3Selector() {
                                     {/* Overview */}
                                     <Grid item xs={3}>
                                         <Paper className={classes.paper} elevation={2}>
-                                            <Overview selectedCredits={overviewData.selectedCredits} conflicts={overviewData.conflicts} workload={overviewData.workload} creditsStatus={overviewData.creditsStatus}/>
+                                            <Overview selectedList={selectedCourses} data={overviewData}/>
                                         </Paper>
                                     </Grid>
 

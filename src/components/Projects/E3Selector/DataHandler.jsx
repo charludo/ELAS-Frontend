@@ -2,9 +2,6 @@ class DataHandler {
 
 	constructor() {
 		this.data = require("./data/e3_courses.json").children.map(catalog => catalog.children).flat();
-		this.filterState = JSON.parse(localStorage.getItem("e3filters")) || require("./data/filters.json");
-
-		this.sortState = require("./data/sorting.json");
 
 		this.courseList = [];
 		this.selectedList = [];
@@ -13,8 +10,15 @@ class DataHandler {
 		this.selectedCredits = [0, 0];
 		this.bookedTimeSlots = {};
 
+		this.filterState = JSON.parse(localStorage.getItem("e3filters")) || require("./data/filters.json");
+		this.applyFilters();
+
 		const preSelectedCourses = JSON.parse(localStorage.getItem("e3selected")) || [];
+
 		preSelectedCourses.forEach(c => this.handleSelection(c));
+
+		this.sortState = require("./data/sorting.json");
+
 
 		this.tryToLoadSharedState();
 	}
@@ -86,27 +90,28 @@ class DataHandler {
 	}
 
 	handleSelection(course) {
-		let e = this.selectedList.find(c => c.Title === course.title);
+		let e = this.selectedList.find(c => c.Title === course.Title);
 
 		const sws = parseInt(course.SWS) || 0;
 		const slots = course.Times_manual.split(";");
-		const credits = course.Credits.includes("-") ? parseInt(course.Credits.split("-")) : Array(2).fill(parseInt(course.Credits));
+		const credits = course.Credits.includes("-") ? course.Credits.split("-") : Array(2).fill(course.Credits);
 
 		if (e !== undefined) {
             this.selectedList = this.selectedList.filter(c => c.Title !== e.Title);
 
 			this.selectedSWS -= sws;
-			this.selectedCredits.map((n, i) => n - credits[i]);
+			this.selectedCredits = this.selectedCredits.map((n, i) => n - parseInt(credits[i]));
 			slots.forEach((time, t) => { this.bookedTimeSlots[time] -= 1 });
         } else {
-            this.selectedList += this.courseList.find(c => c.Title === e.title);
+            this.selectedList = this.selectedList.concat(this.courseList.find(c => c.Title === course.Title));
 
 			this.selectedSWS += sws;
-			this.selectedCredits.map((n, i) => n + credits[i]);
+			this.selectedCredits = this.selectedCredits.map((n, i) => n + parseInt(credits[i]));
 			slots.forEach((time, t) => { this.bookedTimeSlots[time] = this.bookedTimeSlots[time]+1 || 1; });
         }
 
 		localStorage.setItem("e3selected", JSON.stringify(this.selectedList));
+		console.log(credits);
 	}
 
 	getUnselectedCourses() {
@@ -177,7 +182,7 @@ class DataHandler {
 				if (this.filterState.Ausgeschlossen_Ingenieurwissenschaften_Bachelor[program] !== true) {
 					fitting = false;
 				}
-			});
+			}, this);
 
 			// Time
 			let times = course.Times_manual.split(";");
@@ -185,7 +190,7 @@ class DataHandler {
 				if (this.filterState.time[slot] !== true) {
 					fitting = false;
 				}
-			});
+			}, this);
 
 			// Location
 			let locales = course.Location.split(";");
@@ -193,7 +198,7 @@ class DataHandler {
 				if (this.filterState.locales[locale] !== true) {
 					fitting = false;
 				}
-			});
+			}, this);
 
 			// Language
 			let languages = course.Language.split(";");
@@ -201,7 +206,7 @@ class DataHandler {
 				if (this.filterState.languages[l] !== true) {
 					fitting = false;
 				}
-			});
+			}, this);
 
 			// Exam
 			let examTypes = course.Exam.split(";");
@@ -209,7 +214,7 @@ class DataHandler {
 				if (this.filterState.exam[e] !== true) {
 					fitting = false;
 				}
-			});
+			}, this);
 
 			// Course Type
 			let courseTypes = course.Type.split(";");
@@ -217,7 +222,7 @@ class DataHandler {
 				if (this.filterState.courseType[c] !== true) {
 					fitting = false;
 				}
-			});
+			}, this);
 
 			// Catalog
 			if (this.filterState.catalog[course.catalog] !== true) {
