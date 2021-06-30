@@ -70,19 +70,19 @@ const useStyles = makeStyles((theme)=>({
             color: "#000000"
         },
         lecEx: {
-            borderLeft: "13px solid #90EE90"
+            borderLeft: "60px solid #90EE90"
         },
         lecture: {
-            borderLeft: "13px solid #B0E0E6"
+            borderLeft: "60px solid #B0E0E6"
         },
         seminar: {
-            borderLeft: "13px solid  #FFDAB9"
+            borderLeft: "60px solid  #FFDAB9"
         },
         block: {
-            borderLeft: "13px solid  #FA8072"
+            borderLeft: "60px solid  #FA8072"
         },
         elearn: {
-            borderLeft: "13px solid #D8BFD8"
+            borderLeft: "60px solid #D8BFD8"
         }
 
         })
