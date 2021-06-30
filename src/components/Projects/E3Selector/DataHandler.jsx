@@ -134,7 +134,7 @@ export function updateFilters(family, item) {
 	} else {
 		filterState[family][item] = !filterState[family][item];
 	}
-	
+
 }
 
 export function sortCourses(key) {
