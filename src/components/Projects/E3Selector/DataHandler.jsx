@@ -75,6 +75,7 @@ class DataHandler {
 		}
 
 		this.saveFilterState();
+		this.applyFilters();
 	}
 
 	saveFilterState() {
@@ -86,7 +87,7 @@ class DataHandler {
 		this.sortState.direction = direction;
 		this.sortState.key = key;
 
-		this.data.sort((a, b) => a[key].localeCompare(b[key]) * direction);
+		this.courseList.sort((a, b) => a[key].localeCompare(b[key]) * direction);
 	}
 
 	handleSelection(course) {
@@ -111,7 +112,6 @@ class DataHandler {
         }
 
 		localStorage.setItem("e3selected", JSON.stringify(this.selectedList));
-		console.log(credits);
 	}
 
 	getUnselectedCourses() {

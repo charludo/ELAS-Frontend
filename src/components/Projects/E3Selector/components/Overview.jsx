@@ -8,7 +8,6 @@ import "../res/extraStyles.sass";
 
 export default function Overview(props) {
     const data = props.data;
-    console.log(data);
 
     const creditNotification = () => {
         switch(data.creditsStatus){

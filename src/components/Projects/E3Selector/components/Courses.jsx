@@ -150,7 +150,7 @@ const Course = (props) => {
                 <Grid item xs={12}>
                     <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly">
                         <Grid item xs={1} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{Credits + " Cr."}</Grid>
-                        <Grid item xs={1} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{timeCom !== 0 ? timeCom + " hrs." : "-"}</Grid>
+                        <Grid item xs={1} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{timeCom.length !== 0 ? timeCom + " hrs." : "-"}</Grid>
                         <Grid item xs={selected ? 7: 6} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{Title}</Grid>
                         <Grid item xs={selected ? 1: 2} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{(Location.split(";").length > 1) ? selected ? "va" : "various" : selected ? Location.slice(0, 2) : Location}</Grid>
                         <Grid item xs={1} className={classes.emphasis} onClick={() => toggle(!isOpen)}><img class="lang-flag" alt={Language} src={langFlag(Language)}/></Grid>
