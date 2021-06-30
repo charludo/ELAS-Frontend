@@ -10,24 +10,6 @@ import {makeStyles} from '@material-ui/core/styles';
 import Credits from "./Credits.jsx";
 import SearchBar from "material-ui-search-bar";
 
-const backgroundStyles = makeStyles({
-    lecEx: {
-        backgroundColor: "#90EE90"
-    },
-    lecture: {
-        backgroundColor: "#B0E0E6"
-    },
-    seminar: {
-        backgroundColor: "#FFDAB9"
-    },
-    block: {
-        backgroundColor: "#FA8072"
-    },
-    elearn: {
-        backgroundColor: "#D8BFD8"
-    }
-});
-
 export default function Filters(props) {
     const classes = backgroundStyles();
     return (

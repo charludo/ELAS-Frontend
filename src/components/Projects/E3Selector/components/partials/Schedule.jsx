@@ -1,32 +1,6 @@
 import { Paper } from "@material-ui/core"
 import React, { useEffect } from "react";
-import { makeStyles } from '@material-ui/core/styles';
-const useStyles = makeStyles((theme)=>({
-    true: {
-        width: '30px',
-		height: '30px',
-		margin: '1px',
-		'background-color': '#F2994A'
-    },
-    slot: {
-        width: 30,
-        height: 30,
-        margin: 1,
-        backgroundColor: "#E0E0E0"
-    },
-    overlap: {
-        width: 30,
-        height: 30,
-        margin: 1,
-        backgroundColor: "#FA8072"
-    },
-    booked: {
-        width: 30,
-        height: 30,
-        margin: 1,
-        backgroundColor: "#C4C4C4"
-    }
-}))
+
 const Schedule = (props) => {
     const classes = useStyles()
     const booked = props.booked

@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from "react";
-import { makeStyles, StylesProvider, ThemeProvider } from "@material-ui/core/styles";
+import { StylesProvider, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -24,82 +24,6 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { SelectedCourses } from "./Courses";
 import { useParams } from 'react-router-dom'
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: "240px",
-    color: theme.palette.text.secondary,
-  },
-  preselect: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "200px"
-  },
-  prePaper: {
-    padding: "40px",
-    borderRadius: "24px",
-    position: "relative"
-  },
-  searchButton: {
-    transform: "translateY(-50%)",
-    padding: "12px 16px"
-  },
-  moreFiltersButton: {
-    textDecoration: "underline",
-    cursor: "pointer",
-    position: "absolute",
-    right: 0,
-    bottom: -40
-  },
-  initialFilters: {
-      marginTop: "24px",
-  },
-  initialFiltersHidden: {
-      height: "0",
-      width: "0",
-      overflow: "hidden",
-  },
-  h1: {
-    fontSize: "3rem",
-    marginBottom: 0
-  },
-  reset: {
-      textDecoration: "underline",
-      cursor: "pointer",
-      float: "right",
-      marginTop: -36,
-      marginRight: 18
-  },
-  fab: {
-      float: "right",
-      marginTop: -8,
-      backgroundColor: "#F2994A"
-  },
-  copyButton: {
-      padding: "8px 16px",
-      verticalAlign: "top",
-      fontSize: "1.3em",
-      float: "right",
-      marginTop: 8
-  },
-  copiedButton: {
-      padding: "8px 16px",
-      verticalAlign: "top",
-      fontSize: "1.3em",
-      float: "right",
-      marginTop: 8,
-      backgroundColor: "#27AE60"
-  }
-}));
 
 const studyPrograms = [
     "Angewandte Informatik",

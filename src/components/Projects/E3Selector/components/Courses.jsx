@@ -25,68 +25,6 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import { theme } from "./theme";
 import RChart from "./Chart.jsx";
 
-
-const useStyles = makeStyles((theme)=>({
-        selected: {
-            maxWidth: '50%',
-            maxHeight: '30%'
-        },
-        paperSelected: {
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "240px",
-          color: theme.palette.text.secondary
-        },
-        table: {
-            maxWidth: '95%',
-            maxHeight: '1200'
-        },
-        row: {
-            '& > *': {
-              borderBottom: 'unset',
-            }},
-        paper : {
-
-            margin: `${theme.spacing(1)}px auto`,
-            textAlign: 'center',
-            height: 270,
-            width: 500,
-            },
-        textcell:{
-            whiteSpace: 'nowarp',
-            overflow: 'hidden'
-        },
-        sorter: {
-            color: "#0057A7",
-            textDecoration: "underline",
-            cursor: "pointer"
-        },
-        emphasis: {
-            fontWeight: 500,
-            fontSize: 16,
-            letterSpacing: "1.25px",
-            color: "#000000"
-        },
-        lecEx: {
-            borderLeft: "60px solid #90EE90"
-        },
-        lecture: {
-            borderLeft: "60px solid #B0E0E6"
-        },
-        seminar: {
-            borderLeft: "60px solid  #FFDAB9"
-        },
-        block: {
-            borderLeft: "60px solid  #FA8072"
-        },
-        elearn: {
-            borderLeft: "60px solid #D8BFD8"
-        }
-
-        })
-)
 const ExamType = (e) => {
     switch(e){
         case "Präsentation": return "Presentation"
