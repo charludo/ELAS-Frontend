@@ -126,7 +126,7 @@ class DataHandler {
 	}
 
 	getBookedTimeSlots() {
-		return Object.keys(this.bookedTimeSlots).map((k, i) => k);
+		return Object.keys(this.bookedTimeSlots).map((k, i) => i);
 	}
 
 	getOverBookedTimeSlots() {
