@@ -38,6 +38,18 @@ const fType = (e) => {
     }
 }
 
+const maxParts = (max, exp) => {
+    if (parseInt(exp) > 0) {
+        return exp
+    }
+
+    if (parseInt(max.split(";")[0]) > 0) {
+        return max.split(";")[0];
+    }
+
+    return "-";
+}
+
 const langFlag = (language) =>{
     switch(language.split(";")[0]){
         case 'Türkisch': return Turkish
@@ -144,7 +156,9 @@ const Course = (props) => {
         comprehensibility,
         fun,
         interesting,
-        grade_effort: gradefort
+        grade_effort: gradefort,
+        "Max. Teilnehmer": max,
+        "Erwartete Teilnehmer": exp
         } = props
     const [isOpen, toggle] = useState(false);
     const classes = muiStyles();
@@ -175,7 +189,9 @@ const Course = (props) => {
                                     <table>
                                         <tr><th>Location:</th><td>{Location.split(";").join(", ")}</td></tr>
                                         <tr><th>Language:</th><td>{Language}</td></tr><br></br>
-                                        <tr><th>Course Type:</th><td class={borderSelect(Type.split(";")[0])}>{Type.split(";").map(e => fType(e)).join(", ")}</td></tr><br></br>
+                                        <tr><th>Course Type:</th><td class={borderSelect(Type.split(";")[0])}>{Type.split(";").map(e => fType(e)).join(", ")}</td></tr>
+                                        <tr><th>Seats:</th><td>{maxParts(max, exp)}</td></tr>
+                                        <br></br>
                                         <tr><th>Credits:</th><td>{Credits}</td></tr>
                                         <tr><th>Exam Type:</th><td>{Exam.split(";").map(e => ExamType(e)).join(", ")}</td></tr>
                                     </table><br></br>
