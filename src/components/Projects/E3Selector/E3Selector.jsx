@@ -28,7 +28,8 @@ export default function E3Selector() {
         conflicts: DataHandler.conflictExists(),
         booked: DataHandler.getBookedTimeSlots(),
         overBooked: DataHandler.getOverBookedTimeSlots(),
-        creditsStatus: DataHandler.getCreditsStatus()
+        creditsStatus: DataHandler.getCreditsStatus(),
+        smallCourses: DataHandler.getSmallCourses()
     });
 
     const setFilter = (family, item) => {
@@ -51,7 +52,8 @@ export default function E3Selector() {
             conflicts: DataHandler.conflictExists(),
             booked: DataHandler.getBookedTimeSlots(),
             overBooked: DataHandler.getOverBookedTimeSlots(),
-            creditsStatus: DataHandler.getCreditsStatus()
+            creditsStatus: DataHandler.getCreditsStatus(),
+            smallCourses: DataHandler.getSmallCourses()
         });
     }
 

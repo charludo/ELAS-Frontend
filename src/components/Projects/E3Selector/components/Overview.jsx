@@ -24,6 +24,14 @@ export default function Overview(props) {
         }
     }
 
+    const smallCourseNotification = () => {
+        console.log(data.smallCourses)
+        switch(data.smallCourses){
+            case true: return(<Grid item xs={12}><div class="overview-notification on-warn"><ErrorIcon /> Course with few available seats selected</div></Grid>)
+            default: return
+        }
+    }
+
     if (props.selectedList.length) {
       return (
           <Grid container spacing={1} direction="row" alignItems="stretch" justify="space-between" id="overview">
@@ -35,6 +43,7 @@ export default function Overview(props) {
               <h1 id="overview-workload-count">{data.workload}</h1>
             </Grid>
 
+            {smallCourseNotification()}
             <Grid item xs={12}>
               {creditNotification()}
             </Grid>

@@ -9,6 +9,7 @@ class DataHandler {
 		this.selectedSWS = 0;
 		this.selectedCredits = [0, 0];
 		this.bookedTimeSlots = {};
+		this.smallCourseThreshold = 10;
 
 		this.filterState = JSON.parse(localStorage.getItem("e3filters")) || require("./data/filters.json");
 		this.applyFilters();
@@ -61,6 +62,8 @@ class DataHandler {
 	setFilter(family, item) {
 		if (family === "credits") {
 			this.filterState.credits = parseInt(item);
+		} else if (family === "participants") {
+				this.filterState.participants = item;
 		} else if (family === "catalog") {
 			if (item === "all") {
 				Object.keys(this.filterState.catalog).forEach(k => this.filterState.catalog[k] = true);
@@ -152,6 +155,17 @@ class DataHandler {
         }
 	}
 
+	getSmallCourses() {
+		let small = false;
+		this.selectedList.forEach((item, i) => {
+			if (parseInt(item["Erwartete Teilnehmer"]) <= this.smallCourseThreshold || parseInt(item["Max. Teilnehmer"].split(";")[0]) <= this.smallCourseThreshold) {
+				small = true;
+			}
+		});
+
+		return small;
+	}
+
 	getFilterState() {
 		return this.filterState;
 	}
@@ -233,6 +247,18 @@ class DataHandler {
 			let credits = course.Credits.match(/\d+/g).sort();
 			if (this.filterState.credits < credits[0]) {
 				fitting = false;
+			}
+
+			// Participants
+			let part = -1;
+			if (parseInt(course["Erwartete Teilnehmer"]) > 0) {
+				part = parseInt(course["Erwartete Teilnehmer"]);
+			} else if (parseInt(course["Max. Teilnehmer"].split(";")[0]) > 0) {
+				part = parseInt(course["Max. Teilnehmer"].split(";")[0]);
+			}
+			if (part > 0 && (this.filterState.participants[0] > part || this.filterState.participants[1] < part)) {
+				fitting = false;
+				console.log(part)
 			}
 
 			if (fitting === true) {

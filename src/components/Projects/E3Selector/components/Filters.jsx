@@ -4,13 +4,14 @@ import SearchBar from "material-ui-search-bar";
 
 import Credits from "./partials/Credits.jsx";
 import TimeTable from "./partials/TimeTable";
+import Participants from "./partials/Participants.jsx";
 import { FilterGroup, VerticalFilterGroup } from "./partials/FilterGroups";
 
 import { muiStyles } from "../res/muiStyles";
 
 export default function Filters(props) {
     const classes = muiStyles();
-    
+
     return (
       <Grid container direction="row" justify="space-evenly" alignItems="flex-start" spacing="6">
         <TimeTable action={props.action} filterState={props.filterState}/>
@@ -138,7 +139,11 @@ export default function Filters(props) {
                 },
             ]}
         />
-    <Credits action={props.action} filterState={props.filterState}/>
+    <Grid item>
+            <Credits action={props.action} filterState={props.filterState}/><br/>
+            <Participants action={props.action} filterState={props.filterState}/>
+        </Grid>
+
     </Grid>
   );
 }

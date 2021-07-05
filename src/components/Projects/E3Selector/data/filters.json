@@ -98,5 +98,6 @@
 		"Wirtschaft": true
 	},
 	"credits": 6,
+	"participants": [0, 180],
 	"search": ""
 }
