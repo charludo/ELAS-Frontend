@@ -122,7 +122,10 @@ export default function Filters(props) {
                 {
                     label: "Seminar",
                     checked: props.filterState.courseType["Seminar"],
-                    arguments: [["courseType", "Seminar"]],
+                    arguments: [
+                        ["courseType", "Seminar"],
+                        ["courseType", "Hauptseminar"]
+                    ],
                     classes: classes.seminar
                 },
                 {
