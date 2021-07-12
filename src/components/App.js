@@ -7,6 +7,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import ScrollToTop from "./Reuseable/ScrollToTop/ScrollToTop";
 import Login from "./Website/Login/Login";
 import Registration from "./Website/Registration/Registration";
+import Scrape from "./Website/Scrape/Scrape";
 import AuthorizedRoute from "../assets/functions/AuthorizedRoute";
 import CourseInsights from "./Projects/CourseInsights/CourseInsights";
 import E3Selector from "./Projects/E3Selector/E3Selector";
@@ -49,6 +50,7 @@ export default function App() {
               <Route exact path='/' render={(props) => <Home {...props} classes={classes}/>}/>
               <Route exact path='/login' render={(props) => <Login {...props} classes={classes}/>}/>
               <Route exact path='/register' render={(props) => <Registration {...props} classes={classes}/>}/>
+              <AuthorizedRoute isAuth={isLoggedIn} path='/scrape' component={Scrape} classes={classes}/>
               <AuthorizedRoute isAuth={isLoggedIn} path='/courseinsights' component={CourseInsights} classes={classes}/>
               <AuthorizedRoute isAuth={isLoggedIn} path='/e3selector' component={E3Selector} classes={classes}/>
               <AuthorizedRoute isAuth={isLoggedIn} path='/ineval' component={InEval} classes={classes}/>
