@@ -27,7 +27,7 @@ export default function Overview(props) {
     const smallCourseNotification = () => {
         console.log(data.smallCourses)
         switch(data.smallCourses){
-            case true: return(<Grid item xs={12}><div class="overview-notification on-warn"><ErrorIcon /> Course with few available seats selected</div></Grid>)
+            case true: return(<Grid item xs={12}><div class="overview-notification"><ErrorIcon /> Course with few available seats selected</div></Grid>)
             default: return
         }
     }
