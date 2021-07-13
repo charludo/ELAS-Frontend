@@ -87,6 +87,8 @@
 	"courseType": {
 		"Vorlesung": true,
 		"Blockseminar": true,
+		"Hauptseminar": true,
+		"Projektseminar": true,
 		"VL/Übung": true,
 		"Seminar": true,
 		"E-Learning": true

@@ -67,6 +67,8 @@ const borderSelect = (type) => {
         case "Blockseminar": return "blockBorder";
         case "Seminar": return "seminarBorder";
         case "E-Learning": return "elearnBorder";
+        case "Projektseminar" : return "seminarBorder";
+        case "Hauptseminar" : return "seminarBorder";
         default: return "";
     }
 }
