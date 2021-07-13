@@ -46,6 +46,11 @@ export default function Filters(props) {
                     checked: props.filterState.locales.Dortmund,
                     arguments: [["locales", "Dortmund"]]
                 },
+                {
+                    label: "online",
+                    checked: props.filterState.locales.online,
+                    arguments: [["locales", "online"]]
+                },
             ]}
         />
         <FilterGroup
@@ -124,7 +129,8 @@ export default function Filters(props) {
                     checked: props.filterState.courseType["Seminar"],
                     arguments: [
                         ["courseType", "Seminar"],
-                        ["courseType", "Hauptseminar"]
+                        ["courseType", "Hauptseminar"],
+                        ["courseType", "Projektseminar"]
                     ],
                     classes: classes.seminar
                 },

@@ -1,7 +1,8 @@
 class DataHandler {
 
 	constructor() {
-		this.data = require("./data/e3_courses.json").children.map(catalog => catalog.children).flat();
+		// this.data = require("./data/e3_courses.json").children.map(catalog => catalog.children).flat();
+		this.data = require("./data/e3_courses.json");
 
 		this.courseList = [];
 		this.selectedList = [];

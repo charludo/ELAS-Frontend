@@ -6,18 +6,27 @@ import "react-svg-radar-chart/build/css/index.css";
 import avg from "../../data/avg_ratings.json";
 
 export default function RChart(props) {
+    const avg_data = {
+        fairness: avg.fairness,
+        support: avg.support,
+        material: avg.material,
+        comprehensibility: avg.comprehensibility,
+        fun: avg.fun,
+        interesting: avg.interesting,
+        gradefort: avg.grade_effort
+    }
     const courseData = {
-        fairness: parseInt(props.fairness)/5 || 0,
-        support: parseInt(props.support)/5 || 0,
-        material: parseInt(props.material)/5 || 0,
-        comprehensibility: parseInt(props.comprehensibility)/5 || 0,
-        fun: parseInt(props.fun)/5 || 0,
-        interesting: parseInt(props.interesting)/5 || 0,
-        gradefort: parseInt(props.gradefort)/5 || 0
+        fairness: parseFloat(props.fairness) || 0,
+        support: parseFloat(props.support) || 0,
+        material: parseFloat(props.material) || 0,
+        comprehensibility: parseFloat(props.comprehensibility) || 0,
+        fun: parseFloat(props.fun) || 0,
+        interesting: parseFloat(props.interesting) || 0,
+        gradefort: parseFloat(props.gradefort) || 0
     }
     const data = [
       {
-        data: avg,
+        data: avg_data,
         meta: { color: "#C0C0C0" },
       },
       {

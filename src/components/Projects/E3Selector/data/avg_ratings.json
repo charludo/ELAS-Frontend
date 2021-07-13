@@ -1,9 +1,1 @@
-{
-	"fairness": 0.81,
-	"support": 0.782,
-	"material": 0.754,
-	"comprehensibility": 0.804,
-	"fun": 0.734,
-	"interesting": 0.766,
-	"gradefort": 0.814
-}
+{"fairness": 0.7207131284089551, "support": 0.7058988659815306, "material": 0.7014405060269722, "fun": 0.6588496674586898, "comprehensibility": 0.7178585858585856, "interesting": 0.6927308093915148, "grade_effort": 0.6421304323917345}
