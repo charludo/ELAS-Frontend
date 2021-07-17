@@ -39,6 +39,15 @@ export const theme = createMuiTheme({
       contrastText: '#ffffff',
     },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1500,
+      xl: 1920,
+    },
+  },
 });
 
 export const muiStyles = makeStyles((theme) => ({
@@ -95,7 +104,10 @@ export const muiStyles = makeStyles((theme) => ({
   fab: {
       float: "right",
       marginTop: -8,
-      backgroundColor: c_primary
+      backgroundColor: c_primary,
+      [`${theme.breakpoints.down("sm")}`]: {
+        marginTop: -24
+      }
   },
   copyButton: {
       padding: "8px 16px",
@@ -215,4 +227,25 @@ export const muiStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(5),
   },
+  mobileHidden: {
+    [`${theme.breakpoints.down("sm")}`]: {
+        display: "none",
+        color: "red"
+    }
+  },
+  mobileFirst: {
+    [`${theme.breakpoints.down("sm")}`]: {
+      order: -1
+    }
+},
+  mobileWide: {
+    [`${theme.breakpoints.down("sm")}`]: {
+      width: "100%"
+    }
+},
+mdSelectedHidden: {
+  [`${theme.breakpoints.down("md")}`]: {
+    display: "none"
+  }
+}
 }));

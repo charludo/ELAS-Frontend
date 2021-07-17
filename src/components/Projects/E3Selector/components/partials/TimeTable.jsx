@@ -7,7 +7,7 @@ import "../../res/extraStyles.sass";
 export default function TimeTable(props) {
 	return (
 		<Grid item>
-			<table class="time-table">
+			<table class="time-table time-table-selectable">
 				<tr>
 					<th></th>
 					<td>Mon</td>

@@ -47,11 +47,11 @@ export default function RChart(props) {
     };
 
     return (
-      <div>
+      <div class="chart">
         <RadarChart
           captions={captions}
           data={data}
-          size={300}
+          size={250}
         />
       </div>
     );

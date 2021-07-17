@@ -97,12 +97,12 @@ export default function E3Selector() {
                                 {/*Main Grid*/}
                                 <Grid container spacing={3} direction="row" alignItems="stretch" justify="center" style={{marginTop: "40px"}}>
                                     {/* Selected Courses */}
-                                    <Grid item md={6} lg={7} xl={6}>
+                                    <Grid item xs={12} md={6} lg={6} xl={5}>
                                         <SelectedCourses selectedList={selectedCourses} handleSel={handleSelection} booked={overviewData.booked} overBooked={overviewData.overBooked}/>
                                     </Grid>
 
                                     {/* Overview */}
-                                    <Grid item md={6} lg={5} xl={4}>
+                                    <Grid item xs={12} md={6} lg={4} xl={3} className={classes.mobileFirst}>
                                         <Paper className={classes.paper} elevation={2}>
                                             <Overview selectedList={selectedCourses} data={overviewData}/>
                                         </Paper>
@@ -114,7 +114,7 @@ export default function E3Selector() {
                                     </Grid>
 
                                     {/* Unselected Courses */}
-                                    <Grid item xs={12} xl={10}>
+                                    <Grid item xs={12} lg={10} xl={8}>
                                         <Courses list={unselectedCourses} sort={setSorting} selectedList={selectedCourses} booked={overviewData.booked} handleSel={handleSelection}/>
                                     </Grid>
                                 </Grid>

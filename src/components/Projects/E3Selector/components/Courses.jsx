@@ -14,6 +14,7 @@ import RChart from "./partials/Chart";
 
 import "../res/extraStyles.sass";
 import { muiStyles } from "../res/muiStyles";
+import classNames from 'classnames';
 
 import German from "../res/German.png";
 import English from "../res/English.png";
@@ -97,7 +98,7 @@ const Courses = (props) => {
 
     return(
         <Grid container spacing={1} direction="row" alignItems="stretch" justify="center">
-            <Grid item xs={12}>
+            <Grid item xs={12} className={classes.mobileHidden}>
                 <Paper elevation={6} style={{padding: 24}}>
                     <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly" style={{ paddingLeft: 60 }}>
                         <Grid item xs={1} className={classes.sorter} onClick={() => sort("Credits")}>Credits</Grid>
@@ -184,11 +185,11 @@ const Course = (props) => {
                 <div class="select-icon"><IconButton  onClick={() => handleSel(props)}>{selected ? <RemoveIcon/> : <AddIcon/>}</IconButton></div>
                 <Grid item xs={12}>
                     <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly">
-                        <Grid item xs={1} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{Credits + " Cr."}</Grid>
-                        <Grid item xs={1} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{timeCom.length !== 0 ? timeCom + " hrs." : "-"}</Grid>
-                        <Grid item xs={selected ? 7: 6} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{Title}</Grid>
-                        <Grid item xs={selected ? 1: 2} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{(Location.split(";").length > 1) ? selected ? "va" : "various" : selected ? Location.slice(0, 2) : Location}</Grid>
-                        <Grid item xs={1} className={classes.emphasis} onClick={() => toggle(!isOpen)}><img class="lang-flag" alt={Language} src={langFlag(Language)}/></Grid>
+                        <Grid item xs={1} className={classNames(classes.emphasis, classes.mobileHidden, classes[selected ? "mdSelectedHidden" : ""])} onClick={() => toggle(!isOpen)}>{Credits + " Cr."}</Grid>
+                        <Grid item xs={1} className={classNames(classes.emphasis, classes.mobileHidden, classes[selected ? "mdSelectedHidden" : ""])} onClick={() => toggle(!isOpen)}>{timeCom.length !== 0 ? timeCom + " hrs." : "-"}</Grid>
+                        <Grid item xs={10} md={selected ? 11 : 6} lg={selected ? 7 : 6} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{Title}</Grid>
+                        <Grid item xs={selected ? 1: 2} className={classNames(classes.emphasis, classes.mobileHidden, classes[selected ? "mdSelectedHidden" : ""])} onClick={() => toggle(!isOpen)}>{(Location.split(";").length > 1) ? selected ? "va" : "various" : selected ? Location.slice(0, 2) : Location}</Grid>
+                        <Grid item xs={1} className={classNames(classes.emphasis, classes.mobileHidden, classes[selected ? "mdSelectedHidden" : ""])} onClick={() => toggle(!isOpen)}><img class="lang-flag" alt={Language} src={langFlag(Language)}/></Grid>
                         <Grid item xs={1} className={classes.emphasis}><div class="expand-icon"><Icon aria-label="expand row" onClick={() => toggle(!isOpen)}>{isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}</Icon></div></Grid>
                     </Grid>
                 </Grid>
@@ -197,10 +198,10 @@ const Course = (props) => {
                     <hr class="hr-lighter"></hr>
                     <Grid item xs={12} style={{padding: 24}}>
                         <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly">
-                            <Grid item md={selected ? 12 : 6} lg={selected ? 6 : 3}><RChart fairness={fairness} support={support} material={material} comprehensibility={comprehensibility} fun={fun} interesting={interesting} gradefort={gradefort}/></Grid>
-                            <Grid item md={selected ? 12 : 6} lg={selected ? 6 : 3}><Schedule schedule={schedule} booked={booked} overBooked={overBooked}/></Grid>
-                            <Grid item md={selected ? 12 : 6} lg={selected ? 6 : 4}><strong>Description (excerpt):</strong>{ breakDescription(Description) }</Grid>
-                            <Grid item md={selected ? 12 : 6} lg={selected ? 6 : 2}>
+                            <Grid item xs={12} md={selected ? 12 : 6} xl={selected ? 6 : 3}><RChart fairness={fairness} support={support} material={material} comprehensibility={comprehensibility} fun={fun} interesting={interesting} gradefort={gradefort}/></Grid>
+                            <Grid item xs={12} md={selected ? 12 : 6} xl={selected ? 6 : 4}><Schedule schedule={schedule} booked={booked} overBooked={overBooked}/></Grid>
+                            <Grid item xs={12} md={selected ? 12 : 6} xl={selected ? 6 : 3}><strong>Description (excerpt):</strong>{ breakDescription(Description) }</Grid>
+                            <Grid item xs={12} md={selected ? 12 : 6} xl={selected ? 6 : 2}>
                                 <div class="info-table">
                                     <table>
                                         <tr><th>Location:</th><td>{Location.split(";").join(", ")}</td></tr>

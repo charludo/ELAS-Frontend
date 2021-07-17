@@ -94,6 +94,15 @@
 		&.checked-true
 			background-color: #F2994A
 
+	@media screen and (max-width: 505px)
+		transform: scale(0.8)
+		margin: 0 -40px
+
+.time-table-selectable
+	@media screen and (max-width: 600px)
+		transform: scale(0.8)
+		margin: -40px
+
 .vertical-filter
 	text-transform: uppercase
 	color: #999
@@ -104,6 +113,10 @@
 
 	&.vertical-checked
 		color: #0057A7
+
+	@media screen and (max-width: 600px)
+		font-size: 16px
+		margin: 0 6px 16px 6px
 
 #overview
 	padding: 0 40px 12px 40px
@@ -162,3 +175,13 @@
 
 	.on-warn svg
 		color: #F2994A
+
+.chart
+	width: 100%
+
+	@media screen and (max-width: 505px)
+		margin: -12px
+
+	svg
+		margin: 0 auto
+		display: block

@@ -35,11 +35,11 @@ export default function Overview(props) {
     if (props.selectedList.length) {
       return (
           <Grid container spacing={1} direction="row" alignItems="stretch" justify="space-between" id="overview">
-            <Grid item xs={8}>
+            <Grid item xs={12} sm={8}>
               <h1 class={data.creditsStatus} id="overview-credit-count">{data.selectedCredits}</h1>
             </Grid>
 
-            <Grid item xs={4}>
+            <Grid item xs={12} sm={4}>
               <h1 id="overview-workload-count">{data.workload}</h1>
             </Grid>
 

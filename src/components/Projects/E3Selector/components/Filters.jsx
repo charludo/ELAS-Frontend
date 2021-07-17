@@ -158,6 +158,7 @@ export default function Filters(props) {
 }
 
 export function Catalog(props) {
+    const classes = muiStyles();
     return (
         <Grid container justify="center" alignItems="center">
             <VerticalFilterGroup
@@ -189,6 +190,7 @@ export function Catalog(props) {
                 value={props.initial}
                 onChange={(newValue) => props.action("search", newValue)}
                 onCancelSearch={() => props.action("search", "")}
+                className={classes.mobileWide}
                 />
         </Grid>
     );
