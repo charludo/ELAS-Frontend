@@ -73,6 +73,18 @@ const borderSelect = (type) => {
     }
 }
 
+const breakDescription = (desc) => {
+    var maxLength = 500;
+    var maxParagraphs = 3;
+    var trimmed = desc.length > maxLength ? desc.substring(0, maxLength) + "..." : desc;
+    var paragraphs = trimmed.split("\n").map(function(paragraph) {
+        return (
+            <p>{paragraph}</p>
+        );
+    });
+    return paragraphs.length > maxParagraphs ? paragraphs.slice(0, maxParagraphs) : paragraphs
+}
+
 
 const Courses = (props) => {
     const list = props.list
@@ -145,6 +157,7 @@ const Course = (props) => {
         Location,
         Type,
         Language,
+        Description,
         Times_manual :schedule,
         Exam,
         Link:link,
@@ -184,9 +197,10 @@ const Course = (props) => {
                     <hr class="hr-lighter"></hr>
                     <Grid item xs={12} style={{padding: 24}}>
                         <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly">
-                            <Grid item xs={selected ? 4 : 3}><RChart fairness={fairness} support={support} material={material} comprehensibility={comprehensibility} fun={fun} interesting={interesting} gradefort={gradefort}/></Grid>
-                            <Grid item xs={selected ? 4 : 3}><Schedule schedule={schedule} booked={booked} overBooked={overBooked}/></Grid>
-                            <Grid item xs={selected ? 4 : 3}>
+                            <Grid item md={selected ? 12 : 6} lg={selected ? 6 : 3}><RChart fairness={fairness} support={support} material={material} comprehensibility={comprehensibility} fun={fun} interesting={interesting} gradefort={gradefort}/></Grid>
+                            <Grid item md={selected ? 12 : 6} lg={selected ? 6 : 3}><Schedule schedule={schedule} booked={booked} overBooked={overBooked}/></Grid>
+                            <Grid item md={selected ? 12 : 6} lg={selected ? 6 : 4}><strong>Description (excerpt):</strong>{ breakDescription(Description) }</Grid>
+                            <Grid item md={selected ? 12 : 6} lg={selected ? 6 : 2}>
                                 <div class="info-table">
                                     <table>
                                         <tr><th>Location:</th><td>{Location.split(";").join(", ")}</td></tr>
