@@ -66,6 +66,12 @@ export const muiStyles = makeStyles((theme) => ({
     alignItems: "center",
     marginTop: "200px"
   },
+  preSelectInput: {
+    width: 350,
+    [`${theme.breakpoints.down("xs")}`]: {
+      width: 250
+    }
+  },
   prePaper: {
     padding: "40px",
     borderRadius: "24px",

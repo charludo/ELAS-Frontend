@@ -53,7 +53,7 @@ export default function ProgramSelection(props) {
 						<Autocomplete
 							id="studyprogram"
 							options={studyPrograms}
-							style={{ width: 350 }}
+							className={classes.preSelectInput}
 							renderInput={(params) => <TextField {...params} label="Study Program" variant="outlined" />}
 							/>
 						<div className={moreInitialFilters ? classes.initialFilters : classes.initialFiltersHidden}>
