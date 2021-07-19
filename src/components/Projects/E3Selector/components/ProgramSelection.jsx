@@ -37,6 +37,12 @@ export default function ProgramSelection(props) {
 		}
 	}
 
+
+	const setFilter = (family, item) => {
+      DataHandler.setFilter(family, item);
+      //setUnselectedCourses(DataHandler.getUnselectedCourses());
+    };
+
 	const [moreInitialFilters, openInitialFilters] = React.useState(false);
     const changeInitialFiltersDisplayed = () => {
       openInitialFilters((prev) => !prev);
@@ -57,7 +63,7 @@ export default function ProgramSelection(props) {
 							renderInput={(params) => <TextField {...params} label="Study Program" variant="outlined" />}
 							/>
 						<div className={moreInitialFilters ? classes.initialFilters : classes.initialFiltersHidden}>
-							<Filters action={DataHandler.setFilter} filterState={DataHandler.getFilterState()}/>
+							<Filters action={setFilter} filterState={DataHandler.getFilterState()}/>
 						</div>
 					</Grid>
 					<p className={classes.moreFiltersButton} moreInitialFilters={moreInitialFilters} onClick={changeInitialFiltersDisplayed}>{moreInitialFilters ? "- show less" : "+ more options"}</p>

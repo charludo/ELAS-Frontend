@@ -185,7 +185,7 @@ const Course = (props) => {
                 <div class="select-icon"><IconButton  onClick={() => handleSel(props)}>{selected ? <RemoveIcon/> : <AddIcon/>}</IconButton></div>
                 <Grid item xs={12}>
                     <Grid container spacing={3} direction="row" alignItems="center" justify="space-evenly">
-                        <Grid item xs={1} className={classNames(classes.emphasis, classes.mobileHidden, classes[selected ? "mdSelectedHidden" : ""])} onClick={() => toggle(!isOpen)}>{Credits + " Cr."}</Grid>
+                        <Grid item xs={1} lg={1} className={classNames(classes.emphasis, classes.mobileHidden, classes[selected ? "mdSelectedHidden" : ""])} onClick={() => toggle(!isOpen)}>{Credits + " Cr."}</Grid>
                         <Grid item xs={1} className={classNames(classes.emphasis, classes.mobileHidden, classes[selected ? "mdSelectedHidden" : ""])} onClick={() => toggle(!isOpen)}>{timeCom.length !== 0 ? timeCom + " hrs." : "-"}</Grid>
                         <Grid item xs={10} md={selected ? 11 : 6} lg={selected ? 7 : 6} className={classes.emphasis} onClick={() => toggle(!isOpen)}>{Title}</Grid>
                         <Grid item xs={selected ? 1: 2} className={classNames(classes.emphasis, classes.mobileHidden, classes[selected ? "mdSelectedHidden" : ""])} onClick={() => toggle(!isOpen)}>{(Location.split(";").length > 1) ? selected ? "va" : "various" : selected ? Location.slice(0, 2) : Location}</Grid>
