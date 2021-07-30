@@ -22,7 +22,6 @@ export default function Filters(props) {
       <Grid container direction="row" justify="space-evenly" alignItems="flex-start" spacing="6">
         <TimeTable action={props.action} filterState={props.filterState}/>
 
-        // Location
         <FilterGroup
             action={props.action}
             groupLabel={"Location"}
@@ -62,7 +61,6 @@ export default function Filters(props) {
             ]}
         />
 
-        // Exam Type
         <FilterGroup
             action={props.action}
             groupLabel={"Exam"}
@@ -93,7 +91,6 @@ export default function Filters(props) {
             ]}
         />
 
-        // Language
         <FilterGroup
             action={props.action}
             groupLabel={"Language"}
@@ -121,7 +118,6 @@ export default function Filters(props) {
             ]}
         />
 
-        // Course Type
         <FilterGroup
             action={props.action}
             groupLabel={"Course Type"}
@@ -163,7 +159,6 @@ export default function Filters(props) {
             ]}
         />
 
-    // Credits / participants sliders
     <Grid item>
             <Credits action={props.action} filterState={props.filterState}/><br/>
             <Participants action={props.action} filterState={props.filterState}/>

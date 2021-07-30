@@ -34,7 +34,7 @@ class DataHandler {
 	tryToLoadSharedState() {
 		const shared = new URLSearchParams(window.location.search).get("shared");
 	    if (shared) {
-	        fetch(this.backendURL + shared)
+	        fetch(this.backendURL + "/shared/" + shared)
 	        .then(response => response.json())
 	        .then(data => {
 	            localStorage.setItem("e3filters", data.e3filters);
