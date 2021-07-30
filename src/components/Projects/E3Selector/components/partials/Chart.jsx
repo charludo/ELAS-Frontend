@@ -1,3 +1,8 @@
+/* Radar Chart generation for the course details.
+ * Draws either just the average ratings, or, if
+ * available, both the average and course-specific
+ */
+
 import React from "react";
 
 import RadarChart from "react-svg-radar-chart";

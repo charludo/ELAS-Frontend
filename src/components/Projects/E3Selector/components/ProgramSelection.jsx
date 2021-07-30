@@ -1,3 +1,8 @@
+/* The view presented when first visiting.
+ * a lot of duplicate functionality to E3Selector.jsx,
+ * but we felt separating the components was cleaner.
+ */
+
 import React from 'react';
 import {Grid} from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
@@ -14,8 +19,9 @@ import Filters from "./Filters";
 import { muiStyles } from "../res/muiStyles";
 import DataHandler from "../DataHandler";
 
-
 export default function ProgramSelection(props) {
+	// List of currently supported stufy programs!
+	// The selected one gets its filter set to false
 	const studyPrograms = [
 	    "Angewandte Informatik",
 	    "Bauingenieurwesen",

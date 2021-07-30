@@ -1,3 +1,8 @@
+/* Courses.jsx gets passed the full list of courses,
+ * and exports two components "Courses" and "SelectedCourses",
+ * which display a list of (un-)selected courses, respectively.
+ */
+
 import React, { useState } from 'react';
 import { Collapse, Icon } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid';
@@ -21,6 +26,7 @@ import English from "../res/English.png";
 import Turkish from "../res/Turkish.png";
 import Dutch from "../res/Dutch.png";
 
+//quick translation
 const ExamType = (e) => {
     switch(e){
         case "Präsentation": return "Presentation"
@@ -30,6 +36,7 @@ const ExamType = (e) => {
         default: return e
     }
 }
+
 const fType = (e) => {
     switch(e){
         case  "Vorlesung" : return "Lecture"
@@ -51,6 +58,7 @@ const maxParts = (max, exp) => {
     return "-";
 }
 
+//quick translation
 const langFlag = (language) =>{
     switch(language.split(";")[0]){
         case 'Türkisch': return Turkish
@@ -61,6 +69,7 @@ const langFlag = (language) =>{
     }
 }
 
+//Each Type has its own Border color
 const borderSelect = (type) => {
     switch(type) {
         case "VL/Übung": return "lecExBorder";
@@ -74,6 +83,7 @@ const borderSelect = (type) => {
     }
 }
 
+//For displaying a not-too-long excerpt of the description of a course
 const breakDescription = (desc) => {
     var maxLength = 500;
     var maxParagraphs = 3;
@@ -86,7 +96,10 @@ const breakDescription = (desc) => {
     return paragraphs.length > maxParagraphs ? paragraphs.slice(0, maxParagraphs) : paragraphs
 }
 
-
+/* This is a container for all the filtered courses passed on from the E3Selector
+ * HandleSel is the function HandleSelection from E3Selector, meant to handle the event of selecting a course
+ * Sort is the function setSorting from E3Selector, meant to trigger upon clicking on the table headers
+ */
 const Courses = (props) => {
     const list = props.list
     const handleSel = props.handleSel
@@ -111,7 +124,10 @@ const Courses = (props) => {
                 </Paper>
             </Grid>
             {
-                //Only display the courses that are not contained within the selectedList
+                //Selecting a course doesn't delete it from the "list"
+                //it pushs a copy of it to the "selectedList"
+                //So we stop displaying a course in the main table if the selectedlist contains that course
+                //we filter based on that principal
                 list.filter(c => !selectedList.map(s => s.Title).includes(c.Title)).map( entry => {
                     return(
                         <Grid item xs={12}>
@@ -124,6 +140,7 @@ const Courses = (props) => {
     )
 }
 
+//The container component for the SelectedCourses which reuse the <Course> component
 const SelectedCourses = (props) => {
     const classes = muiStyles();
 
@@ -150,7 +167,8 @@ const SelectedCourses = (props) => {
     }
 }
 
-
+//The Course component implemented as a row with an additional collapsable row.
+//Grid heavily utilized for different resolutions.
 const Course = (props) => {
     const {Credits,
         Title,
@@ -194,6 +212,7 @@ const Course = (props) => {
                     </Grid>
                 </Grid>
 
+                {/* Collapsible for all additional information */}
                 <Collapse in={isOpen} timeout="auto" unmountOnExit>
                     <hr class="hr-lighter"></hr>
                     <Grid item xs={12} style={{padding: 24}}>

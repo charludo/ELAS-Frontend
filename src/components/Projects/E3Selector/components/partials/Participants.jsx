@@ -1,3 +1,5 @@
+/* Simple two-point slider for selecting participant ranges */
+
 import React, { useState } from "react";
 import { Grid } from '@material-ui/core';
 
@@ -12,7 +14,7 @@ export default function Participants(props) {
                 valueLabelDisplay={true}
                 value={value}
                 onChange={(e, val) => setValue(val)}
-                onChangeCommitted={(e, val) => props.action("participants", val)}
+                onChangeCommitted={(e, val) => props.action("participants", val) /* doing this onChange is suuuuuper sluggish */}
                 min={0}
                 max={180}
             />

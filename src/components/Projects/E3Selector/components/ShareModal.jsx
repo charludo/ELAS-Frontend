@@ -1,3 +1,10 @@
+/* Modal and button for sharing the
+ * selections and the filter state.
+ * get saved in the backend, where
+ * anyone with the correct random slug
+ * can request them from.
+ */
+
 import React, { useState } from 'react';
 
 import { Paper, Fab, Modal } from '@material-ui/core';
@@ -15,10 +22,12 @@ export default function ShareModal(props) {
 	const [linkCopied, setLinkCopied] = useState(false);
 	const [newSharedLink, setSharedLink] = useState("");
 	const [modalOpen, setModal] = useState(false);
+
+	// Generate a random slug, use it as an url parameter & "ID" in the backend storage
 	const switchModal = () => {
 		if (!modalOpen) {
 			let shared = Math.random().toString(36).substring(7);
-			fetch("http://localhost:5000/e3selector/shared/" + shared, {
+			fetch(DataHandler.getBackendURL() + "/shared/" + shared, {
 				method: "POST",
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
@@ -26,7 +35,7 @@ export default function ShareModal(props) {
 					e3filters: JSON.stringify(DataHandler.getFilterState())
 				})
 			});
-			setSharedLink("http://localhost:3000/e3selector?shared=" + shared);
+			setSharedLink(DataHandler.getBackendURL() + "?shared=" + shared);
 		}
 		setModal(!modalOpen);
 		setLinkCopied(false);

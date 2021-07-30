@@ -1,3 +1,8 @@
+/* Filters are often Grouped, like in
+ * the filter dropdown and the Catalog-bar.
+ * Here they are simply being bundled together.
+ */
+
 import React from 'react';
 import { Grid, FormLabel } from '@material-ui/core';
 
@@ -25,6 +30,8 @@ const VerticalFilterGroup = (props) => {
 			action(p[0], p[1]);
 		});
 	};
+
+	// custom color indicator for which catalog is selected
 	const toggleClass = (e) => {
 		let others = document.getElementsByClassName('vertical-checked');
 		Array.from(others).forEach(elem => elem.classList.remove("vertical-checked"));

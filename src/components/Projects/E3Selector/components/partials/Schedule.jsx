@@ -1,3 +1,5 @@
+/* Nassims way more elegant way of creating a timetable! */
+
 import React from "react";
 import { Paper } from "@material-ui/core";
 
@@ -37,6 +39,7 @@ export default function Schedule(props) {
                                 if (overBooked) { //means we are in the selectedList
                                     return(
                                         <td>
+                                            {/* Red: double-booked; orange: booked by this course; dark grey; booked by other course; light gray: unbooked */}
                                             <Paper className={list.includes(d+t) ? (overBooked.includes(d+t) ? classes.overlap : classes.true) : (booked.includes(d+t) ? classes.booked : classes.slot)}/>
                                         </td>
                                     )

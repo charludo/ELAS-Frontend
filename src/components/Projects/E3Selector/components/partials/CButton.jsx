@@ -1,3 +1,5 @@
+/* Custom Button for convenience, wraps MUI Button */
+
 import React from 'react';
 import Button from '@material-ui/core/Button';
 

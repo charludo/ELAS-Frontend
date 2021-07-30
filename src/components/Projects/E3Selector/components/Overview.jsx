@@ -1,3 +1,8 @@
+/* Straightforward component:
+ * DataHandler does the heavy lifting,
+ * here we just display the results.
+ */
+
 import React from "react";
 import { Grid } from "@material-ui/core";
 
@@ -32,7 +37,7 @@ export default function Overview(props) {
         }
     }
 
-    if (props.selectedList.length) {
+    if (props.selectedList.length) { // only display information when there are selected courses
       return (
           <Grid container spacing={1} direction="row" alignItems="stretch" justify="space-between" id="overview">
             <Grid item xs={12} sm={8}>

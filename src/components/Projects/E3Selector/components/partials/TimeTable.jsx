@@ -1,3 +1,9 @@
+/* TimeTable Filter Selection
+ * Is it bad code? Yes.
+ * Will the number of days in a week or the number of hours in a day change?
+ * Probably not while this project is in use.
+ */
+
 import React from 'react';
 import { Grid } from '@material-ui/core';
 

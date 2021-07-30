@@ -1,9 +1,16 @@
+/* Wrapper for MUI CheckBoxes. Can return three types of CB:
+ * - normal CheckBox
+ * - CheckBox wrapped in a FormControlLable
+ * - custom-styled CheckBox for the TimeTable-filters
+ */
+
 import React, { useState } from 'react';
 
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 export default function CheckBox(props) {
+	// some CBs have to toggle multiple filters (legacy-scraper-reasons)
 	const actionIterator = (action, params) => {
 		params.forEach(p => {
 			action(p[0], p[1]);

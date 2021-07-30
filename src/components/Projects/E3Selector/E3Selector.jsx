@@ -20,6 +20,7 @@ import ShareModal from "./components/ShareModal";
 
 
 export default function E3Selector() {
+    // All hooks relating to courses, their selection, and the resulting overview information
     const [selectedCourses, setSelectedCourses] = useState(DataHandler.getSelectedCourses());
     const [unselectedCourses, setUnselectedCourses] = useState(DataHandler.getUnselectedCourses());
     const [overviewData, setOverviewData] = useState({
@@ -32,16 +33,19 @@ export default function E3Selector() {
         smallCourses: DataHandler.getSmallCourses()
     });
 
+    // Filtering
     const setFilter = (family, item) => {
       DataHandler.setFilter(family, item);
       setUnselectedCourses(DataHandler.getUnselectedCourses());
     };
 
+    // Sorting
     const setSorting = (key) => {
       DataHandler.setSorting(key);
       setUnselectedCourses(DataHandler.getUnselectedCourses());
     }
 
+    // Selecting
     const handleSelection = (course) => {
         DataHandler.handleSelection(course);
         setSelectedCourses(DataHandler.getSelectedCourses());
@@ -57,10 +61,13 @@ export default function E3Selector() {
         });
     }
 
+    // Hook keeping track of the filter-dropdown-panel
     const [filtersDisplayed, setFiltersDisplayed] = useState(false);
 
     const classes = muiStyles();
 
+    // Two differnt views can be required:
+    // View 1: No study program has been selected yet
     if (!DataHandler.isStudyProgramSet()) {
         return (
             <div style={{marginTop: "-40px"}}>
@@ -72,6 +79,8 @@ export default function E3Selector() {
                 </StylesProvider>
             </div>
         );
+
+    // View 2: study program already selected. This is the main view.
     } else {
         return (
             <div style={{marginTop: "-40px"}}>

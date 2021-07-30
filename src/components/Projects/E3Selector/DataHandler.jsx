@@ -1,7 +1,12 @@
+/* DataHandler is responsible for all operations on
+ * the course data, filters, sorting, as well as
+ * the (re-)storing of localStorage states
+ */
+
 class DataHandler {
 
+	/* set up initial values, try to restore a previous session state */
 	constructor() {
-		// this.data = require("./data/e3_courses.json").children.map(catalog => catalog.children).flat();
 		this.data = require("./data/e3_courses.json");
 
 		this.courseList = [];
@@ -21,19 +26,20 @@ class DataHandler {
 
 		this.sortState = require("./data/sorting.json");
 
-
+		this.backendURL = "http://localhost:3000/e3selector"; // CHANGE ME IN PRODUCTION
 		this.tryToLoadSharedState();
 	}
 
+	/* if E3S was openend with a share-url, load the corresponding state from the backend */
 	tryToLoadSharedState() {
 		const shared = new URLSearchParams(window.location.search).get("shared");
 	    if (shared) {
-	        fetch("http://localhost:5000/e3selector/shared/" + shared)
+	        fetch(this.backendURL + shared)
 	        .then(response => response.json())
 	        .then(data => {
 	            localStorage.setItem("e3filters", data.e3filters);
 	            localStorage.setItem("e3selected", data.e3selected);
-	            window.location = "http://localhost:3000/e3selector"
+	            window.location = this.backendURL
 	        })
 	        .catch(error=>{
 	            console.log(error)
@@ -41,6 +47,7 @@ class DataHandler {
 	    }
 	}
 
+	/* needs to be done before displaying the courses list. Bauingenieurwesen needs special treatment. */
 	setStudyProgram(program) {
 		this.filterState.Ausgeschlossen_Ingenieurwissenschaften_Bachelor[program] = false;
 
@@ -50,6 +57,7 @@ class DataHandler {
 		}
 	}
 
+	/* helper function to find out if a study program was selected (and we can switch to the main view) */
 	isStudyProgramSet() {
 		var selected = false;
 		Object.keys(this.filterState.Ausgeschlossen_Ingenieurwissenschaften_Bachelor).forEach((excluded, e) => {
@@ -60,6 +68,9 @@ class DataHandler {
 		return selected;
 	}
 
+	/* the only filter function necessary, at the cost of being a bit convoluted.
+	 * most filters don't need any special treatment, but those that do are handled in here.
+	 */
 	setFilter(family, item) {
 		if (family === "credits") {
 			this.filterState.credits = parseInt(item);
@@ -86,6 +97,7 @@ class DataHandler {
 		localStorage.setItem("e3filters", JSON.stringify(this.filterState));
 	}
 
+	/* if we aren't sorting by the requested key: sort desc; otherwise, sort asc. */
 	setSorting(key) {
 		var direction = (key === this.sortState.key) ? (this.sortState.direction * -1) : 1;
 		this.sortState.direction = direction;
@@ -94,6 +106,8 @@ class DataHandler {
 		this.courseList.sort((a, b) => a[key].localeCompare(b[key]) * direction);
 	}
 
+	/* See if a course is in the selectedList and (un-)select it accordingly;
+	   also re-calculate the data for the information overview */
 	handleSelection(course) {
 		let e = this.selectedList.find(c => c.Title === course.Title);
 
@@ -101,11 +115,11 @@ class DataHandler {
 		const slots = course.Times_manual.split(";");
 		const credits = course.Credits.includes("-") ? course.Credits.split("-") : Array(2).fill(course.Credits);
 
-		if (e !== undefined) {
+		if (e !== undefined) { // e!== undefined means e is currently a selected course
             this.selectedList = this.selectedList.filter(c => c.Title !== e.Title);
 
 			this.selectedSWS -= sws;
-			this.selectedCredits = this.selectedCredits.map((n, i) => n - parseInt(credits[i]));
+			this.selectedCredits = this.selectedCredits.map((n, i) => n - parseInt(credits[i])); // credits are stored in a weird format in the json. not our decision.
 			slots.forEach((time, t) => { this.bookedTimeSlots[time] -= 1 });
         } else {
             this.selectedList = this.selectedList.concat(this.courseList.find(c => c.Title === course.Title));
@@ -115,8 +129,12 @@ class DataHandler {
 			slots.forEach((time, t) => { this.bookedTimeSlots[time] = this.bookedTimeSlots[time]+1 || 1; });
         }
 
-		localStorage.setItem("e3selected", JSON.stringify(this.selectedList));
+		localStorage.setItem("e3selected", JSON.stringify(this.selectedList)); // updtae the localStorage after every selection, always keeping the saved state up-to-date
 	}
+
+	/* the next couple of functions are just some helper functions,
+	 * making the rest of the functions a little more concise.
+	 */
 
 	getUnselectedCourses() {
 		return this.courseList.filter(c => !this.selectedList.map(s => s.Title).includes(c.Title));
@@ -143,9 +161,11 @@ class DataHandler {
 	}
 
 	getCredits() {
+		// credits can be stored either like "3", "3-3", or "3-4"
 		return (this.selectedCredits[0] === this.selectedCredits[1]) ? this.selectedCredits[0] : this.selectedCredits[0] + "-" + this.selectedCredits[1];
 	}
 
+	/* return values are used as classes for styling the overview notifications */
 	getCreditsStatus() {
 		if (this.selectedCredits[0] === this.filterState.credits || this.selectedCredits[1] === this.filterState.credits) {
             return "on-ok";
@@ -156,6 +176,7 @@ class DataHandler {
         }
 	}
 
+	/* Seat number isn't stored in a standard way either */
 	getSmallCourses() {
 		let small = false;
 		this.selectedList.forEach((item, i) => {
@@ -167,13 +188,18 @@ class DataHandler {
 		return small;
 	}
 
+	getBackendURL() {
+		return this.backendURL;
+	}
+
+	/* important for setup of other components */
 	getFilterState() {
 		return this.filterState;
 	}
 
 	applyFilters() {
 		this.courseList = this.data.filter(course => {
-			var fitting = true;
+			var fitting = true; // if this is true after the loop body, the course fits the filter parameters
 
 			// Search
 			if (this.filterState.search.length) {

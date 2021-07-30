@@ -1,3 +1,8 @@
+/* Filters.jsx provides the different filter groups
+ * for the filtering menu, the search, and the category-selection.
+ * CheckBoxes themselves are auto-generated from the values in the {filters} prop.
+ */
+
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import SearchBar from "material-ui-search-bar";
@@ -9,12 +14,15 @@ import { FilterGroup, VerticalFilterGroup } from "./partials/FilterGroups";
 
 import { muiStyles } from "../res/muiStyles";
 
+// Main filters for the dropdown
 export default function Filters(props) {
     const classes = muiStyles();
 
     return (
       <Grid container direction="row" justify="space-evenly" alignItems="flex-start" spacing="6">
         <TimeTable action={props.action} filterState={props.filterState}/>
+
+        // Location
         <FilterGroup
             action={props.action}
             groupLabel={"Location"}
@@ -53,6 +61,8 @@ export default function Filters(props) {
                 },
             ]}
         />
+
+        // Exam Type
         <FilterGroup
             action={props.action}
             groupLabel={"Exam"}
@@ -82,6 +92,8 @@ export default function Filters(props) {
                 },
             ]}
         />
+
+        // Language
         <FilterGroup
             action={props.action}
             groupLabel={"Language"}
@@ -108,6 +120,8 @@ export default function Filters(props) {
                 },
             ]}
         />
+
+        // Course Type
         <FilterGroup
             action={props.action}
             groupLabel={"Course Type"}
@@ -148,6 +162,8 @@ export default function Filters(props) {
                 },
             ]}
         />
+
+    // Credits / participants sliders
     <Grid item>
             <Credits action={props.action} filterState={props.filterState}/><br/>
             <Participants action={props.action} filterState={props.filterState}/>
@@ -157,6 +173,7 @@ export default function Filters(props) {
   );
 }
 
+// Catalog Course Categories (and search)
 export function Catalog(props) {
     const classes = muiStyles();
     return (
