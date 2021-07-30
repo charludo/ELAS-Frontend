@@ -26,7 +26,8 @@ class DataHandler {
 
 		this.sortState = require("./data/sorting.json");
 
-		this.backendURL = "http://localhost:3000/e3selector"; // CHANGE ME IN PRODUCTION
+		this.backendURL = "http://localhost:5000/e3selector"; // CHANGE ME IN PRODUCTION
+		this.frontendURL = "http://localhost:3000/e3selector"; // CHANGE ME IN PRODUCTION
 		this.tryToLoadSharedState();
 	}
 
@@ -39,7 +40,7 @@ class DataHandler {
 	        .then(data => {
 	            localStorage.setItem("e3filters", data.e3filters);
 	            localStorage.setItem("e3selected", data.e3selected);
-	            window.location = this.backendURL
+	            window.location = this.frontendURL
 	        })
 	        .catch(error=>{
 	            console.log(error)
