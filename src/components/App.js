@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function App() {
   const classes = useStyles();
-  const isLoggedIn = true; //!!sessionStorage.getItem('elas_userLoggedIn');
+  const isLoggedIn = !!sessionStorage.getItem('elas_userLoggedIn');
 
   return (
     <>

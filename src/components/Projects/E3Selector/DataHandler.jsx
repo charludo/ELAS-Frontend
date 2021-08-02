@@ -193,6 +193,10 @@ class DataHandler {
 		return this.backendURL;
 	}
 
+	getFrontendURL() {
+		return this.frontendURL;
+	}
+
 	/* important for setup of other components */
 	getFilterState() {
 		return this.filterState;

@@ -35,7 +35,7 @@ export default function ShareModal(props) {
 					e3filters: JSON.stringify(DataHandler.getFilterState())
 				})
 			});
-			setSharedLink(DataHandler.getBackendURL() + "?shared=" + shared);
+			setSharedLink(DataHandler.getFrontendURL() + "?shared=" + shared);
 		}
 		setModal(!modalOpen);
 		setLinkCopied(false);
