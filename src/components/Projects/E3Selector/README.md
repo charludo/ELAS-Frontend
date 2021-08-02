@@ -110,14 +110,14 @@ Visit [http://localhost:3000/e3selector/](http://localhost:3000/e3selector/)
 
 For a short demonstration of the core functionalities, see our [advertisement video](https://youtu.be/XpPXP7ilxvE)!
 
-For a more indepth explanation, see [this screencast](#)!
+For a more indepth explanation, see [this screencast](https://youtu.be/uSDXheytjUY)!
 
 ![](res/scrot.png)
 
 
 ### Scraper
 
-(A demo can be found [here](#))
+(A demo can be found [here](https://youtu.be/emrbufAvdDQ))
 
 Visit [localhost:3000/scrape/](localhost:3000/scrape/)
 
@@ -136,7 +136,7 @@ The "Scrape Now" button will be grayed out, and the status will change to "runni
 
 **Important:** Only one scraping process can be started at any given time, independent of the client used to view the page. This was done to protect against faulty files.
 
-The scraping process can take a while, up to 30-40 minutes are to be expected. Check the flask console output for information and error messages. However, the scraping does **not** block a flask worker thread; scraping is handed off to a new process.
+The scraping process can take a while, up to 20-30 minutes are to be expected. Check the flask console output for information and error messages. However, the scraping does **not** block a flask worker thread; scraping is handed off to a new process.
 
 After the scraper has finished, reload E3 Selector to see the new courses.
 
