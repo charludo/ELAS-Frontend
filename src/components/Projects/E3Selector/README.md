@@ -38,6 +38,8 @@ E3 Selector relies on these additional libraries:
 
 As of the writing of this README, MUI SearchBar has a version conflict with the current React version. This however can safely be ignored with: `npm i --save material-ui-search-bar --legacy-peer-deps`
 
+During final testing for this submission, `npm install` did not suffice for installing all packages, `chokidar` and `node-sass` needed to be installed additionally.
+
 `npm start` will start the frontend server. Apart from sharing and scraping, the project will run at this point.
 
 ### Backend Dependencies
