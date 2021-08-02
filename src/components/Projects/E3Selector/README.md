@@ -1,7 +1,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/charludo/ELAS-Frontend">
-    <img src="res/logo.png" width="auto" height="100" alt="E3 Selector" >
+    <img src="res/logo.png" width="auto" height="120" alt="E3 Selector" >
   </a>
 
 
@@ -19,9 +19,9 @@
 <!-- ABOUT -->
 ## About E3 Selector
 
-E3 Selector is the easiest way of finding, selecting and sharing E3 Courses. Powerfull filtering-, search- and sorting-capabilities make finding interesting courses fitting individual needs easy. E3 Selector keeps track of all selections and warns if there are problems with a selection.
+E3 Selector is the easiest way of finding, selecting and sharing E3 Courses. Powerful filtering-, searching- and sorting-capabilities make finding interesting courses fitting individual needs easy. E3 Selector keeps track of all selections and warns if they contain any conflicts or problems.
 
-A finished selection can easily be saved for later, or shared with others!
+Selections can easily be shared with others.
 
 ## Prerequisites
 
@@ -46,21 +46,7 @@ The backend provides an API endpoint for storing and requesting shared selection
 
 ### Scraper Dependencies
 
-However, the modified scraper and its integration written by our group do introduce some new requirements:
-
-#### PyPI packages
-
-```console
-PyYAML==5.4.1
-```
-
-#### Other projects
-
-These have to be cloned into a user-oned directory alongside ELAS; they do not need to be placed into the ELAS project structure:
-- [uni-due-course-scraper](https://github.com/nasso48/uni-due-course-catalog-scraper)
-- [course-ratings](https://github.com/charludo/course-ratings)
-
-**Only the linked forks / branches will work.** Make sure to also install their respective dependencies.
+The modified scraper and its integration written by our group do however introduce some new requirements:
 
 #### Python Version
 
@@ -77,6 +63,20 @@ Another way to satisfy this would be to...
 
 	Set the python version to 3.9 here.
 
+#### PyPI packages
+
+```console
+PyYAML==5.4.1
+```
+
+#### Other projects
+
+These have to be cloned into a user-owned directory alongside ELAS; they do not need to be placed into the ELAS project structure:
+- [uni-due-course-scraper](https://github.com/nasso48/uni-due-course-catalog-scraper)
+- [course-ratings](https://github.com/charludo/course-ratings)
+
+**Only these specific forks will work.** Make sure to also install their respective dependencies.
+
 ## Configuration
 
 1. Frontend:
@@ -87,14 +87,14 @@ Another way to satisfy this would be to...
 
 	In `/src/components/Website/Scrape/Scrape.js`, set the backend URL and port.
 
-	The scraper configuration is handled in `/application/scraper/config.yaml`, and expects the following settings:
+	The backend scraper configuration is handled in `/application/scraper/config.yaml`, and expects the following settings:
 
 	```yaml
     courseScraper: absolute path to the cloned course scraper repo, ending in [...]/uni-due-course-catalog-scraper/
     ratingsScraper: absolute path to the cloned ratings scraper repo, ending in [...]/course-ratings/
-    courseInsightsTargetFile: absolute path to where the StudyCompass data should be saved. Consult with Group DIVOC.
-    e3RatingsFile: absolute path to the E3 Frontend, ending in [...]/src/components/Projects/E3Selector/data/avg_ratings.json
-    e3TargetFile: absolute path to the E3 Frontend, ending in [...]/src/components/Projects/E3Selector/data/e3_courses.json
+    courseInsightsTargetFile: absolute path to the StudyCompass data, ending in [...]/src/components/Projects/CourseInsights/data/studyprograms.js
+    e3RatingsFile: absolute path to the E3 ratings data, ending in [...]/src/components/Projects/E3Selector/data/avg_ratings.json
+    e3TargetFile: absolute path to the E3 course data, ending in [...]/src/components/Projects/E3Selector/data/e3_courses.json
     ratingsEmail: email address of account used to access meinprof.de
     ratingsPassword: password to said account
     statusMessage: auto-set by the post-processor
@@ -108,13 +108,16 @@ Once all dependencies are installed and the projects are properly configured, st
 
 Visit [http://localhost:3000/e3selector/](http://localhost:3000/e3selector/)
 
-For a short demonstration of the core functionalities, see our [advertisement video](https://youtu.be/XpPXP7ilxvE)!  
+For a short demonstration of the core functionalities, see our [advertisement video](https://youtu.be/XpPXP7ilxvE)!
+
 For a more indepth explanation, see [this screencast](#)!
 
 ![](res/scrot.png)
 
 
 ### Scraper
+
+(A demo can be found [here](#))
 
 Visit [localhost:3000/scrape/](localhost:3000/scrape/)
 
@@ -129,13 +132,26 @@ Input **both** URLs to start scraping. For example, for SoSe2021 these would be:
 
 Hitting "scrape" will start a total of three scrapers, for more information see [Architecture](#architecture).
 
-The "Scrape Now" button will be greyed out, and the status will change to "running..."
+The "Scrape Now" button will be grayed out, and the status will change to "running..."
 
 **Important:** Only one scraping process can be started at any given time, independent of the client used to view the page. This was done to protect against faulty files.
 
 The scraping process can take a while, up to 30-40 minutes are to be expected. Check the flask console output for information and error messages. However, the scraping does **not** block a flask worker thread; scraping is handed off to a new process.
 
 After the scraper has finished, reload E3 Selector to see the new courses.
+
+### Scraper Troubleshooting
+
+The scraper has been tested primarily with this Semesters' LSF data, and we can not guarantee that things won't change in the future.
+
+In case of an uncaught exception, the scrapers will fail. Depending on what stage of scraping and post processing the error occured in, you might have to:
+
+- remove temp files:
+    - [...]/scraper/temp_catalog.json
+    - [...]/scraper/temp_e3.json
+    - [...]/scraper/temp_ratings_raw.json
+    - [...]/scraper/temp_ratings.json
+- change the statusMessage in the config file to anything other than "running..." in order to re-enable frontent accessibility
 
 ## Architecture
 
@@ -149,11 +165,11 @@ This is an approximate flowchart of the scraping functionality. After the reques
 
 ### What our group did
 
-Due to python updates, the original course scraper ran into an encoding issue. After we fixed this, no further changes were necessary ro satisfy the requirements of StudyCompass.
+Due to python updates, the original course scraper ran into an encoding issue. After we fixed this, no further changes were necessary to satisfy the requirements of StudyCompass.
 
-Scraping E3 Courses required major modifications to the scraper, since the tree structure of the LSF is different. Additional informaion was also required (like the description). Due to these changes, the post processing functionality of the original scraper was not usable for our usecase, so we had to write our own. This proved a lot more tricky than expected, since a lot of the sought-after information was hidden in larger texts, with no standard way of formulating it. (See for example the function `get_exams()` in `scrape_control.py`).
+Scraping E3 Courses required major modifications to the scraper, since the tree structure of the LSF is different. Additional informaion was also required (like the description). Due to these changes, the post processing functionality of the original scraper was not usable for our purposes, so we had to write our own. This proved a lot more tricky than expected, since a lot of the sought-after information was hidden in larger texts, with no standard way of formulating them. (See for example the function `get_exams()` in `scrape_control.py`).
 
-Both the frontend view of the scraper and the integration of the scrapers into flask was also done by us.
+Both the frontend view of the scraper and the integration of the scrapers into flask was also done by our group.
 
 ## Built by
 
